@@ -1,15 +1,15 @@
-
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 9080;
+var BodyParser = require('body-parser');
+app.use(BodyParser());
+const pipelineConfigRoute=require('./route/pipelineConfig.route')
+app.use(BodyParser());
 const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/ci');
 
-const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/test';
+app.use('/', pipelineConfigRoute);
 
-console.log('Mongoose Connecting to:', mongoUrl);
-mongoose.connect(mongoUrl, (err) => {
-  if(err) { console.error('Mongoose Connection Error:',err); return; }
-  console.log('Mongoose connected to:', mongoUrl);
-});
-
-process.on('SIGINT', () => {
-  console.log('Caught Interrupt Signal. Terminating Mongoose Connection');
-  mongoose.connection.close();
+app.listen(port, function() {
+console.log('Express App listening on port ', port);
 });

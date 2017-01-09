@@ -19,4 +19,5 @@ const PipelineSchema = new Schema({
   stages: [StageSchema]
 });
 
+
 module.exports = mongoose.model('Pipeline', PipelineSchema);

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Pipeline = require('./pipeline.model');
+const Pipeline = require('./pipelineConfig.model');
 
 const pipeline = new Pipeline({
   setup: `npm install`,
@@ -31,9 +31,8 @@ const pipeline = new Pipeline({
       }
     }]
 });
-
 // Connec to mongodb
-require('../app');
+require('../db');
 
 pipeline.save(pipeline, (err, createdPipeline) => {
   if(err) { console.log('Error saving pipeline:', err); }

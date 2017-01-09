@@ -1,10 +1,8 @@
-
 const pipelineConfigSchema=require('../models/pipelineConfig.model');
 module.exports=function (req, res) {
-	console.log(req.body.pipeline[0].stage);
 	const pipelineConfig = new pipelineConfigSchema(); 
-	pipelineConfig.setupSettings = req.body.setupSettings;
-	pipelineConfig.pipeline = req.body.pipeline;
+	pipelineConfig.setup = req.body.setup;
+	pipelineConfig.stages = req.body.stages;
 
 	pipelineConfig.save(function(err) {
 		if (err) throw err;
