@@ -1,0 +1,54 @@
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 75px;
+  border-radius: 50px;
+}
+
+body
+{
+  font-family: 'Roboto', sans-serif;
+}
+
+#bloc2{
+  float: right;
+}
+/* For Home Page*/
+.WholeContent h2{
+  text-align: center;
+}
+
+h2 { font-family: 'Roboto', sans-serif; }
+
+/*For login_github*/
+
+.log_github{
+  margin-top: 200px;
+}
+
+#button{
+  display: inline;
+  background-color: black;
+  
+}
+.WholeContent{
+margin-top: 80px;
+width: 80%;
+margin-left: 50px;
+}
+/*For BuildReport*/
+.listbox
+{
+  margin-top: 20px;
+  margin-bottom: 100px;
+}
+h2,h1,h4{
+font-family: 'Roboto', sans-serif;
+}
+.tabs b{
+  font-family: 'Oswald', sans-serif;
+}

@@ -1,0 +1,13 @@
+node_modules
+scripts
+config
+# testing
+coverage
+
+# production
+build
+
+# misc
+.DS_Store
+.env
+npm-debug.logode_modules

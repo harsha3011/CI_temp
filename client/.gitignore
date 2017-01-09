@@ -1,0 +1,31 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+<<<<<<< HEAD
+config
+scripts
+=======
+scripts
+config
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> e20f601573c8b91c03cef54aef556311a7dc987c
+
+>>>>>>> f602f7577992b6ed10d7a7b27d49903ac8cb65bd
+>>>>>>> 03bc946de980f9af8bdf368a90a06e7a8a2ba966
+>>>>>>> 78de479bb453a62aa04760008fd6e95754ff7f9b
+# testing
+coverage
+
+# production
+build
+
+# misc
+.DS_Store
+.env
+npm-debug.log
