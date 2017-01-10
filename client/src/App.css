@@ -12,6 +12,7 @@
 body
 {
   font-family: 'Roboto', sans-serif;
+  background-image: url(../images/backgroundImg.jpg);
 }
 
 #bloc2{

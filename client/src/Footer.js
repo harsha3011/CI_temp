@@ -27,7 +27,7 @@ export default class Footer extends React.Component {
     	const styles = {
             mainStyles:{
                 height:50,
-                background:'#2a8ced',
+                background:'#00897B',
                 color: '#FFF',
                 fontFamily: 'sans-serif',
                 fontSize: 14,
