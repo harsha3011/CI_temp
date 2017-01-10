@@ -33,9 +33,8 @@ ReactDOM.render(
              <Route path="create" component={createRepo}/>
              <Route path="branch" component={Branch}/>
              <Route path="pipelineSettings" component={TestSettings}/>
-             <Route path="temp" component={BuildReport}/>
+             <Route path="Build" component={BuildReport}/>
              <Route path="Ruberic" component={RubericSettings}/>
-             <Route path="test" component={TestSettings}/>
            </Route>
        </Router>
   </MuiThemeProvider>

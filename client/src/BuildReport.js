@@ -45,7 +45,7 @@ class BuildList extends Component
                      <h1>Build Report</h1>
                   </Col>
                   <Col xs={12} sm={6}>
-                     <Link to="/App/test">
+                     <Link to="/App/pipelineSettings">
                         <IconButton><Setting/></IconButton>
                      </Link>
                   </Col>
