@@ -18,7 +18,7 @@ import _ from 'lodash';
 import Request from 'superagent';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Slider from 'material-ui/Slider';
-import LintTest from './lintTest';
+import LintTest from './LintTest';
 const muiTheme = getMuiTheme({
  palette: {
    textColor: white,
@@ -159,12 +159,12 @@ npm install
                <Row>
                  <Col xs={12}>
                  <ListItem>
-                      <LintTest/>
+                      <LintTest text={"Es Lint"}/>
                 </ListItem>
                 </Col>
                 </Row>
                  <ListItem>
-                  <LintTest/>
+                  <LintTest text={"HTML Lint"}/>
                 </ListItem>
                 </List>
                   </Paper>
@@ -173,7 +173,7 @@ npm install
                     <Paper>
                      <List>
                  <ListItem>
-                 <LintTest/>
+                 <LintTest text={"Automated Testing"}/>
                 </ListItem>
                 <ListItem>
                   <Card>

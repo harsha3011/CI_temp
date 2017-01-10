@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
     import Paper from 'material-ui/Paper';
     import { List, ListItem } from 'material-ui/List';
@@ -96,7 +94,7 @@ import React, { Component } from 'react';
                     <Row>
                       <Col xs={12}>
                         <Row center="xs">
-                    <IndexLink to="/App/branchpath" activeClassName="active"><RaisedButton style={styles.button} label="Ready for CI" primary={true}></RaisedButton></IndexLink>
+                    <IndexLink to="/App/pipelineSettings" activeClassName="active"><RaisedButton style={styles.button} label="Ready for CI" primary={true}></RaisedButton></IndexLink>
                         </Row>
                       </Col>
                     </Row>

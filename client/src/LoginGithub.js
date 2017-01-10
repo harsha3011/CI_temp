@@ -31,44 +31,17 @@ class login extends React.Component {
 
 constructor(props) {
    super(props);
-   this.something=this.something.bind(this);
-   this.postsomething=this.postsomething.bind(this);
    this.state={name:''};
  }
 
- something() {
-   request
-   .get('http://localhost:9080/user')
-   .end((err, res) => {
-     console.log(res.body.name);
-    this.setState(
-     { name: res.body.name }
-     );
- });
- }
- postsomething(){
-  console.log("hi");
-  request
-  .post('http://localhost:9080/user')
-  .send({username:'ydsh',name:'hdsj',sex:'Female'})
-  .end(function(err, res){
-     if (err || !res.ok) {
-       alert('Oh no! error');
-     } else {
-       alert('yay got ' + JSON.stringify(res.body));
-     }
-   });
- }
-
    render() {
-      {this.postsomething()}
         
       return (
       	<div>
         	<div>
             <AppBar
     
-              title={this.state.name}
+              title="KI-Keep Integrating"
               iconElementLeft={<IconButton><ActionBugReport /></IconButton>}
               iconElementRight=
                     {<IconMenu
