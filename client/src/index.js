@@ -12,7 +12,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Branch from './Branch'
 import TestSettings from './TestSettings'
 import BuildReport from './BuildReport'
-
+import RubericSettings from './RubericSetting'
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
@@ -34,6 +34,7 @@ ReactDOM.render(
              <Route path="branch" component={Branch}/>
              <Route path="pipelineSettings" component={TestSettings}/>
              <Route path="temp" component={BuildReport}/>
+             <Route path="Ruberic" component={RubericSettings}/>
              <Route path="test" component={TestSettings}/>
            </Route>
        </Router>

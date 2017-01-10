@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
-    import Paper from 'material-ui/Paper';
-    import { List, ListItem } from 'material-ui/List';
-    import Checkbox from 'material-ui/Checkbox';
-    import RaisedButton from 'material-ui/RaisedButton';
-    import { IndexLink } from 'react-router';
-    import {Tabs, Tab} from 'material-ui/Tabs';
-    import cardImg from '../images/singleteam.jpg';
-    import cardImg1 from '../images/mutlipleteam.jpg';
-    import logo1 from '../images/mtlogo.jpg';
-    import logo2 from '../images/stlogo.jpg';
-    import {Card, CardHeader, CardMedia} from 'material-ui/Card';
-    import {Grid, Row, Col} from'react-flexbox-grid';
-    const styles={
+import Paper from 'material-ui/Paper';
+import { List, ListItem } from 'material-ui/List';
+import Checkbox from 'material-ui/Checkbox';
+import RaisedButton from 'material-ui/RaisedButton';
+import { IndexLink } from 'react-router';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import cardImg from '../images/singleteam.jpg';
+import cardImg1 from '../images/mutlipleteam.jpg';
+import logo1 from '../images/mtlogo.jpg';
+import logo2 from '../images/stlogo.jpg';
+import {Card, CardHeader, CardMedia} from 'material-ui/Card';
+import {Grid, Row, Col} from'react-flexbox-grid';
+import {Link} from 'react-router';
+import Setting from 'material-ui/svg-icons/action/settings';
+import IconButton from 'material-ui/IconButton';
+const styles={
         bar:{
             marginTop:'80',
             marginBottom:'100',
@@ -59,7 +62,12 @@ import React, { Component } from 'react';
                             </CardMedia>
                             </Card>
                             <List>
-                                <ListItem primaryText="master(protected)" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
+                                <ListItem primaryText="master(protected)" 
+                                leftCheckbox={<Checkbox checked={true} 
+                                disabled={true}/>} 
+                                rightIcon={<Link to="/App/Ruberic">
+                                <IconButton><Setting/></IconButton>
+                                </Link>}/>
                                 <ListItem primaryText="dev" leftCheckbox={<Checkbox checked={true} disabled={true}/>}/>
                                 <ListItem primaryText="testing" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
                             </List> 
