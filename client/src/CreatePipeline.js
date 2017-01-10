@@ -27,7 +27,7 @@ const muiTheme = getMuiTheme({
 var newTest="";
 
 
-class TestSettings extends Component{
+class CreatePipeline extends Component{
 
     constructor(props) {
         super(props);
@@ -176,9 +176,8 @@ npm install
           </Row>
         </Grid>
         <Grid>
-          <Row>
-            <Col>
-              <Row start="xs">
+          
+              <Row center="xs">
                 <Col xs={12}>
                  <Tabs>
                   <Tab label="LINTING" >
@@ -268,8 +267,7 @@ npm install
                     </Paper>
                   </Tab>
                 </Tabs>
-              </Col>
-            </Row>
+              
           </Col>
         </Row>
       </Grid>
@@ -291,4 +289,4 @@ npm install
   );
  }
 }
-  export default TestSettings;
+  export default CreatePipeline;

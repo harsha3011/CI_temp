@@ -10,7 +10,7 @@ import {blue400, blue700} from 'material-ui/styles/colors';
 import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Branch from './Branch'
-import TestSettings from './TestSettings'
+import CreatePipeline from './CreatePipeline'
 import BuildReport from './BuildReport'
 import RubericSettings from './RubericSetting'
 injectTapEventPlugin();
@@ -32,7 +32,7 @@ ReactDOM.render(
              <IndexRoute component={home}/>
              <Route path="create" component={createRepo}/>
              <Route path="branch" component={Branch}/>
-             <Route path="pipelineSettings" component={TestSettings}/>
+             <Route path="pipelineSettings" component={CreatePipeline}/>
              <Route path="Build" component={BuildReport}/>
              <Route path="Ruberic" component={RubericSettings}/>
            </Route>
