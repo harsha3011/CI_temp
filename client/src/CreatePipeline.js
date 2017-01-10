@@ -85,10 +85,17 @@ class CreatePipeline extends Component{
         });
       }
       handleChange =(event)=>{
-
-        this.state.arrShell.push(this.state.shellTitle);
-        this.state.arrShell.push(this.state.shellCmd);
-          console.log(this.state.arrShell);
+        var arr=this.state.arrShell;
+        var obj={Title: this.state.shellTitle,
+          Command:this.state.shellCmd
+        }
+        arr.push(obj);
+        this.setState({
+          arrShell:arr,
+          shellTitle:'',
+          shellCmd:''
+        });
+        console.log(this.state.arrShell);
       }
        handleChangeCommands=(event)=>{
         this.setState({
@@ -112,6 +119,7 @@ class CreatePipeline extends Component{
     const inputCommand=( 
       <TextField
         multiLine={true}
+        value={this.state.shellCmd}
         floatingLabelText="Add Commands"
         fullWidth={true}
         onChange={this.handleChangeCommands}
@@ -134,14 +142,13 @@ npm install
 # Install grunt-cli for running your tests or other tasks
 # npm install -g grunt-cli`
 
-    return(
-
+  return(
     <Paper>
         <Grid>
           <Row>
             <Col xs={12}>
             <Row center="xs">
-              <Col xs={12}><h1>Test Settings</h1><br/></Col>
+              <Col xs={12}><h1>Test Settings</h1></Col>
             </Row>
             </Col>
           </Row>
@@ -176,115 +183,109 @@ npm install
           </Row>
         </Grid>
         <Grid>
-          
-              <Row center="xs">
-                <Col xs={12}>
-                 <Tabs>
-                  <Tab label="LINTING" >
-                    <Paper>
-                      <List>
-                        <Row>
-                          <Col xs={12}>
-                           <ListItem>
-                              <LintTest text={"Es Lint"}/>
-                            </ListItem>
-                          </Col>
-                        </Row>
-                           <ListItem>
-                             <LintTest text={"HTML Lint"}/>
-                           </ListItem>
-                      </List>
-                    </Paper>
-                  </Tab>
-                  <Tab label="TESTING" >
-                    <Paper>
-                      <List>
-                        <ListItem>
-                          <LintTest text={"Automated Testing"}/>
-                        </ListItem>
-                        <ListItem>
-                          <Card>
-                            <CardHeader
-                              title="Test Coverage"
-                              actAsExpander={true}
-                              showExpandableButton={true}
-                           / >
-                          </Card>
-                        </ListItem>
-                      </List>
-                    </Paper>
-                  </Tab>
-                    <Tab label="CUSTOM SCRIPTS" >
-                      <Paper>
-                       <Grid>
-                        <Row>
-                          <Col xs={12}>
-                            <Row start="xs">
-                            <Col xs={12}>
-                              <List>
-                                <ListItem>
-                                  <Card>
-                                    <CardHeader
-                                      title="Add your own shell script"
-                                      actAsExpander={true}
-                                      showExpandableButton={true}
-                                    />
-                                    <CardText expandable={true}>
-                                    {inputTitle}
-                                    <br />
-                                    <Paper style={{backgroundColor:'black'}}>
-                                      <MuiThemeProvider muiTheme={muiTheme}>
-                                       <Grid>
-                                        <Row>
-                                          <Col xs={12}>
-                                            <Row center="xs">
-                                              <Col xs={6}>
-                                               {inputCommand}
-                                              </Col>
-                                            </Row>
-                                          </Col>
-                                        </Row>
-                                      </Grid>
-                                      </MuiThemeProvider>
-                                    </Paper>
-                                    <br/>
-                                  </CardText>
-                                </Card>
-                              </ListItem>
-                            </List>
-                          </Col>
-                        </Row>
-                          <Row start="xs">
-                            <Col xsOffset={9} xs={1} lgOffset={11}>
-                               {addingScript}
-                            </Col>
-                          </Row>
-                            <br/>
-                          </Col>
-                        </Row>
-                      </Grid>
-                    </Paper>
-                  </Tab>
-                </Tabs>
-              
-          </Col>
-        </Row>
-      </Grid>
-        <br/>
-      <Grid>
-        <Row>
-          <Col xs={12}>
-            <Row center="xs">
+          <Row center="xs">
               <Col xs={12}>
-                <IndexLink to="/App/Build" activeClassName="active">
-                  <RaisedButton label="Save and go to dashboard" primary={true} onClick={this.handleSaveClick}/>
-                </IndexLink>
-              </Col>
-            </Row>
+               <Tabs>
+                <Tab label="LINTING" >
+                  <Paper>
+                    <List>
+                      <Row>
+                        <Col xs={12}>
+                         <ListItem>
+                            <LintTest text={"Es Lint"}/>
+                          </ListItem>
+                        </Col>
+                      </Row>
+                         <ListItem>
+                           <LintTest text={"HTML Lint"}/>
+                         </ListItem>
+                    </List>
+                  </Paper>
+                </Tab>
+                <Tab label="TESTING" >
+                  <Paper>
+                    <List>
+                      <ListItem>
+                        <LintTest text={"Automated Testing"}/>
+                      </ListItem>
+                      <ListItem>
+                        <Card>
+                          <CardHeader
+                            title="Test Coverage"
+                            actAsExpander={true}
+                            showExpandableButton={true}
+                         / >
+                        </Card>
+                      </ListItem>
+                    </List>
+                  </Paper>
+                </Tab>
+                  <Tab label="CUSTOM SCRIPTS" >
+                    <Paper>
+                     <Grid>
+                      <Row>
+                        <Col xs={12}>
+                          <Row start="xs">
+                          <Col xs={12}>
+                            <List>
+                              <ListItem>
+                                <Card>
+                                  <CardHeader
+                                    title="Add your own shell script"
+                                    actAsExpander={true}
+                                    showExpandableButton={true}
+                                  />
+                                  <CardText expandable={true}>
+                                  {inputTitle}
+                                  <br />
+                                  <Paper style={{backgroundColor:'black'}}>
+                                    <MuiThemeProvider muiTheme={muiTheme}>
+                                     <Grid>
+                                      <Row start="xs">
+                                        <Col xs={6} xsOffset={3}>
+                                         {inputCommand}
+                                        </Col>
+                                      </Row>
+                                    </Grid>
+                                    </MuiThemeProvider>
+                                  </Paper>
+                                  <br/>
+                                </CardText>
+                              </Card>
+                            </ListItem>
+                          </List>
+                        </Col>
+                      </Row>
+                      <Row start="xs">
+                        <Col xsOffset={9} xs={1} lgOffset={11}>
+                           {addingScript}
+                        </Col>
+                      </Row>
+                        <br/>
+                      </Col>
+                    </Row>
+                  </Grid>
+                </Paper>
+              </Tab>
+            </Tabs>
          </Col>
-        </Row>
-      </Grid>
-    </Paper>
+      </Row>
+    </Grid>
+      <br/>
+    <Grid>
+      <Row>
+        <Col xs={12}>
+          <Row center="xs">
+            <Col xs={12}>
+              <IndexLink to="/App/Build" activeClassName="active">
+                <RaisedButton label="Save and go to dashboard" primary={true} onClick={this.handleSaveClick}/>
+              </IndexLink>
+            </Col>
+          </Row>
+       </Col>
+      </Row>
+    </Grid>
+  </Paper>
   );
  }
 }
