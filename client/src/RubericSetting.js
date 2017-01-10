@@ -215,11 +215,13 @@ class RubericSettings extends Component{
 
         <br/>
 
-
+          <Row center="xs">
+          <Col xs={12}>
           <Link to="/App/branch">
-             <RaisedButton style={{marginLeft:'550', marginBottom:'20'}} label="Go to Settings"/>
+             <RaisedButton label="Go to Settings"/>
              </Link>
-
+          </Col>
+          </Row>
 
       </Paper>
     </Grid>
