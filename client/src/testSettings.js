@@ -18,7 +18,7 @@ import _ from 'lodash';
 import Request from 'superagent';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Slider from 'material-ui/Slider';
-import MultiInputComp from './multiDataInput';
+import LintTest from './lintTest';
 const muiTheme = getMuiTheme({
  palette: {
    textColor: white,
@@ -33,55 +33,52 @@ class TestSettings extends Component{
         super(props);
         this.handleClick=this.handleClick.bind(this)
         this.handleChange=this.handleChange.bind(this)
-        this.htmlChange=this.htmlChange.bind(this)
-        this.esChange=this.esChange.bind(this)
-        this.testChange=this.testChange.bind(this)
+        this.handleSaveClick=this.handleSaveClick.bind(this)
         this.state = {
-          htmlData:[],
-          esData:[],
-          exHtmlData:[],
-          exEsData:[],
-          testData:[],
-          exTestData:[],
+
           value: '',
           add:false,
         };
       }
-      htmlChange(htmlData)
-      {
-        this.setState={
-          htmlData:htmlData
-        }
+      
+      handleSaveClick=(event)=>{
+
+        console.log("hello");
+        Request
+        .put('http://localhost:9080/repo/hgjj/pipeline')
+        .set('Content-Type', 'application/json')
+        .send({
+        "setup": "npm install",
+  "stages": [{
+      "stage": "eslint",
+      "config": {
+        "include": ["src/**/*.js(|x)", "test/**/*.js(|x)"],
+        "exclude": ["node_modules/**/*.js", "bower_components/**/*"]
       }
-      exHtmlChange(exHtmlData)
-        {
-          this.setState={
-            exHtmlData:exHtmlData
-          }
-        }
-        exEsChange(exEsData)
-          {
-            this.setState={
-              exEsData:exEsData
-            }
-          }
-          exTestChange(exTestData)
-            {
-              this.setState={
-                exTestData:exTestData
-              }
-            }
-      testChange(testData)
-      {
-        this.setState={
-          testData:testData
-        }
+    }, {
+      "stage": "htmllint",
+      "config": {
+        "include": ["src/**/*.(xhtml|html)", "test/**/*.(xhtml|html)"],
+        "exclude": ["node_modules/**/*", "bower_components/**/*"]
       }
-      esChange(esData)
-      {
-        this.setState={
-          esData:esData
-        }
+    }, {
+      "stage": "automated testing",
+      "config": {
+        "include": ["src/**/*.(js)", "test/**/*.(js)"],
+        "exclude": ["node_modules/**/*", "bower_components/**/*"]
+      }
+    }, {
+      "stage": "test coverage",
+      "config": {}
+    }, {
+      "stage": "shell",
+      "config": {
+        "cmd": "sendmail"
+      }
+    }]})
+        .end(function(resp){
+          // ...
+        });
       }
 
       handleChange =(event)=>{
@@ -150,67 +147,22 @@ npm install
         </Grid>
         <Grid>
           <Row>
-            <Col xs={12}>
+            <Col>
               <Row start="xs">
                 <Col xs={12}>
                  <Tabs>
                   <Tab label="LINTING" >
               <Paper>
                <List>
+               <Row>
+                 <Col xs={12}>
                  <ListItem>
-                  <Card>
-                    <CardHeader
-                     title="EsLint"
-                      actAsExpander={true}
-                      showExpandableButton={true}
-                    >
-                    </CardHeader>
-                    <CardText expandable={true}>
-                    <Row>
-                      <Col xs={12}>
-                        <Row center="xs">
-                          <Col xs={6}>
-                            Include files to test
-                            <MultiInputComp data={this.state.esData}
-                            makeChange={this.esChange}/>
-                          </Col>
-                          <Col xs={6}>
-                            Exclude files from test
-                            <MultiInputComp data={this.state.exEsData}
-                            makeChange={this.exEsChange}/>
-                          </Col>
-                        </Row>
-                      </Col>
-                    </Row>
-                    </CardText>
-                  </Card>
+                      <LintTest/>
                 </ListItem>
+                </Col>
+                </Row>
                  <ListItem>
-                  <Card>
-                    <CardHeader
-                     title="HTML Lint"
-                      actAsExpander={true}
-                      showExpandableButton={true}
-                    />
-                    <CardText expandable={true}>
-                    <Row>
-                      <Col xs={12}>
-                        <Row center="xs">
-                          <Col xs={6}>
-                            Include files to test
-                            <MultiInputComp data={this.state.htmlData}
-                            makeChange={this.htmlChange}/>
-                          </Col>
-                          <Col xs={6}>
-                            Exclude files from test
-                            <MultiInputComp data={this.state.exHtmlData}
-                            makeChange={this.exHtmlChange}/>
-                          </Col>
-                        </Row>
-                      </Col>
-                    </Row>
-                    </CardText>
-                  </Card>
+                  <LintTest/>
                 </ListItem>
                 </List>
                   </Paper>
@@ -219,30 +171,7 @@ npm install
                     <Paper>
                      <List>
                  <ListItem>
-                  <Card>
-                    <CardHeader
-                      title="Automated Testing"
-                      actAsExpander={true}
-                      showExpandableButton={true}
-                    />
-                    <CardText expandable={true}>
-                    <Row>
-                      <Col xs={12}>
-                        <Row center="xs">
-                          <Col xs={6}>
-                    Include files to test
-                    <MultiInputComp data={this.state.testData}
-                    makeChange={this.testChange}/>
-                      </Col>
-                      <Col xs={6}>
-                    Exclude files from test
-                    <MultiInputComp data={this.state.exTestData}
-                    makeChange={this.exTestChange}/>
-                    </Col>
-                    </Row>
-                    </Col></Row>
-                    </CardText>
-                  </Card>
+                 <LintTest/>
                 </ListItem>
                 <ListItem>
                   <Card>
@@ -380,7 +309,7 @@ npm install
       <Row>
         <Col xs={12}>
           <Row center="xs">
-            <Col xs={12}><IndexLink to="/App/dash" activeClassName="active"><RaisedButton label="Save and go to dashboard" primary={true} ></RaisedButton></IndexLink>
+            <Col xs={12}><IndexLink to="/App/dash" activeClassName="active"><RaisedButton label="Save and go to dashboard" primary={true} onClick={this.handleSaveClick} ></RaisedButton></IndexLink>
             </Col>
           </Row>
        </Col>
