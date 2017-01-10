@@ -255,8 +255,7 @@ npm install
                           </Col>
                         </Row>
                           <Row start="xs">
-                            <Col xsOffset={11} xs={1}>
-                              <br/>
+                            <Col xsOffset={9} xs={1} lgOffset={11}>
                                {addingScript}
                             </Col>
                           </Row>

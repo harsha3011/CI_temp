@@ -30,8 +30,8 @@ class LintTest extends Component
     render()
     {
       return(
-        <div>
-        <Grid>
+       
+        
         <Row >
         <Col xs={12}>
         <Card>
@@ -60,8 +60,7 @@ class LintTest extends Component
         </Card>
         </Col>
         </Row>
-        </Grid>
-        </div>
+       
       );
     }
 
