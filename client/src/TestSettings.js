@@ -31,15 +31,16 @@ class TestSettings extends Component{
 
     constructor(props) {
         super(props);
-        this.handleClick=this.handleClick.bind(this)
+        this.handleChangeCommands=this.handleChangeCommands.bind(this)
+        this.handleChangeTitle=this.handleChangeTitle.bind(this)
         this.handleChange=this.handleChange.bind(this)
 
         this.handleSaveClick=this.handleSaveClick.bind(this)
 
         this.state = {
-
-          value: '',
-          add:false,
+          shellCmd:'',
+          shellTitle:'',
+          arrShell:[]
         };
       }
       
@@ -84,19 +85,46 @@ class TestSettings extends Component{
         });
       }
       handleChange =(event)=>{
-         this.setState({
-          add:true,
-          });
+
+        this.state.arrShell.push(this.state.shellTitle);
+        this.state.arrShell.push(this.state.shellCmd);
+          console.log(this.state.arrShell);
       }
-      handleClick =(event)=>{
+       handleChangeCommands=(event)=>{
+        this.setState({
+          shellCmd: event.target.value
+        }); 
+      }
+      handleChangeTitle=(event)=>{
          this.setState({
-          add:false,
-          });
+          shellTitle: event.target.value
+        }); 
       }
 
   render(){
+    const inputTitle=(
+      <TextField 
+        floatingLabelText="Add a title"
+        value={this.state.shellTitle}
+        onChange={this.handleChangeTitle}
+        />
+      );
+    const inputCommand=( 
+      <TextField
+        multiLine={true}
+        floatingLabelText="Add Commands"
+        fullWidth={true}
+        onChange={this.handleChangeCommands}
+      />);
+    const addingScript=(
+      <FloatingActionButton onClick={this.handleChange} >
+        <ContentAdd />
+      </FloatingActionButton>
+    );
+   
    newTest=this.state.value;
-  var temp=this.state.add;
+   var temp=this.state.add;
+   
    var text=`# By default we use the Node.js version set in your package.json or the latest
 # version from the 0.10 release
 # You can use nvm to install any Node.js (or io.js) version you require.
@@ -154,171 +182,113 @@ npm install
                 <Col xs={12}>
                  <Tabs>
                   <Tab label="LINTING" >
-              <Paper>
-               <List>
-               <Row>
-                 <Col xs={12}>
-                 <ListItem>
-                      <LintTest text={"Es Lint"}/>
-                </ListItem>
-                </Col>
-                </Row>
-                 <ListItem>
-                  <LintTest text={"HTML Lint"}/>
-                </ListItem>
-                </List>
-                  </Paper>
+                    <Paper>
+                      <List>
+                        <Row>
+                          <Col xs={12}>
+                           <ListItem>
+                              <LintTest text={"Es Lint"}/>
+                            </ListItem>
+                          </Col>
+                        </Row>
+                           <ListItem>
+                             <LintTest text={"HTML Lint"}/>
+                           </ListItem>
+                      </List>
+                    </Paper>
                   </Tab>
                   <Tab label="TESTING" >
                     <Paper>
-                     <List>
-                 <ListItem>
-                 <LintTest text={"Automated Testing"}/>
-                </ListItem>
-                <ListItem>
-                  <Card>
-                    <CardHeader
-                      title="Test Coverage"
-                      actAsExpander={true}
-                      showExpandableButton={true}
-                   / >
-                  </Card>
-                </ListItem>
-                </List>
+                      <List>
+                        <ListItem>
+                          <LintTest text={"Automated Testing"}/>
+                        </ListItem>
+                        <ListItem>
+                          <Card>
+                            <CardHeader
+                              title="Test Coverage"
+                              actAsExpander={true}
+                              showExpandableButton={true}
+                           / >
+                          </Card>
+                        </ListItem>
+                      </List>
                     </Paper>
-                    </Tab>
-                     <Tab label="CUSTOM SCRIPTS" >
+                  </Tab>
+                    <Tab label="CUSTOM SCRIPTS" >
                       <Paper>
                        <Grid>
                         <Row>
                           <Col xs={12}>
-                          <Row start="xs">
-                          <Col xs={12}>
-                          <List>
-                          <ListItem>
-                            <Card>
-                               <CardHeader
-                                title="Add your own shell script"
-                                actAsExpander={true}
-                                showExpandableButton={true}
-                              >
-                              </CardHeader>
-                               <CardText expandable={true}>
-                                    <TextField style={{textAlign:'center'}}
-                                      floatingLabelText="Add a title"
-                                    /><br />
-                                     <Paper style={{backgroundColor:'black'}}>
+                            <Row start="xs">
+                            <Col xs={12}>
+                              <List>
+                                <ListItem>
+                                  <Card>
+                                    <CardHeader
+                                      title="Add your own shell script"
+                                      actAsExpander={true}
+                                      showExpandableButton={true}
+                                    />
+                                    <CardText expandable={true}>
+                                    {inputTitle}
+                                    <br />
+                                    <Paper style={{backgroundColor:'black'}}>
                                       <MuiThemeProvider muiTheme={muiTheme}>
                                        <Grid>
                                         <Row>
                                           <Col xs={12}>
                                             <Row center="xs">
                                               <Col xs={6}>
-                                                <TextField
-                                                  multiLine={true}
-                                                  defaultValue=""
-                                                  fullWidth={true}
-                                                />
+                                               {inputCommand}
                                               </Col>
                                             </Row>
                                           </Col>
                                         </Row>
                                       </Grid>
                                       </MuiThemeProvider>
-                                      </Paper>
-                                      <br/>
-                                     <Row center="xs">
-                                              <Col xs={6}>
-                                      <RaisedButton label="Submit" onClick={this.handleClick}/>
-                                      </Col>
-                                    </Row>
-                              </CardText>
-                            </Card>
-                            </ListItem>
+                                    </Paper>
+                                    <br/>
+                                  </CardText>
+                                </Card>
+                              </ListItem>
                             </List>
                           </Col>
-                         </Row>
-                            <Row start="xs">
-                              <Col xsOffset={11} xs={1}>
+                        </Row>
+                          <Row start="xs">
+                            <Col xsOffset={11} xs={1}>
                               <br/>
-                               <FloatingActionButton mini={true} onClick={this.handleChange} >
-                                  <ContentAdd />
-                                  </FloatingActionButton>
-                                 </Col>
-                            </Row>
+                               {addingScript}
+                            </Col>
+                          </Row>
                             <br/>
-                              { this.state.add ?
-                                   <Row start="xs">
-                                      <Col xs={12}>
-                                      <List>
-                                      <ListItem>
-                                        <Card>
-                                          <CardHeader
-                                            title="Add your own shell script"
-                                            actAsExpander={true}
-                                            showExpandableButton={true}
-                                          >
-                                          </CardHeader>
-                                           <CardText expandable={true}>
-                                                <TextField style={{textAlign:'center'}}
-                                                  floatingLabelText="Add a title"
-                                                /><br />
-                                                 <Paper style={{backgroundColor:'black'}}>
-                                                  <MuiThemeProvider muiTheme={muiTheme}>
-                                                   <Grid>
-                                                    <Row>
-                                                      <Col xs={12}>
-                                                        <Row center="xs">
-                                                          <Col xs={6}>
-                                                            <TextField
-                                                              multiLine={true}
-                                                              defaultValue=""
-                                                              fullWidth={true}
-                                                            />
-                                                          </Col>
-                                                        </Row>
-                                                      </Col>
-                                                    </Row>
-                                                  </Grid>
-                                                  </MuiThemeProvider>
-                                                  </Paper>
-                                                  <br/>
-                                                 <Row center="xs">
-                                                          <Col xs={6}>
-                                                  <RaisedButton label="Submit" onClick={this.handleClick}/>
-                                                  </Col>
-                                                </Row>
-                                          </CardText>
-                                          </Card>
-                                        </ListItem>
-                            </List>
-                                      </Col>
-                                     </Row>
-                                  : null}
                           </Col>
                         </Row>
                       </Grid>
-                      </Paper>
-                     </Tab>
-                  </Tabs>
+                    </Paper>
+                  </Tab>
+                </Tabs>
               </Col>
             </Row>
           </Col>
         </Row>
       </Grid>
-      <br/>
-    <Grid>
-      <Row>
-        <Col xs={12}>
-          <Row center="xs">
-            <Col xs={12}><IndexLink to="/App/dash" activeClassName="active"><RaisedButton label="Save and go to dashboard" primary={true} onClick={this.handleSaveClick} ></RaisedButton></IndexLink>
-            </Col>
-          </Row>
-       </Col>
-      </Row>
-    </Grid>
+        <br/>
+      <Grid>
+        <Row>
+          <Col xs={12}>
+            <Row center="xs">
+              <Col xs={12}>
+                <IndexLink to="/App/dash" activeClassName="active">
+                  <RaisedButton label="Save and go to dashboard" primary={true} onClick={this.handleSaveClick}/>
+                </IndexLink>
+              </Col>
+            </Row>
+         </Col>
+        </Row>
+      </Grid>
     </Paper>
-    );
-  }
+  );
+ }
 }
-export default TestSettings;
+  export default TestSettings;
