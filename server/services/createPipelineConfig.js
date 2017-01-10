@@ -1,14 +1,19 @@
 const pipelineConfigSchema=require('../models/pipelineConfig.model');
 module.exports=function (req, res) {
 	const pipelineConfig = new pipelineConfigSchema(); 
-	pipelineConfig.setup = req.body.setup;
-	pipelineConfig.stages = req.body.stages;
+pipelineConfigSchema.findById("5874c097d61bf06b9cb8d2bd", function (err, mySchema) {
+  if (!err) {
+  	console.log(mySchema);
+    mySchema.reponame=req.params.repoId;
+	mySchema.username=req.params.username;
+	mySchema.setup = req.body.setup;
+	mySchema.stages = req.body.stages;
+    mySchema.save(function (err) {
+      // do something
+  
+  });
 
-	pipelineConfig.save(function(err) {
-		if (err) throw err;
-		
-		console.log('saved in mongodb');
-	});
-
-	res.send('inserted');
+}
+});
+	res.send('updated');
 	}

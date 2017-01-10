@@ -15,6 +15,8 @@ StageSchema.virtual('config')
   .set(function(config) { this.set('configString', JSON.stringify(config)); })
 
 const PipelineSchema = new Schema({
+  reponame:{type:String},
+  username:{type:String},
   setup: { type: String },
   stages: [StageSchema]
 });
