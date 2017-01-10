@@ -34,6 +34,8 @@ class TestSettings extends Component{
         this.handleClick=this.handleClick.bind(this)
         this.handleChange=this.handleChange.bind(this)
 
+        this.handleSaveClick=this.handleSaveClick.bind(this)
+
         this.state = {
 
           value: '',
@@ -41,6 +43,46 @@ class TestSettings extends Component{
         };
       }
       
+
+      handleSaveClick=(event)=>{
+
+        console.log("hello");
+        Request
+        .put('http://localhost:9080/repo/hgjj/pipeline')
+        .set('Content-Type', 'application/json')
+        .send({
+        "setup": "npm install",
+  "stages": [{
+      "stage": "eslint",
+      "config": {
+        "include": ["src/**/*.js(|x)", "test/**/*.js(|x)"],
+        "exclude": ["node_modules/**/*.js", "bower_components/**/*"]
+      }
+    }, {
+      "stage": "htmllint",
+      "config": {
+        "include": ["src/**/*.(xhtml|html)", "test/**/*.(xhtml|html)"],
+        "exclude": ["node_modules/**/*", "bower_components/**/*"]
+      }
+    }, {
+      "stage": "automated testing",
+      "config": {
+        "include": ["src/**/*.(js)", "test/**/*.(js)"],
+        "exclude": ["node_modules/**/*", "bower_components/**/*"]
+      }
+    }, {
+      "stage": "test coverage",
+      "config": {}
+    }, {
+      "stage": "shell",
+      "config": {
+        "cmd": "sendmail"
+      }
+    }]})
+        .end(function(resp){
+          // ...
+        });
+      }
       handleChange =(event)=>{
          this.setState({
           add:true,
@@ -269,7 +311,7 @@ npm install
       <Row>
         <Col xs={12}>
           <Row center="xs">
-            <Col xs={12}><IndexLink to="/App/dash" activeClassName="active"><RaisedButton label="Save and go to dashboard" primary={true} ></RaisedButton></IndexLink>
+            <Col xs={12}><IndexLink to="/App/dash" activeClassName="active"><RaisedButton label="Save and go to dashboard" primary={true} onClick={this.handleSaveClick} ></RaisedButton></IndexLink>
             </Col>
           </Row>
        </Col>
