@@ -6,7 +6,7 @@ import login from './LoginGithub'
 import createRepo from './CreateRepository'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {blue400, blue700} from 'material-ui/styles/colors';
+import {teal400, teal700} from 'material-ui/styles/colors';
 import {Router, Route, IndexRoute, hashHistory} from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Branch from './Branch'
@@ -17,9 +17,9 @@ injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
 palette: {
-  textColor: blue700,
-  primary1Color: blue400,
-  primary2Color: blue700
+  textColor: teal700,
+  primary1Color: teal400,
+  primary2Color: teal700
 }
 });
 
