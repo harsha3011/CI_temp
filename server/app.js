@@ -3,6 +3,13 @@ const app = express();
 
 const port = process.env.PORT || 9080;
 
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+});
+
 var BodyParser = require('body-parser');
 app.use(BodyParser());
 

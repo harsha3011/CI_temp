@@ -39,74 +39,95 @@ class CreatePipeline extends Component{
 
         this.state = {
           //remove shellcmd and shelltitle
+          setupCmds:'npm run eject',
           shellCmd:'',
           shellTitle:'',
           arrShell:[],
-          esData:[],
+          esLintData:[],
           htmlData:[],
-          testData:[]
+          automatedTestData:[]
         };
       }
       //create a component for custom shell commands
       changeEsLint(values)
       {
         this.setState({
-          esData:values,
+          esLintData:values,
         });
-        console.log(this.state.esData);
       }
       changeHtmlLint(values)
       {
         this.setState({
           htmlData:values,
         });
-        console.log(this.state.htmlData);
       }
       changeTestLint(values)
       {
         this.setState({
-          testData:values,
+          automatedTestData:values,
         });
-        console.log(this.state.testData);
       }
       handleSaveClick=(event)=>{
-
-        console.log("hello");
+        let that=this;    
         Request
-        .put('http://localhost:9080/repo/hgjj/pipeline')
-        .set('Content-Type', 'application/json')
-        .send({
-        "setup": "npm install",
-  "stages": [{
-      "stage": "eslint",
-      "config": {
-        "include": ["src/**/*.js(|x)", "test/**/*.js(|x)"],
-        "exclude": ["node_modules/**/*.js", "bower_components/**/*"]
-      }
-    }, {
-      "stage": "htmllint",
-      "config": {
-        "include": ["src/**/*.(xhtml|html)", "test/**/*.(xhtml|html)"],
-        "exclude": ["node_modules/**/*", "bower_components/**/*"]
-      }
-    }, {
-      "stage": "automated testing",
-      "config": {
-        "include": ["src/**/*.(js)", "test/**/*.(js)"],
-        "exclude": ["node_modules/**/*", "bower_components/**/*"]
-      }
-    }, {
-      "stage": "test coverage",
-      "config": {}
-    }, {
-      "stage": "shell",
-      "config": {
-        "cmd": "sendmail"
-      }
-    }]})
-        .end(function(resp){
-          // ...
-        });
+        .get('http://localhost:9080/repo/myrepo/paurvi/pipeline')
+        .end(function(err,resp)
+        {
+          if(resp.body)
+          {
+            var setupCmds=that.state.setupCmds;
+            var esLintData=that.state.esLintData
+            var htmlData=that.state.htmlData;
+            Request
+            .put('http://localhost:9080/repo/myrepo/paurvi/pipeline')
+            .send({
+              "setup": setupCmds,
+              "stages": [{
+                  "stage": "eslint",
+                  "config": {
+                    esLintData
+                  }
+              },
+              {
+                  "stage": "htmllint",
+                  "config": {
+                    htmlData
+                  }
+              }]
+            })
+            .end(function(err){
+              console.log(err);
+            });
+          }
+          else{
+            var setupCmds=that.state.setupCmds;
+            var esLintData=that.state.esLintData
+            var htmlData=that.state.htmlData;
+            Request
+            .post('http://localhost:9080/repo/myrepo/paurvi/pipeline')
+            .set('Content-Type', 'application/json')
+            .send({
+              "setup": setupCmds,
+              "stages": [{
+                  "stage": "eslint",
+                  "config": {
+                    esLintData
+                  }
+              },
+              {
+                  "stage": "htmllint",
+                  "config": {
+                    htmlData
+                  }
+              }]
+            })
+            .end(function(err){
+              console.log(err);
+            });
+          }
+        })
+
+        
       }
       handleChange =(event)=>{
         var arr=this.state.arrShell;
@@ -119,7 +140,6 @@ class CreatePipeline extends Component{
           shellTitle:'',
           shellCmd:''
         });
-        console.log(this.state.arrShell);
       }
        handleChangeCommands=(event)=>{
         this.setState({
@@ -223,7 +243,7 @@ npm install
                            </Row>
                            <Row center="xs">
                              <Col xs={12}>
-                             <LintTest data={this.state.esData}
+                             <LintTest data={this.state.esLintData}
                              onChange={this.changeEsLint.bind(this)}/>
                              </Col>
                            </Row>
@@ -257,7 +277,7 @@ npm install
                             </Row>
                             <Row center="xs">
                               <Col xs={12}>
-                              <LintTest data={this.state.testData}
+                              <LintTest data={this.state.automatedTestData}
                               onChange={this.changeTestLint.bind(this)}/>
                               </Col>
                             </Row>
