@@ -9,35 +9,44 @@ class LintTest extends Component
     {
       super();
       this.state={
-        includeFiles:[],
-        excludeFiles:[]
+        files:{
+          include:[],
+          exclude:[]
+        }
       }
-      this.handleIncludeChange=this.handleIncludeChange.bind(this);
-      this.handleExcludeChange=this.handleExcludeChange.bind(this);
+
     }
     handleIncludeChange(values)
     {
+      var data= this.state.files;
+      data["include"]=values;
       this.setState({
-        includeFiles:values}
+        files:data}
       );
+
+      this.props.onChange(this.state.files);
     }
     handleExcludeChange(values)
     {
+      var data= this.state.files;
+      data["exclude"]=values;
       this.setState({
-        excludeFiles:values}
+        files:data}
       );
+
+      this.props.onChange(this.state.files);
     }
     render()
     {
       return(
-       
-        
+
+
         <Row >
         <Col xs={12}>
         <Card>
-        
+
           <CardHeader
-           title={this.props.text}
+           title={"Click here to configure"}
             actAsExpander={true}
             showExpandableButton={true}
           >
@@ -47,12 +56,13 @@ class LintTest extends Component
               <Row center="xs">
                 <Col xs={6}>
                   Include files to test
-                  <MultiInputComp values={this.state.includeFiles} onChange={this.handleIncludeChange} />
+                  <MultiInputComp values={this.state.files.include}
+                  onChange={this.handleIncludeChange.bind(this)} />
                 </Col>
                 <Col xs={6}>
                   Exclude files from test
-                  <MultiInputComp values={this.state.excludeFiles}
-                  onChange={this.handleExcludeChange} />
+                  <MultiInputComp values={this.state.files.exclude}
+                  onChange={this.handleExcludeChange.bind(this)} />
                 </Col>
               </Row>
 
@@ -60,7 +70,7 @@ class LintTest extends Component
         </Card>
         </Col>
         </Row>
-       
+
       );
     }
 

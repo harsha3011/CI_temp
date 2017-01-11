@@ -40,11 +40,34 @@ class CreatePipeline extends Component{
         this.state = {
           shellCmd:'',
           shellTitle:'',
-          arrShell:[]
+          arrShell:[],
+          esData:[],
+      htmlData:[],
+      testData:[]
         };
       }
-      
 
+      changeEsLint(values)
+      {
+        this.setState({
+          esData:values,
+        });
+        console.log(this.state.esData);
+      }
+      changeHtmlLint(values)
+      {
+        this.setState({
+          htmlData:values,
+        });
+        console.log(this.state.htmlData);
+      }
+      changeTestLint(values)
+      {
+        this.setState({
+          testData:values,
+        });
+        console.log(this.state.testData);
+      }
       handleSaveClick=(event)=>{
 
         console.log("hello");
@@ -100,23 +123,23 @@ class CreatePipeline extends Component{
        handleChangeCommands=(event)=>{
         this.setState({
           shellCmd: event.target.value
-        }); 
+        });
       }
       handleChangeTitle=(event)=>{
          this.setState({
           shellTitle: event.target.value
-        }); 
+        });
       }
 
   render(){
     const inputTitle=(
-      <TextField 
+      <TextField
         floatingLabelText="Add a title"
         value={this.state.shellTitle}
         onChange={this.handleChangeTitle}
         />
       );
-    const inputCommand=( 
+    const inputCommand=(
       <TextField
         multiLine={true}
         value={this.state.shellCmd}
@@ -129,10 +152,10 @@ class CreatePipeline extends Component{
         <ContentAdd />
       </FloatingActionButton>
     );
-   
+
    newTest=this.state.value;
    var temp=this.state.add;
-   
+
    var text=`# By default we use the Node.js version set in your package.json or the latest
 # version from the 0.10 release
 # You can use nvm to install any Node.js (or io.js) version you require.
@@ -192,12 +215,32 @@ npm install
                       <Row>
                         <Col xs={12}>
                          <ListItem>
-                            <LintTest text={"Es Lint"}/>
+                         <Row>
+                             <Col xs={12}>
+                             <h2 style={{margin:10}}>Es Lint</h2>
+                             </Col>
+                           </Row>
+                           <Row center="xs">
+                             <Col xs={12}>
+                             <LintTest data={this.state.esData}
+                             onChange={this.changeEsLint.bind(this)}/>
+                             </Col>
+                           </Row>
                           </ListItem>
                         </Col>
                       </Row>
                          <ListItem>
-                           <LintTest text={"HTML Lint"}/>
+                         <Row>
+                              <Col xs={12}>
+                              <h2 style={{margin:10}}>HTML Lint</h2>
+                              </Col>
+                            </Row>
+                            <Row center="xs">
+                              <Col xs={12}>
+                              <LintTest data={this.state.htmlData}
+                              onChange={this.changeHtmlLint.bind(this)}/>
+                              </Col>
+                            </Row>
                          </ListItem>
                     </List>
                   </Paper>
@@ -206,7 +249,17 @@ npm install
                   <Paper>
                     <List>
                       <ListItem>
-                        <LintTest text={"Automated Testing"}/>
+                      <Row>
+                              <Col xs={12}>
+                              <h2 style={{margin:10}}>Automated Testing</h2>
+                              </Col>
+                            </Row>
+                            <Row center="xs">
+                              <Col xs={12}>
+                              <LintTest data={this.state.testData}
+                              onChange={this.changeTestLint.bind(this)}/>
+                              </Col>
+                            </Row>
                       </ListItem>
                       <ListItem>
                         <Card>
