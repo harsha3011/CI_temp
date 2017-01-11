@@ -1,7 +1,7 @@
-const pipelineConfigSchema=require('../models/pipelineConfig.model');
+const pipelineConfigModel=require('../models/pipelineConfig.model');
 module.exports=function (req, res) {
-    const pipelineConfig = new pipelineConfigSchema();
-pipelineConfigSchema.findOne({reponame:req.params.reponame,
+    const pipelineConfig = new pipelineConfigModel();
+pipelineConfigModel.findOne({reponame:req.params.reponame,
  username:req.params.username}, function (err, mySchema) {
  if (!err) {
   

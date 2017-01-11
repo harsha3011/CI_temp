@@ -7,7 +7,7 @@ module.exports=function (req, res) {
 	pipelineConfig.setup = req.body.setup;
 	pipelineConfig.stages = req.body.stages;
     pipelineConfig.save(function (err) {
-      // do something
+     
       if (err) throw err;
       console.log('inserted');
     });
