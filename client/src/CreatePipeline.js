@@ -38,15 +38,16 @@ class CreatePipeline extends Component{
         this.handleSaveClick=this.handleSaveClick.bind(this)
 
         this.state = {
+          //remove shellcmd and shelltitle
           shellCmd:'',
           shellTitle:'',
           arrShell:[],
           esData:[],
-      htmlData:[],
-      testData:[]
+          htmlData:[],
+          testData:[]
         };
       }
-
+      //create a component for custom shell commands
       changeEsLint(values)
       {
         this.setState({
