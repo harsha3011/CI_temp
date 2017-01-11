@@ -53,13 +53,14 @@ class LintTest extends Component
           </CardHeader>
           <CardText expandable={true}>
 
-              <Row center="xs">
-                <Col xs={6}>
+              <Row center="xs" center="sm">
+                <Col xs={12} sm={6}>
                   Include files to test
                   <MultiInputComp values={this.state.files.include}
                   onChange={this.handleIncludeChange.bind(this)} />
                 </Col>
-                <Col xs={6}>
+
+                <Col xs={12} sm={6}>
                   Exclude files from test
                   <MultiInputComp values={this.state.files.exclude}
                   onChange={this.handleExcludeChange.bind(this)} />

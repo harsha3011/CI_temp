@@ -3,6 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import React,{Component} from 'react';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import {Grid, Row, Col} from 'react-flexbox-grid';
 class MultiInputComp extends Component
 {
   constructor() {
@@ -39,13 +40,13 @@ class MultiInputComp extends Component
     });
     return (
       <div>
-      <form onSubmit={this.handleAddValue.bind(this)}>
-      {inputField}
-      {addButton}
-      <div style={{display:'flex',flexWrap:'wrap'}}>
-      {values}
-      </div>
-      </form>
+        <form onSubmit={this.handleAddValue.bind(this)}>
+          {inputField}
+          {addButton}
+          <div style={{display:'flex',flexWrap:'wrap'}}>
+          {values}
+          </div>
+        </form>
       </div>
     );
   }
