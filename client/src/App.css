@@ -9,10 +9,15 @@
   border-radius: 50px;
 }
 
-body
-{
+body {
   font-family: 'Roboto', sans-serif;
   background-image: url(../images/backgroundImg.jpg);
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  min-height: 600px;
 }
 
 #bloc2{
@@ -23,7 +28,7 @@ body
   text-align: center;
 }
 
-h2 { font-family: 'Roboto', sans-serif; }
+h2 { font-family: 'Roboto', sans-serif; color: white;}
 
 /*For login_github*/
 
@@ -47,9 +52,11 @@ margin-left: 50px;
   margin-top: 20px;
   margin-bottom: 100px;
 }
-h2,h1,h4{
+h1,h4{
 font-family: 'Roboto', sans-serif;
 }
+
 .tabs b{
   font-family: 'Oswald', sans-serif;
 }
+

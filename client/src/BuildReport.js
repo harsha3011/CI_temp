@@ -18,7 +18,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Link} from 'react-router';
 import Delete from 'material-ui/svg-icons/action/delete';
 import {Grid,Row,Col} from 'react-flexbox-grid';
-import {Card, CardHeader, CardActions, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardText, CardMedia, CardTitle, CardActions} from 'material-ui/Card';
+
 class BuildReport extends Component {
    render() 
    {
@@ -32,216 +33,103 @@ class BuildReport extends Component {
 const icon=
 {
    width:'20',height:'20'
+};
+const style = {
+  margin: 30,
+  display: 'inherit',
+};
+const title = {
+    fontSize: 20,
+    marginLeft: 81,
+    marginBottom: 22,
+    marginTop: 20,
 }
-class BuildList extends Component 
-{
-   render()
-   {
+
+class BuildList extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false,
+      executeAction: false
+    };
+    this.executeAction = this.executeAction.bind(this);
+  }
+  executeAction() {
+    this.setState({executeAction: true});
+  }
+
+  handleExpandChange = (expanded) => {
+    this.setState({expanded: expanded});
+  };
+
+   render() {
+    var cardStyle = {
+        height: '55px'
+    }
+    let executeButton = '',
+        executeButtonReport = '';
+    if(this.state.expanded) {
+        executeButton = <RaisedButton label="Execute" primary={true} style={style} onClick={this.executeAction} />
+        cardStyle = {
+            height: '250px'
+        }
+    }
+    if(this.state.executeAction){
+        executeButtonReport = <Paper expandable={true} style={style} zDepth={5} rounded={true}>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+                    </Paper>
+    }
       return(
          
             <Grid>
                <Row center="xs" between="sm">
                   <Col xs={12} sm={6}>
-                     <h1>Build Report</h1>
+                     <h2>Build Report</h2>
                   </Col>
                   <Col xs={12} sm={6}>
                      <Link to="/App/pipelineSettings">
-                        <IconButton><Setting/></IconButton>
+                        <IconButton><Setting color={'white'} size={80}/></IconButton>
                      </Link>
                   </Col>
                </Row>
             
             <Row center="xs">
                <Col xs={12}>
-                     <Paper style={{height:60,margin:20}} zDepth={5}>
-                     Do you want to re-run last build?
-                     <RaisedButton label="Yes" />
-                     </Paper>
-               </Col>     
+                     <Card style={cardStyle} expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+                        <CardHeader
+                          title="Pipeline Commands"
+                          actAsExpander={true}
+                          showExpandableButton={true}
+                          style={title}
+                        />
+
+                        <CardText expandable={true} >
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                          Aliquam dui mauris, mattis quis lacus id, pe
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.llentesque lobortis odio.
+                        </CardText>
+                        {executeButton}
+                      </Card>
+                        {executeButtonReport}
+                </Col>
             </Row>
-            <List className="listbox">
-               <Row>
-                  <Col xs={12}>
-                     <ListItem>
-                        <Card >      
-                           <CardHeader
-                           title="Build ID:347568"
-                           subtitle="Build Time: 12/12/2016"
-                           actAsExpander={true}
-                           showExpandableButton={true}>
-                              <Row middle="xs">
-                                 <Col xs={5}  sm={12}>
-                                 Status: <CircularProgress size={20}/> 
-                                 <IconButton size={15}><Delete /></IconButton>
-                                 </Col>
-                              </Row>
-                           </CardHeader>
-                        </Card>
-                     </ListItem>
-                  </Col>
-               </Row>
-               
-               <Row middle="xs">
-                  <Col xs={12}>
-                     <ListItem>
-                        <Card >
-                           <CardHeader title="Build ID:347568"
-                           subtitle="Build Time: 12/12/2016"
-                           actAsExpander={true}
-                           showExpandableButton={true}>
-                              
-                              <Row middle="xs">
-                                 <Col xs={12} sm={3}>
-                                    Status: <FullHeart style={icon}
-                                    color={'green'}/>
-                                    Error: <Check color={'green'}/>
-                                    Warning: <Happy style={icon} color={'green'}/>
-                                    <IconButton style={icon} ><Delete /></IconButton>
-                                 </Col>
-                              </Row>
-                              
-                           </CardHeader>
-                           <CardText expandable={true}>
-                              <Table>
-                                 <TableBody stripedRows  displayRowCheckbox={false}>
-                                    <TableRow>
-                                       <TableRowColumn>1</TableRowColumn>
-                                       <TableRowColumn>Testing Environment</TableRowColumn>
-                                        <TableRowColumn><Check size={30} color={'green'}/></TableRowColumn>
-                                    </TableRow>
-                                    <TableRow>
-                                       <TableRowColumn>2</TableRowColumn>
-                                       <TableRowColumn>Cloning</TableRowColumn>
-                                        <TableRowColumn><Check size={30} color={'green'}/></TableRowColumn>
-                                    </TableRow>
-                                    <TableRow>
-                                       <TableRowColumn>3</TableRowColumn>
-                                       <TableRowColumn>Linting</TableRowColumn>
-                                        <TableRowColumn><Check size={30} color={'green'}/></TableRowColumn>
-                                    </TableRow>
-                                 </TableBody>
-                              </Table> 
-                           </CardText>
-                        </Card>
-                     </ListItem>
-                  </Col>
-               </Row>
-               <Row middle="xs">
-                  <Col xs={12}>
-                     <ListItem>
-                        <Card >
-                           <CardHeader
-                           title="Build ID:347456"
-                           subtitle="Build Time: 1/12/2016"
-                           actAsExpander={true}
-                           showExpandableButton={true}>
-                              
-                              <Row middle="xs">
-                                 <Col xs={12} sm={3} >
-                                 Status:<FullHeart color={'red'} style={icon}/>
-         
-                                 Error:<Badge badgeContent={4} primary={true}>
-                                          <Warning color={'red'} style={icon}/>
-                                          </Badge>
-                                 Warning:<Sad color={'red'} style={icon}/>
-                                         
-                                 <IconButton><Delete /></IconButton>
-                                 </Col>
-                              </Row>
-                           </CardHeader>
-                           <CardText expandable={true}>
-                              <Table>
-                                 <TableBody stripedRows  displayRowCheckbox={false}>
-                                    <TableRow>
-                                       <TableRowColumn>1</TableRowColumn>
-                                       <TableRowColumn>Testing Environment</TableRowColumn>
-                                        <TableRowColumn><Error color={'red'}/></TableRowColumn>
-                                    </TableRow>
-                                    <TableRow>
-                                       <TableRowColumn>2</TableRowColumn>
-                                       <TableRowColumn>Cloning</TableRowColumn>
-                                        <TableRowColumn><Error color={'red'}/></TableRowColumn>
-                                    </TableRow>
-                                    <TableRow>
-                                       <TableRowColumn>3</TableRowColumn>
-                                       <TableRowColumn>Linting</TableRowColumn>
-                                        <TableRowColumn><Error color={'red'}/></TableRowColumn>
-                                    </TableRow>
-                                     <TableRow>
-                                       <TableRowColumn>4</TableRowColumn>
-                                       <TableRowColumn>Parsing</TableRowColumn>
-                                        <TableRowColumn><Error color={'red'}/></TableRowColumn>
-                                    </TableRow>
-                                    <TableRow>
-                                       <TableRowColumn>5</TableRowColumn>
-                                       <TableRowColumn>Object Not Used</TableRowColumn>
-                                        <TableRowColumn><Warning color={'red'}/></TableRowColumn>
-                                    </TableRow>
-                                 </TableBody>
-                              </Table>
-                           </CardText>         
-                        </Card>
-                     </ListItem>
-                  </Col>
-               </Row> 
-               <Row middle="xs">
-                  <Col xs={12}>
-                     <ListItem>
-                        <Card>
-                           <CardHeader
-                           title="Build ID:347456"
-                           subtitle="Build Time: 1/12/2016"
-                           actAsExpander={true}
-                           showExpandableButton={true}>
-                              
-                              <Row middle="xs">
-                                 <Col xs={12} sm={3} >
-                                    Status: <FullHeart style={icon} color={'green'}/>
-                                     
-                                    Error: <Check style={icon} color={'green'}/>
-                                    Warning: <Senti style={icon} color={'green'}/>
-                                             
-                                    <IconButton tooltip="Delete"><Delete /></IconButton>
-                                 </Col>
-                              </Row> 
-                           </CardHeader>
-                           <CardText expandable={true}>
-                              <Table>
-                                 <TableBody stripedRows  displayRowCheckbox={false}>
-                                    <TableRow>
-                                       <TableRowColumn>1</TableRowColumn>
-                                       <TableRowColumn>Testing Environment</TableRowColumn>
-                                        <TableRowColumn><Check color={'green'}/></TableRowColumn>
-                                    </TableRow>
-                                    <TableRow>
-                                       <TableRowColumn>2</TableRowColumn>
-                                       <TableRowColumn>Cloning</TableRowColumn>
-                                        <TableRowColumn><Check color={'green'}/></TableRowColumn>
-                                    </TableRow>
-                                    <TableRow>
-                                       <TableRowColumn>3</TableRowColumn>
-                                       <TableRowColumn>Linting</TableRowColumn>
-                                        <TableRowColumn><Check color={'green'}/></TableRowColumn>
-                                    </TableRow>
-                                     <TableRow>
-                                       <TableRowColumn>4</TableRowColumn>
-                                       <TableRowColumn>Parsing</TableRowColumn>
-                                        <TableRowColumn><Check color={'green'}/></TableRowColumn>
-                                    </TableRow>
-                                    <TableRow>
-                                       <TableRowColumn>5</TableRowColumn>
-                                       <TableRowColumn>Object Not Used</TableRowColumn>
-                                        <TableRowColumn><Warning color={'red'}/></TableRowColumn>
-                                    </TableRow>
-                                 </TableBody>
-                              </Table>
-                           </CardText>
-                        </Card>
-                     </ListItem>
-                  </Col>
-               </Row>
-            </List>
-         
       </Grid>
       );
    } 
