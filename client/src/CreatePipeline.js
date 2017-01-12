@@ -19,6 +19,10 @@ import Request from 'superagent';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Slider from 'material-ui/Slider';
 import LintTest from './LintTest';
+import MultiScriptConfig from './MultiScriptConfig';
+import Checkbox from 'material-ui/Checkbox';
+
+
 const muiTheme = getMuiTheme({
  palette: {
    textColor: white,
@@ -31,21 +35,26 @@ class CreatePipeline extends Component{
 
     constructor(props) {
         super(props);
-        this.handleChangeCommands=this.handleChangeCommands.bind(this)
-        this.handleChangeTitle=this.handleChangeTitle.bind(this)
-        this.handleChange=this.handleChange.bind(this)
 
-        this.handleSaveClick=this.handleSaveClick.bind(this)
+        this.handleSaveClick=this.handleSaveClick.bind(this);
+        this.handleCheckbox=this.handleCheckbox.bind(this);
+        this.handleSaveClick=this.handleSaveClick.bind(this);
 
         this.state = {
           //remove shellcmd and shelltitle
-          setupCmds:'npm run eject',
-          shellCmd:'',
-          shellTitle:'',
-          arrShell:[],
+          setupCmds:`# By default we use the Node.js version set in your package.json or the latest
+# version from the 0.10 release
+# You can use nvm to install any Node.js (or io.js) version you require.
+# nvm install 4.0
+nvm install 0.10
+npm install
+# Install grunt-cli for running your tests or other tasks
+# npm install -g grunt-cli`,
           esLintData:[],
           htmlData:[],
-          automatedTestData:[]
+          arrShell:[],
+          testCoverageData:'',
+          automatedTestData:[],
         };
       }
       //create a component for custom shell commands
@@ -55,7 +64,14 @@ class CreatePipeline extends Component{
           esLintData:values,
         });
       }
-      changeHtmlLint(values)
+      handleCheckbox(event)
+      {
+        this.setState({
+          testCoverageData:event.target.checked
+        });
+
+      }
+      changehtmlhint(values)
       {
         this.setState({
           htmlData:values,
@@ -67,125 +83,59 @@ class CreatePipeline extends Component{
           automatedTestData:values,
         });
       }
-      handleSaveClick=(event)=>{
-        let that=this;    
+      handleSetup=(event)=>{
+      	this.setState({
+      			setupCmds:event.target.value,
+      		});
+       }
+
+       handleSaveClick=(event)=>{
+        let that=this;
+        var files={setup: this.state.setupCmds,
+                  stages: [{
+                    stage: "eslint",
+                    config: this.state.esLintData
+                    },
+                    {
+                      stage: "htmllint",
+                      config: this.state.htmlData
+                    },
+                    {
+                      stage: "automated tests",
+                      config: this.state.automatedTestData
+                    },
+                    {
+                      stage:"custom scripts",
+                      config:this.state.arrShell
+                    }
+                  ]};
+                  console.log(files);
         Request
         .get('http://localhost:9080/repo/myrepo/paurvi/pipeline')
         .end(function(err,resp)
         {
           if(resp.body)
           {
-            var setupCmds=that.state.setupCmds;
-            var esLintData=that.state.esLintData
-            var htmlData=that.state.htmlData;
             Request
             .put('http://localhost:9080/repo/myrepo/paurvi/pipeline')
-            .send({
-              "setup": setupCmds,
-              "stages": [{
-                  "stage": "eslint",
-                  "config": {
-                    esLintData
-                  }
-              },
-              {
-                  "stage": "htmllint",
-                  "config": {
-                    htmlData
-                  }
-              }]
-            })
+            .send(JSON.stringify(files))
             .end(function(err){
               console.log(err);
             });
           }
           else{
-            var setupCmds=that.state.setupCmds;
-            var esLintData=that.state.esLintData
-            var htmlData=that.state.htmlData;
             Request
             .post('http://localhost:9080/repo/myrepo/paurvi/pipeline')
             .set('Content-Type', 'application/json')
-            .send({
-              "setup": setupCmds,
-              "stages": [{
-                  "stage": "eslint",
-                  "config": {
-                    esLintData
-                  }
-              },
-              {
-                  "stage": "htmllint",
-                  "config": {
-                    htmlData
-                  }
-              }]
-            })
+            .send(JSON.stringify(files))
             .end(function(err){
               console.log(err);
             });
           }
         })
-
-        
       }
-      handleChange =(event)=>{
-        var arr=this.state.arrShell;
-        var obj={Title: this.state.shellTitle,
-          Command:this.state.shellCmd
-        }
-        arr.push(obj);
-        this.setState({
-          arrShell:arr,
-          shellTitle:'',
-          shellCmd:''
-        });
-      }
-       handleChangeCommands=(event)=>{
-        this.setState({
-          shellCmd: event.target.value
-        });
-      }
-      handleChangeTitle=(event)=>{
-         this.setState({
-          shellTitle: event.target.value
-        });
-      }
-
   render(){
-    const inputTitle=(
-      <TextField
-        floatingLabelText="Add a title"
-        value={this.state.shellTitle}
-        onChange={this.handleChangeTitle}
-        />
-      );
-    const inputCommand=(
-      <TextField
-        multiLine={true}
-        value={this.state.shellCmd}
-        floatingLabelText="Add Commands"
-        fullWidth={true}
-        onChange={this.handleChangeCommands}
-      />);
-    const addingScript=(
-      <FloatingActionButton onClick={this.handleChange} >
-        <ContentAdd />
-      </FloatingActionButton>
-    );
-
-   newTest=this.state.value;
-   var temp=this.state.add;
-
-   var text=`# By default we use the Node.js version set in your package.json or the latest
-# version from the 0.10 release
-# You can use nvm to install any Node.js (or io.js) version you require.
-# nvm install 4.0
-nvm install 0.10
-npm install
-# Install grunt-cli for running your tests or other tasks
-# npm install -g grunt-cli`
-
+    
   return(
     <Paper>
         <Grid>
@@ -207,8 +157,9 @@ npm install
                 <Col xs={12}>
                   <TextField
                     multiLine={true}
-                    defaultValue={text}
+                    defaultValue={this.state.setupCmds}
                     fullWidth={true}
+                    onChange={this.handleSetup.bind(this)}
                   />
                 </Col>
               </Row>
@@ -228,116 +179,80 @@ npm install
         </Grid>
         <Grid>
           <Row center="xs">
-              <Col xs={12}>
-               <Tabs>
+            <Col xs={12}>
+              <Tabs>
                 <Tab label="LINTING" >
                   <Paper>
-                    <List>
-                      <Row>
-                        <Col xs={12}>
-                         <ListItem>
-                         <Row>
-                             <Col xs={12}>
-                             <h2 style={{margin:10}}>Es Lint</h2>
-                             </Col>
-                           </Row>
-                           <Row center="xs">
-                             <Col xs={12}>
-                             <LintTest data={this.state.esLintData}
-                             onChange={this.changeEsLint.bind(this)}/>
-                             </Col>
-                           </Row>
-                          </ListItem>
-                        </Col>
-                      </Row>
-                         <ListItem>
-                         <Row>
-                              <Col xs={12}>
-                              <h2 style={{margin:10}}>HTML Lint</h2>
-                              </Col>
-                            </Row>
-                            <Row center="xs">
-                              <Col xs={12}>
-                              <LintTest data={this.state.htmlData}
-                              onChange={this.changeHtmlLint.bind(this)}/>
-                              </Col>
-                            </Row>
-                         </ListItem>
-                    </List>
-                  </Paper>
+                    <Row>
+                      <Col xs={12}>
+                       	<Row>
+                          <Col xs={12}>
+                           <h2 style={{margin:10}}>Es Lint</h2>
+                          </Col>
+                         </Row>
+                         <Row center="xs">
+                           <Col xs={12}>
+                           <LintTest data={this.state.esLintData}
+                           onChange={this.changeEsLint.bind(this)}/>
+                           </Col>
+                         </Row>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={12}>
+                        <h2 style={{margin:10}}>HTML Lint</h2>
+                      </Col>
+                    </Row>
+                    <Row center="xs">
+                      <Col xs={12}>
+                      <LintTest data={this.state.htmlData}
+                      onChange={this.changehtmlhint.bind(this)}/>
+                      </Col>
+                    </Row>
+                </Paper>
                 </Tab>
                 <Tab label="TESTING" >
                   <Paper>
-                    <List>
-                      <ListItem>
-                      <Row>
-                              <Col xs={12}>
-                              <h2 style={{margin:10}}>Automated Testing</h2>
-                              </Col>
-                            </Row>
-                            <Row center="xs">
-                              <Col xs={12}>
-                              <LintTest data={this.state.automatedTestData}
-                              onChange={this.changeTestLint.bind(this)}/>
-                              </Col>
-                            </Row>
-                      </ListItem>
-                      <ListItem>
-                        <Card>
+                    <Row>
+                      <Col xs={12}>
+                        <h2 style={{margin:10}}>Automated Testing</h2>
+                      </Col>
+                    </Row>
+                    <Row center="xs">
+                      <Col xs={12}>
+                        <LintTest data={this.state.automatedTestData}
+                          onChange={this.changeTestLint.bind(this)}/>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={12}>
+                        <h2 style={{margin:10}}>Code Coverage</h2>
+                      </Col>
+                    </Row>
+                    <Row center="xs">
+                      <Col xs={12}>
+                    		<Card>
                           <CardHeader
-                            title="Test Coverage"
+                            title="Click here to Configure"
                             actAsExpander={true}
                             showExpandableButton={true}
-                         / >
-                        </Card>
-                      </ListItem>
-                    </List>
-                  </Paper>
+                          />
+                         <CardText expandable={true}>
+                        <Checkbox label="Should pass"  onClick={this.handleCheckbox}/>
+                      </CardText>
+                    </Card>
+                   </Col>
+                  </Row>
+                </Paper>
                 </Tab>
                   <Tab label="CUSTOM SCRIPTS" >
                     <Paper>
                      <Grid>
                       <Row>
                         <Col xs={12}>
-                          <Row start="xs">
-                          <Col xs={12}>
-                            <List>
-                              <ListItem>
-                                <Card>
-                                  <CardHeader
-                                    title="Add your own shell script"
-                                    actAsExpander={true}
-                                    showExpandableButton={true}
-                                  />
-                                  <CardText expandable={true}>
-                                  {inputTitle}
-                                  <br />
-                                  <Paper style={{backgroundColor:'black'}}>
-                                    <MuiThemeProvider muiTheme={muiTheme}>
-                                     <Grid>
-                                      <Row start="xs">
-                                        <Col xs={6} xsOffset={3}>
-                                         {inputCommand}
-                                        </Col>
-                                      </Row>
-                                    </Grid>
-                                    </MuiThemeProvider>
-                                  </Paper>
-                                  <br/>
-                                </CardText>
-                              </Card>
-                            </ListItem>
-                          </List>
+                         <MultiScriptConfig/>
                         </Col>
                       </Row>
-                      <Row start="xs">
-                        <Col xsOffset={9} xs={1} lgOffset={11}>
-                           {addingScript}
-                        </Col>
-                      </Row>
-                        <br/>
-                      </Col>
-                    </Row>
                   </Grid>
                 </Paper>
               </Tab>
