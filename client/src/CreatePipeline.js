@@ -266,7 +266,7 @@ npm install
         <Col xs={12}>
           <Row center="xs">
             <Col xs={12}>
-              <IndexLink to="/App/Build" activeClassName="active">
+              <IndexLink to="/App" activeClassName="active">
                 <RaisedButton label="Save and go to dashboard" primary={true} onClick={this.handleSaveClick}/>
               </IndexLink>
             </Col>
