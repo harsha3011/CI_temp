@@ -53,7 +53,7 @@ npm install
           esLintData:[],
           htmlData:[],
           arrShell:[],
-          testCoverageData:'',
+          testCoverageData:false,
           automatedTestData:[],
         };
       }
@@ -90,7 +90,6 @@ npm install
        }
 
        handleSaveClick=(event)=>{
-        let that=this;
         var files={setup: this.state.setupCmds,
                   stages: [{
                     stage: "eslint",
@@ -105,11 +104,14 @@ npm install
                       config: this.state.automatedTestData
                     },
                     {
+                      stage: "testcoverage",
+                      config: this.state.testCoverageData
+                    },
+                    {
                       stage:"custom scripts",
                       config:this.state.arrShell
                     }
                   ]};
-                  console.log(files);
         Request
         .get('http://localhost:9080/repo/myrepo/paurvi/pipeline')
         .end(function(err,resp)
@@ -118,7 +120,7 @@ npm install
           {
             Request
             .put('http://localhost:9080/repo/myrepo/paurvi/pipeline')
-            .send(JSON.stringify(files))
+            .send(files)
             .end(function(err){
               console.log(err);
             });
@@ -127,7 +129,7 @@ npm install
             Request
             .post('http://localhost:9080/repo/myrepo/paurvi/pipeline')
             .set('Content-Type', 'application/json')
-            .send(JSON.stringify(files))
+            .send(files)
             .end(function(err){
               console.log(err);
             });
@@ -238,7 +240,7 @@ npm install
                             showExpandableButton={true}
                           />
                          <CardText expandable={true}>
-                        <Checkbox label="Should pass"  onClick={this.handleCheckbox}/>
+                        <Checkbox label="Should pass" onClick={this.handleCheckbox}/>
                       </CardText>
                     </Card>
                    </Col>

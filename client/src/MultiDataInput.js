@@ -56,7 +56,8 @@ class MultiInputComp extends Component
     this.setState({inputValue: newInputValue});
   }
 
-  handleAddValue() {
+  handleAddValue(e) {
+    e.preventDefault();
     if(this.state.inputValue=='')
     {
       alert('Cannot add empty filename');
