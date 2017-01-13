@@ -17,7 +17,9 @@ StageSchema.virtual('config')
 const PipelineSchema = new Schema({
   reponame:{type:String},
   username:{type:String},
-  setup: { type: String },
+  repo_URL:{type:String},
+  repo_Ref:{type:String},
+  setup:{type: String },
   stages: [StageSchema]
 });
 PipelineSchema.index({ reponame: 1, username: 1}, { unique: true });

@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Pipeline = require('./pipelineConfig.model');
 
 const pipeline = new Pipeline({
+
+  repo_URL:'',
+  repo_Ref:'',
   setup: `npm install`,
   stages: [{
       stage: 'eslint',
