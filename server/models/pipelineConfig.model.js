@@ -24,4 +24,4 @@ const PipelineSchema = new Schema({
 });
 PipelineSchema.index({ reponame: 1, username: 1}, { unique: true });
 
-module.exports = mongoose.model('Pipeline', PipelineSchema);
+module.exports = mongoose.model('Projects', PipelineSchema);
