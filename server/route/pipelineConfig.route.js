@@ -5,8 +5,8 @@ const updatePipelineConfig=require('../controller/updatePipelineConfig');
 const express = require('express');
 const router = express.Router();
 
-router.get('/repo/:reponame/:username/pipeline',getPipelineConfig);
-router.put('/repo/:reponame/:username/pipeline',updatePipelineConfig);
-router.post('/repo/:reponame/:username/pipeline',createPipelineConfig);
+router.get('/api/:username/:reponame/projects',getPipelineConfig);
+router.put('/api/:username/:reponame/projects',updatePipelineConfig);
+router.post('/api/:username/:reponame/projects',createPipelineConfig);
 
 module.exports=router;
