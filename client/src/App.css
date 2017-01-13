@@ -1,31 +1,30 @@
-
 .App {
-  text-align: center;
+ text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 75px;
-  border-radius: 50px;
+ animation: App-logo-spin infinite 20s linear;
+ height: 75px;
+ border-radius: 50px;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background-image: url(../images/backgroundImg.jpg);
-  margin: 0;
-  padding: 0;
+ font-family: 'Roboto', sans-serif;
+ background-image: url(../images/backgroundImg.jpg);
+ margin: 0;
+ padding: 0;
 }
 
 .main {
-  min-height: 600px;
+ min-height: 650px;
 }
 
 #bloc2{
-  float: right;
+ float: right;
 }
 /* For Home Page*/
 .WholeContent h2{
-  text-align: center;
+ text-align: center;
 }
 
 h2 { font-family: 'Roboto', sans-serif; color: white;}
@@ -33,13 +32,13 @@ h2 { font-family: 'Roboto', sans-serif; color: white;}
 /*For login_github*/
 
 .log_github{
-  margin-top: 200px;
+ margin-top: 200px;
 }
 
 #button{
-  display: inline;
-  background-color: black;
-  
+ display: inline;
+ background-color: black;
+
 }
 .WholeContent{
 margin-top: 80px;
@@ -49,14 +48,17 @@ margin-left: 50px;
 /*For BuildReport*/
 .listbox
 {
-  margin-top: 20px;
-  margin-bottom: 100px;
+ margin-top: 20px;
+ margin-bottom: 100px;
 }
 h1,h4{
 font-family: 'Roboto', sans-serif;
 }
 
 .tabs b{
-  font-family: 'Oswald', sans-serif;
+ font-family: 'Oswald', sans-serif;
 }
 
+.footerContent {
+ padding-top: 20px;
+}

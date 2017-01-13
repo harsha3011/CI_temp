@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import home from './Home'
 import login from './LoginGithub'
-import createRepo from './CreateRepository'
+import CreateProject from './CreateProject'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {teal400, teal700} from 'material-ui/styles/colors';
@@ -30,7 +30,7 @@ ReactDOM.render(
            <Route path="logout" component={login}/>
            <Route path="App" component={App}>
              <IndexRoute component={home}/>
-             <Route path="create" component={createRepo}/>
+             <Route path="create" component={CreateProject}/>
              <Route path="branch" component={Branch}/>
              <Route path="pipelineSettings" component={CreatePipeline}/>
              <Route path="Build" component={BuildReport}/>

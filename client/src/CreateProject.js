@@ -13,7 +13,7 @@ import ActionInfo from 'material-ui/svg-icons/action/info';
 import Dialog from 'material-ui/Dialog';
 import { Grid,Row,Col } from 'react-flexbox-grid';
 
-class CreateRepository extends Component {
+class CreateProject extends Component {
   constructor(props) {
     super(props);
     this.state = {value: 1,valueLicense:1};
@@ -61,7 +61,7 @@ class CreateRepository extends Component {
       onTouchTap={this.handleCloseReadme}
       />,
     ];
-  
+
     return (
       <Grid>
         <Row style={{marginTop:60, marginBottom:60}}>
@@ -75,13 +75,13 @@ class CreateRepository extends Component {
 
                     <TextField icon={<ActionInfo/>} hintText="Enter Repository Name" floatingLabelText="Repository Name"/><br />
                     <TextField hintText="Description" floatingLabelText="Description (optional)"/><br />
-                  
+
                   <br/>
 
                   <Row>
                     <Col lgOffset={4} lg={2} xs={6}>
                       <RadioButtonGroup name="privacyAccess">
-                        <RadioButton 
+                        <RadioButton
                         value="Public"
                         label="Public"
                         />
@@ -180,4 +180,4 @@ class CreateRepository extends Component {
 
 }
 
-export default CreateRepository;
+export default CreateProject;
