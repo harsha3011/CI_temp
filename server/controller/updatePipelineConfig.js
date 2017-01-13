@@ -3,10 +3,10 @@ module.exports=function (req, res) {
 
     const pipelineConfig = new pipelineConfigModel();
     pipelineConfigModel.findOne({reponame:req.params.reponame,
-    username:req.params.username}, function (err, mySchema) {
+    owner:req.params.owner}, function (err, mySchema) {
     if (mySchema) {
       mySchema.reponame=req.params.reponame;
-      mySchema.username=req.params.username;
+      mySchema.owner=req.params.owner;
       mySchema.setup = req.body.setup;
       mySchema.stages = req.body.stages;
       mySchema.save(function (err) {
