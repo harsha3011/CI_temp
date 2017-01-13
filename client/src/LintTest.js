@@ -9,33 +9,20 @@ class LintTest extends Component
     {
       super();
       this.state={
-        files:{
-          include:[],
-          exclude:[]
-        }
+        files:[]
       }
 
     }
     handleIncludeChange(values)
     {
-      var data= this.state.files;
-      data["include"]=values;
+
       this.setState({
-        files:data}
+        files:values}
       );
 
       this.props.onChange(this.state.files);
     }
-    handleExcludeChange(values)
-    {
-      var data= this.state.files;
-      data["exclude"]=values;
-      this.setState({
-        files:data}
-      );
 
-      this.props.onChange(this.state.files);
-    }
     render()
     {
       return(
@@ -46,25 +33,21 @@ class LintTest extends Component
         <Card>
 
           <CardHeader
-           title={"Click here to configure"}
+           title={"Include files to test"}
             actAsExpander={true}
             showExpandableButton={true}
           >
           </CardHeader>
           <CardText expandable={true}>
 
-              <Row center="xs" center="sm">
-                <Col xs={12} sm={6}>
-                  Include files to test
-                  <MultiInputComp values={this.state.files.include}
+              <Row center="xs" >
+                <Col xs={6}>
+
+                  <MultiInputComp values={this.state.files}
                   onChange={this.handleIncludeChange.bind(this)} />
                 </Col>
 
-                <Col xs={12} sm={6}>
-                  Exclude files from test
-                  <MultiInputComp values={this.state.files.exclude}
-                  onChange={this.handleExcludeChange.bind(this)} />
-                </Col>
+
               </Row>
 
           </CardText>

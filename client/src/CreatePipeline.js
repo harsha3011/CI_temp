@@ -112,6 +112,7 @@ npm install
                       config:this.state.arrShell
                     }
                   ]};
+                console.log(files);
         Request
         .get('http://localhost:9080/repo/myrepo/paurvi/pipeline')
         .end(function(err,resp)
@@ -137,7 +138,7 @@ npm install
         })
       }
   render(){
-    
+
   return(
     <Paper>
         <Grid>
@@ -149,7 +150,7 @@ npm install
             </Col>
           </Row>
         </Grid>
-        <h2>Setup Commands</h2>
+        <h3>Setup Commands</h3>
         <Paper style={{backgroundColor:'black'}}>
         <MuiThemeProvider muiTheme={muiTheme}>
          <Grid>
@@ -174,7 +175,7 @@ npm install
           <Row>
             <Col xs={12}>
               <Row center="xs">
-                <Col xs={12}><h2>Pipeline</h2></Col>
+                <Col xs={12}><h3>Pipeline</h3></Col>
               </Row>
             </Col>
           </Row>
@@ -185,11 +186,9 @@ npm install
               <Tabs>
                 <Tab label="LINTING" >
                   <Paper>
-                    <Row>
-                      <Col xs={12}>
                        	<Row>
                           <Col xs={12}>
-                           <h2 style={{margin:10}}>Es Lint</h2>
+                           <h3 style={{marginLeft:10}}>Es Lint</h3>
                           </Col>
                          </Row>
                          <Row center="xs">
@@ -198,11 +197,10 @@ npm install
                            onChange={this.changeEsLint.bind(this)}/>
                            </Col>
                          </Row>
-                      </Col>
-                    </Row>
+
                     <Row>
                       <Col xs={12}>
-                        <h2 style={{margin:10}}>HTML Lint</h2>
+                        <h3 style={{marginLeft:10}}>HTML Lint</h3>
                       </Col>
                     </Row>
                     <Row center="xs">
@@ -217,7 +215,7 @@ npm install
                   <Paper>
                     <Row>
                       <Col xs={12}>
-                        <h2 style={{margin:10}}>Automated Testing</h2>
+                        <h3 style={{marginLeft:10}}>Automated Testing</h3>
                       </Col>
                     </Row>
                     <Row center="xs">
@@ -228,7 +226,7 @@ npm install
                     </Row>
                     <Row>
                       <Col xs={12}>
-                        <h2 style={{margin:10}}>Code Coverage</h2>
+                        <h3 style={{marginLeft:10}}>Code Coverage</h3>
                       </Col>
                     </Row>
                     <Row center="xs">
