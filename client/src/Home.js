@@ -13,11 +13,14 @@ import './App.css'
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import Setting from 'material-ui/svg-icons/action/settings';
 import IconButton from 'material-ui/IconButton';
+import Request from 'superagent';
+
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: 'Configure',
+      repositories:[],
     };
   }
   handleChange = (value) => {
@@ -25,22 +28,37 @@ class Home extends Component {
       value: value,
     });
   };
-  render() {
-   return (<Grid>
 
+  componentWillMount() {
+     Request
+        .get('http://localhost:9080/api/srishti/projects')
+        .end((err,resp)=> {
+         this.state.repositories=resp.body;
+       });
+        console.log(this.state.repositories);
+  }
+  render() {
+    const repoList=this.state.repositories.map((repo)=>{
+      return(
+        <TableRowColumn style={{fontSize:18}}><Link to="/ownerName/repoName/branch">{repo.reponame}</Link></TableRowColumn>
+        );
+      console.log(repo.reponame);
+    });
+   return (
+    <Grid>
     <Row center="xs">
      <Col xs={12}>
         <Paper style={{padding:'20',marginTop:'50',textAlign:'center'}}>
 		     <Table >
 			    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
 	         <TableRow>
-	          <TableHeaderColumn style={{fontSize:25}}><b>Repository</b></TableHeaderColumn>
+	          <TableHeaderColumn style={{fontSize:25}}><b>Repositories</b></TableHeaderColumn>
             <TableHeaderColumn></TableHeaderColumn>
 	         </TableRow>
           </TableHeader>
     		  <TableBody  displayRowCheckbox={false}>
           <TableRow>
-          <TableRowColumn style={{fontSize:18}}><Link to="/ownerName/repoName/branch">MovieSearch</Link></TableRowColumn>
+          
           <TableRowColumn><Link to="/ownerName/repoName/pipelineSettings">
              <IconButton style={{marginLeft:'90%'}}><Setting color={'#00897B'} size={80}/></IconButton>
           </Link></TableRowColumn>
