@@ -35,8 +35,6 @@ class CreatePipeline extends Component{
 
     constructor(props) {
         super(props);
-
-        this.handleSaveClick=this.handleSaveClick.bind(this);
         this.handleCheckbox=this.handleCheckbox.bind(this);
         this.handleSaveClick=this.handleSaveClick.bind(this);
 
