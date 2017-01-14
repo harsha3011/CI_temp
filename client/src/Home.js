@@ -38,11 +38,17 @@ class Home extends Component {
        });
       });
   }
+ handleRepoData=(event)=>{
+    window.localStorage.setItem("repoData",event.target.className);
+ }
+
+
   render() {
-    const repoList=this.state.repositories.map((repo)=>{
+    const repoList=this.state.repositories.map((repo,index)=>{
+
       return(
         <TableRow style={{fontSize:18}}>
-          <Link to="/ownerName/repoName/branch">{repo.reponame}</Link>
+          <Link to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.reponame}</Link>
           <Link to="/ownerName/repoName/pipelineSettings">
              <IconButton style={{marginLeft:'90%'}}><Setting color={'#00897B'} size={80}/></IconButton>
           </Link>
