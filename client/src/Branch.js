@@ -32,19 +32,19 @@ const style = {
                            <Tab label="Branches" >
                            <List>
                                <ListItem primaryText="master(protected)"
-                               rightIcon={<Link to="/App/Ruberic">
+                               rightIcon={<Link to="/ownerName/repoName/branch/branchName">
                                <RaisedButton label="Execute" primary={true} style={style} />
                                </Link>}/>
                                <ListItem primaryText="Integration(protected)"
-                               rightIcon={<Link to="/App/Ruberic">
+                               rightIcon={<Link to="/ownerName/repoName/branch/branchName">
                                <RaisedButton label="Execute" primary={true} style={style} />
                                </Link>}/>
                                <ListItem primaryText="dev"
-                               rightIcon={<Link to="/App/Ruberic">
+                               rightIcon={<Link to="/ownerName/repoName/branch/branchName">
                                <RaisedButton label="Execute" primary={true} style={style} />
                                </Link>}/>
                                <ListItem primaryText="testing"
-                               rightIcon={<Link to="/App/Ruberic">
+                               rightIcon={<Link to="/ownerName/repoName/branch/branchName">
                                <RaisedButton label="Execute" primary={true} style={style} />
                                </Link>}/>
                            </List>

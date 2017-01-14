@@ -30,11 +30,7 @@ class Home extends Component {
 
     <Row center="xs">
      <Col xs={12}>
-
-
-
         <Paper style={{padding:'20',marginTop:'50',textAlign:'center'}}>
-
 		     <Table >
 			    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
 	         <TableRow>
@@ -44,9 +40,9 @@ class Home extends Component {
           </TableHeader>
     		  <TableBody  displayRowCheckbox={false}>
           <TableRow>
-          <TableRowColumn><Link to="/App/branch">MovieSearch</Link></TableRowColumn>
-          <TableRowColumn><Link to="/App/pipelineSettings">
-             <IconButton><Setting color={'#00897B'} size={80}/></IconButton>
+          <TableRowColumn style={{fontSize:18}}><Link to="/ownerName/repoName/branch">MovieSearch</Link></TableRowColumn>
+          <TableRowColumn><Link to="/ownerName/pipelineSettings">
+             <IconButton style={{marginLeft:'90%'}}><Setting color={'#00897B'} size={80}/></IconButton>
           </Link></TableRowColumn>
           </TableRow>
           
@@ -54,7 +50,7 @@ class Home extends Component {
   		  </Table>
    	   </Paper>
        <Row end='xs'  style={{marginBottom:100}}>
-                <IndexLink to="/App/create" activeClassName="active">
+                <IndexLink to="/ownerName/createRepo" activeClassName="active">
                 <Col xs={1}>
                  <FloatingActionButton style={{position:'fixed',bottom:100,right:50,}}zDepth={1}>
                   <ContentAdd />
@@ -62,8 +58,6 @@ class Home extends Component {
                  </Col>
                 </IndexLink>
            </Row>
-
-
    </Col>
    </Row>
 
