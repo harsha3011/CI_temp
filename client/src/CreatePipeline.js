@@ -38,7 +38,7 @@ class CreatePipeline extends Component{
 
         this.handleSaveClick=this.handleSaveClick.bind(this);
         this.handleCheckbox=this.handleCheckbox.bind(this);
-        this.handleSaveClick=this.handleSaveClick.bind(this);
+        
 
         this.state = {
           //remove shellcmd and shelltitle
