@@ -32,7 +32,7 @@ ReactDOM.render(
              <IndexRoute component={home}/>
              <Route path="createRepo" component={CreateProject}/>
              <Route path="repoName/branch" component={Branch}/>
-             <Route path="pipelineSettings" component={CreatePipeline}/>
+             <Route path="repoName/pipelineSettings" component={CreatePipeline}/>
              <Route path="repoName/branch/branchName" component={BuildReport}/>
              <Route path="Ruberic" component={RubericSettings}/>
            </Route>

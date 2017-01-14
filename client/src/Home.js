@@ -41,7 +41,7 @@ class Home extends Component {
     		  <TableBody  displayRowCheckbox={false}>
           <TableRow>
           <TableRowColumn style={{fontSize:18}}><Link to="/ownerName/repoName/branch">MovieSearch</Link></TableRowColumn>
-          <TableRowColumn><Link to="/ownerName/pipelineSettings">
+          <TableRowColumn><Link to="/ownerName/repoName/pipelineSettings">
              <IconButton style={{marginLeft:'90%'}}><Setting color={'#00897B'} size={80}/></IconButton>
           </Link></TableRowColumn>
           </TableRow>
