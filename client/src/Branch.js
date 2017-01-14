@@ -6,10 +6,13 @@ import { IndexLink } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Grid, Row, Col} from'react-flexbox-grid';
 import {Link} from 'react-router';
+import {Table, TableBody,  TableRow, TableRowColumn, TableHeader, TableHeaderColumn} from 'material-ui/Table';
+
 const styles={
        bar:{
-           marginTop:'120',
-           marginBottom:'100',
+           marginTop:120,
+           marginBottom:100,
+           padding:20
        },
    };
 const style = {
@@ -21,37 +24,50 @@ const style = {
            this.state = {
              value: 'a',
              expanded: false,
+             configFiles:[]
            };
        }
+       componentWillMount()
+       {
+         var configFiles={
+            repository:"myrepo",
+            branch:["master","dev","integration"]};
+         window.localStorage.setItem("files",JSON.stringify(configFiles));
+         var getFiles=JSON.parse(window.localStorage.getItem("files"));
+         this.setState({
+           configFiles:getFiles
+         })
+       }
        render(){
+         var rows=[];
+         rows.push(this.state.configFiles.branch.map((obj)=>
+         {
+           return(<TableRow >
+                    <TableRowColumn style={{textAlign:'center'}}>{obj}</TableRowColumn>
+                    <TableRowColumn style={{textAlign:'center'}}><RaisedButton label="Execute"/></TableRowColumn>
+                  </TableRow>);
+         }));
            return(
                <Grid>
                <Paper style={styles.bar}>
                          <div>
-                         <Tabs>
-                           <Tab label="Branches" >
-                           <List>
-                               <ListItem primaryText="master(protected)"
-                               rightIcon={<Link to="/App/Ruberic">
-                               <RaisedButton label="Execute" primary={true} style={style} />
-                               </Link>}/>
-                               <ListItem primaryText="Integration(protected)"
-                               rightIcon={<Link to="/App/Ruberic">
-                               <RaisedButton label="Execute" primary={true} style={style} />
-                               </Link>}/>
-                               <ListItem primaryText="dev"
-                               rightIcon={<Link to="/App/Ruberic">
-                               <RaisedButton label="Execute" primary={true} style={style} />
-                               </Link>}/>
-                               <ListItem primaryText="testing"
-                               rightIcon={<Link to="/App/Ruberic">
-                               <RaisedButton label="Execute" primary={true} style={style} />
-                               </Link>}/>
-                           </List>
-                           </Tab>
-                           </Tabs>
+
+                           <Table>
+                           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                            <TableRow>
+                             <TableHeaderColumn style={{fontSize:25, textAlign:'center'}}><b>Branch</b></TableHeaderColumn>
+                              <TableHeaderColumn>
+                              </TableHeaderColumn>
+                            </TableRow>
+                            </TableHeader>
+                           <TableBody  displayRowCheckbox={false}>
+                           {rows}
+                          </TableBody>
+                         </Table>
+
+
                          </div>
-               </Paper>
+      </Paper>
                </Grid>
 
 
