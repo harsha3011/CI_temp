@@ -33,16 +33,21 @@ class Home extends Component {
      Request
         .get('http://localhost:9080/api/srishti/projects')
         .end((err,resp)=> {
-         this.state.repositories=resp.body;
+          this.setState({
+         repositories:resp.body
        });
-        console.log(this.state.repositories);
+      });
   }
   render() {
     const repoList=this.state.repositories.map((repo)=>{
       return(
-        <TableRowColumn style={{fontSize:18}}><Link to="/ownerName/repoName/branch">{repo.reponame}</Link></TableRowColumn>
+        <TableRow style={{fontSize:18}}>
+          <Link to="/ownerName/repoName/branch">{repo.reponame}</Link>
+          <Link to="/ownerName/repoName/pipelineSettings">
+             <IconButton style={{marginLeft:'90%'}}><Setting color={'#00897B'} size={80}/></IconButton>
+          </Link>
+        </TableRow>
         );
-      console.log(repo.reponame);
     });
    return (
     <Grid>
@@ -52,18 +57,14 @@ class Home extends Component {
 		     <Table >
 			    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
 	         <TableRow>
-	          <TableHeaderColumn style={{fontSize:25}}><b>Repositories</b></TableHeaderColumn>
+	          <TableHeaderColumn style={{fontSize:25}}><b>Projects</b></TableHeaderColumn>
             <TableHeaderColumn></TableHeaderColumn>
 	         </TableRow>
           </TableHeader>
     		  <TableBody  displayRowCheckbox={false}>
           <TableRow>
-          
-          <TableRowColumn><Link to="/ownerName/repoName/pipelineSettings">
-             <IconButton style={{marginLeft:'90%'}}><Setting color={'#00897B'} size={80}/></IconButton>
-          </Link></TableRowColumn>
+          {repoList}
           </TableRow>
-          
 	 	     </TableBody>
   		  </Table>
    	   </Paper>
