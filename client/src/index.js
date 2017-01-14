@@ -28,12 +28,12 @@ ReactDOM.render(
        <Router history={hashHistory}>
            <Route path="/" component={login}/>
            <Route path="logout" component={login}/>
-           <Route path="App" component={App}>
+           <Route path="ownerName" component={App}>
              <IndexRoute component={home}/>
-             <Route path="create" component={CreateProject}/>
-             <Route path="branch" component={Branch}/>
-             <Route path="pipelineSettings" component={CreatePipeline}/>
-             <Route path="Build" component={BuildReport}/>
+             <Route path="createRepo" component={CreateProject}/>
+             <Route path="repoName/branch" component={Branch}/>
+             <Route path="repoName/pipelineSettings" component={CreatePipeline}/>
+             <Route path="repoName/branch/branchName" component={BuildReport}/>
              <Route path="Ruberic" component={RubericSettings}/>
            </Route>
        </Router>
