@@ -114,13 +114,13 @@ npm install
                   ]};
                 console.log(files);
         Request
-        .get('http://localhost:9080/repo/myrepo/paurvi/pipeline')
+        .get('http://localhost:9080/repo/myrepo/jarvis/pipeline')
         .end(function(err,resp)
         {
           if(resp.body)
           {
             Request
-            .put('http://localhost:9080/repo/myrepo/paurvi/pipeline')
+            .put('http://localhost:9080/repo/myrepo/jarvis/pipeline')
             .send(files)
             .end(function(err){
               console.log(err);
@@ -128,7 +128,7 @@ npm install
           }
           else{
             Request
-            .post('http://localhost:9080/repo/myrepo/paurvi/pipeline')
+            .post('http://localhost:9080/repo/myrepo/jarvis/pipeline')
             .set('Content-Type', 'application/json')
             .send(files)
             .end(function(err){
