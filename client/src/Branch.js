@@ -29,11 +29,8 @@ const style = {
        }
        componentWillMount()
        {
-         var configFiles={
-            repository:"myrepo",
-            branch:["master","dev","integration"]};
-         window.localStorage.setItem("files",JSON.stringify(configFiles));
-         var getFiles=JSON.parse(window.localStorage.getItem("files"));
+
+         var getFiles=JSON.parse(window.localStorage.getItem("repoData"));
          this.setState({
            configFiles:getFiles
          })
