@@ -34,17 +34,17 @@ const style = {
          this.setState({
            configFiles:getFiles
          });
-         console.log(getFiles);
+         console.log(getFiles.repo_Ref);
        }
        render(){
          var rows=[];
-        //  rows.push(this.state.configFiles.branch.map((obj)=>
-        //  {
-        //    return(<TableRow >
-        //             <TableRowColumn style={{textAlign:'center'}}>{obj}</TableRowColumn>
-        //             <TableRowColumn style={{textAlign:'center'}}><RaisedButton label="Execute"/></TableRowColumn>
-        //           </TableRow>);
-        //  }));
+         rows.push(this.state.configFiles.repo_Ref.map((obj)=>
+         {
+           return(<TableRow >
+                    <TableRowColumn style={{textAlign:'center'}}>{obj}</TableRowColumn>
+                    <TableRowColumn style={{textAlign:'center'}}><RaisedButton label="Execute"/></TableRowColumn>
+                  </TableRow>);
+         }));
            return(
                <Grid>
                <Paper style={styles.bar}>

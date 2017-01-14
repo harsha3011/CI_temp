@@ -116,13 +116,13 @@ npm install
                     }
                   ]};
         Request
-        .get('http://localhost:9080/api/jarvis/testrepo1/projects')
+        .get('http://localhost:9080/api/jarvis/testRepo/projects')
         .end(function(err,resp)
         {
           if(resp.body)
           {
             Request
-            .put('http://localhost:9080/api/jarvis/testrepo1/projects')
+            .put('http://localhost:9080/api/jarvis/testRepo/projects')
             .send(files)
             .end(function(err){
               console.log(err);
@@ -130,7 +130,7 @@ npm install
           }
           else{
             Request
-            .post('http://localhost:9080/api/jarvis/testrepo1/projects')
+            .post('http://localhost:9080/api/jarvis/testRepo/projects')
             .set('Content-Type', 'application/json')
             .send(files)
             .end(function(err){

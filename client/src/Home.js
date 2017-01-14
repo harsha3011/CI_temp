@@ -32,23 +32,21 @@ class Home extends Component {
   componentDidMount() {
      Request
         .get('http://localhost:9080/api/jarvis/projects')
-        .end((err,resp)=> {
-          this.setState({
-          repositories:resp.body
-         });
-        console.log("Response", resp);
+        .then((res) => {
+         this.setState({
+            repositories: res.body
+          });
+        });
 
-      });
   }
- handleRepoData=(event)=>{
-    window.localStorage.setItem("repoData",event.target.className);
- }
-
-
+  
+  handleRepoData=(event)=>{
+      window.localStorage.setItem("repoData",event.target.className);
+   }
+   
   render() {
-
+    {this.componentDidMount()}
     const repoList=this.state.repositories.map((repo)=>{
-
       return(
         <TableRow style={{fontSize:18}}>
           <Link to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.reponame}</Link>
