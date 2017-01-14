@@ -29,20 +29,27 @@ class Home extends Component {
     });
   };
 
-  componentWillMount() {
+  componentDidMount() {
      Request
-        .get('http://localhost:9080/api/srishti/projects')
-        .end((err,resp)=> {
-          this.setState({
-         repositories:resp.body
-       });
-      });
+        .get('http://localhost:9080/api/jarvis/projects')
+        .then((res) => {
+         this.setState({
+            repositories: res.body
+          });
+        });
+
   }
+  
+  handleRepoData=(event)=>{
+      window.localStorage.setItem("repoData",event.target.className);
+   }
+   
   render() {
+    {this.componentDidMount()}
     const repoList=this.state.repositories.map((repo)=>{
       return(
         <TableRow style={{fontSize:18}}>
-          <Link to="/ownerName/repoName/branch">{repo.reponame}</Link>
+          <Link to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.reponame}</Link>
           <Link to="/ownerName/repoName/pipelineSettings">
              <IconButton style={{marginLeft:'90%'}}><Setting color={'#00897B'} size={80}/></IconButton>
           </Link>

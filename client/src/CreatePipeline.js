@@ -90,7 +90,10 @@ npm install
        }
 
        handleSaveClick=(event)=>{
-        var files={setup: this.state.setupCmds,
+        var files={
+                  repo_URL:"https://github.com/typicode/json-server",
+                  repo_Ref:["master","dev","testing","integration"],
+                  setup: this.state.setupCmds,
                   stages: [{
                     stage: "eslint",
                     config: this.state.esLintData
@@ -112,15 +115,15 @@ npm install
                       config:this.state.arrShell
                     }
                   ]};
-                console.log(files);
         Request
-        .get('http://localhost:9080/repo/myrepo/jarvis/pipeline')
+
+        .get('http://localhost:9080/api/jarvis/testRepo6/projects')
         .end(function(err,resp)
         {
           if(resp.body)
           {
             Request
-            .put('http://localhost:9080/repo/myrepo/jarvis/pipeline')
+            .put('http://localhost:9080/api/jarvis/testRepo6/projects')
             .send(files)
             .end(function(err){
               console.log(err);
@@ -128,7 +131,7 @@ npm install
           }
           else{
             Request
-            .post('http://localhost:9080/repo/myrepo/jarvis/pipeline')
+            .post('http://localhost:9080/api/jarvis/testRepo6/projects')
             .set('Content-Type', 'application/json')
             .send(files)
             .end(function(err){

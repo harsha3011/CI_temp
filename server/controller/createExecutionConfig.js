@@ -2,24 +2,24 @@ const executionConfigModel=require('../models/executionsConfig.model');
 const buildDocker=require('../services/buildPipeline');
 const runDocker=require('../services/runPipeline');
 const async=require('async');
-const state='';
+
 module.exports=function(err,req,res){
 	async.waterfall([
 
        buildDocker.bind(null),
        runDocker.bind(null),
-       function(exitCode,stdOut,stdErr){
+       function(err,req,res,exitCode,stdOut,stdErr){
        	console.log(exitCode);
         const executionConfig = new executionConfigModel();
         if (exitCode==0){
-        	state='Completed';
+        	executionConfig.state='Completed';
         }
         else{
-        	state='Failed';
+        	executionConfig.state='Failed';
         }
-        executionConfig.state=state;
-		executionConfig.repoName=req.params.reponame;
-		executionConfig.repoBranch = req.params.repobranch;
+        
+		executionConfig.repoName='abc';
+		executionConfig.repoBranch = 'dev';
 		executionConfig.stdout = stdOut;
 		executionConfig.stderr = stdErr;
 		executionConfig.exitcode = exitCode;
