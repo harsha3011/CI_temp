@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import TextField from 'material-ui/TextField';
-import {IndexLink, Link} from 'react-router';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import './App.css';
 import {Grid, Row, Col} from 'react-flexbox-grid';

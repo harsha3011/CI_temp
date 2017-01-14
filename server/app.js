@@ -15,10 +15,11 @@ app.use(BodyParser());
 
 const pipelineConfigRoute=require('./route/pipelineConfig.route')
 const rubericConfigRoute=require('./route/rubericConfig.route')
+const executionsConfigRoute=require('./route/executionsConfig.route');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/Database_CI');
 
-
+app.use('/',executionsConfigRoute);
 app.use('/',pipelineConfigRoute);
 app.listen(port, function() {
 console.log('Express App listening on port ', port);
