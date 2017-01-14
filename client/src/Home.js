@@ -32,16 +32,16 @@ class Home extends Component {
   componentDidMount() {
      Request
         .get('http://localhost:9080/api/jarvis/projects')
-        .end((err,resp)=> {
-          this.setState({
-          repositories:resp.body
-         });
-        console.log("Response", resp);
+        .then((res) => {
+         this.setState({
+            repositories: res.body
+          });
+        });
 
-      });
   }
+  
   render() {
-    console.log('Current State', this.state);
+    {this.componentDidMount()}
     const repoList=this.state.repositories.map((repo)=>{
       return(
         <TableRow style={{fontSize:18}}>
