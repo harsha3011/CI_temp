@@ -36,7 +36,7 @@ class CreatePipeline extends Component{
     constructor(props) {
         super(props);
         this.handleCheckbox=this.handleCheckbox.bind(this);
-        this.handleSaveClick=this.handleSaveClick.bind(this);
+        
 
         this.state = {
           //remove shellcmd and shelltitle
@@ -114,13 +114,13 @@ npm install
                     }
                   ]};
         Request
-        .get('http://localhost:9080/api/jarvis/testRepo6/projects')
+        .get('http://localhost:9080/api/jarvis/testRepo/projects')
         .end(function(err,resp)
         {
           if(resp.body)
           {
             Request
-            .put('http://localhost:9080/api/jarvis/testRepo6/projects')
+            .put('http://localhost:9080/api/jarvis/testRepo/projects')
             .send(files)
             .end(function(err){
               console.log(err);
@@ -128,7 +128,7 @@ npm install
           }
           else{
             Request
-            .post('http://localhost:9080/api/jarvis/testRepo6/projects')
+            .post('http://localhost:9080/api/jarvis/testRepo/projects')
             .set('Content-Type', 'application/json')
             .send(files)
             .end(function(err){
