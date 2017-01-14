@@ -29,16 +29,19 @@ class Home extends Component {
     });
   };
 
-  componentWillMount() {
+  componentDidMount() {
      Request
-        .get('http://localhost:9080/api/srishti/projects')
+        .get('http://localhost:9080/api/jarvis/projects')
         .end((err,resp)=> {
           this.setState({
-         repositories:resp.body
-       });
+          repositories:resp.body
+         });
+        console.log("Response", resp);
+
       });
   }
   render() {
+    console.log('Current State', this.state);
     const repoList=this.state.repositories.map((repo)=>{
       return(
         <TableRow style={{fontSize:18}}>
