@@ -36,8 +36,12 @@ const style = {
           reportButton: 'block'
         })
 
+        console.log(this.state.configFiles.stages[1].config);
+        var data={"htmlhint":this.state.configFiles.stages[1].config}
         Request
         .post('http://localhost:9080/api/jarvis/myrepo/dev/executions')
+        .set('Content-Type', 'application/json')
+        .send(data)
         .end(function(err,resp)
         {
               if (err) console.log(err);
@@ -54,6 +58,7 @@ const style = {
            configFiles:getFiles
          });
          console.log(getFiles.repo_Ref);
+         
        }
        render(){
          var rows=[];
