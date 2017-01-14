@@ -17,7 +17,7 @@ export default class Header extends React.Component {
           <NavigationExpandMoreIcon />                     
           </IconButton>                     
         }>
-        <IndexLink  to="/App" activeClassName="active"><MenuItem primaryText="Home" /></IndexLink>
+        <IndexLink  to="/ownerName" activeClassName="active"><MenuItem primaryText="Home" /></IndexLink>
         <Link to="/logout" activeClassName="active"><MenuItem primaryText="Logout"/> </Link>                 
          </IconMenu>}/>   
       );

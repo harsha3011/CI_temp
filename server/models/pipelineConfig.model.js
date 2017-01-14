@@ -18,7 +18,7 @@ const PipelineSchema = new Schema({
   reponame:{type:String},
   owner:{type:String},
   repo_URL:{type:String},
-  repo_Ref:{type:String},
+  repo_Ref:{type:Array},
   setup:{type: String },
   stages: [StageSchema]
 });

@@ -6,12 +6,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {white} from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
-import {IndexLink, Link} from 'react-router';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Link } from 'react-router';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import './App.css';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import _ from 'lodash';
@@ -171,11 +168,8 @@ class RubericSettings extends Component{
                     </Tab>
                     <Tab label="CUSTOM SCRIPTS" >
                       <Paper>
-
-
-
-                              <List>
-                                <ListItem>
+                          <List>
+                              <ListItem>
                                   <Card>
                                     <CardHeader
                                     title="Email"
@@ -202,27 +196,19 @@ class RubericSettings extends Component{
                                   </Card>
                                 </ListItem>
                               </List>
-
-
-
                       </Paper>
                     </Tab>
                   </Tabs>
                 </Col>
                 </Row>
-
-
-
-        <br/>
-
+          <br/>
           <Row center="xs">
           <Col xs={12}>
-          <Link to="/App/branch">
+          <Link to="/ownerName/repoName/branch">
              <RaisedButton label="Go to Settings"/>
              </Link>
           </Col>
           </Row>
-
       </Paper>
     </Grid>
     );

@@ -166,7 +166,7 @@ class CreateProject extends Component {
                     </Col>
                   </Row>
                   <br/>
-                      <Link to="/App/branch"><RaisedButton label="Create Repository" primary={true}/></Link>
+                      <Link to="/ownerName/repoName/branch"><RaisedButton label="Create Repository" primary={true}/></Link>
                   <br/>
                   <br/>
                 </Paper>

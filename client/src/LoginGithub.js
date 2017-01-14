@@ -75,7 +75,7 @@ constructor(props) {
                 
                 <CardActions >
 
-                  <IndexLink to="/App" activeClassName="active" >
+                  <IndexLink to="/ownerName" activeClassName="active" >
                     <FlatButton secondary={true} hoverColor='#D1C4E9' label="Login With Github" />
                   </IndexLink>
 
