@@ -8,6 +8,8 @@ module.exports=function (req, res,err) {
 			res.send('Already Exsist');
 		}
 		else{
+			pipelineConfig.repo_URL=req.body.repo_URL;
+			pipelineConfig.repo_Ref=req.body.repo_Ref;
 			pipelineConfig.owner=req.params.owner;
  			pipelineConfig.reponame=req.params.reponame;
 			pipelineConfig.setup = req.body.setup;

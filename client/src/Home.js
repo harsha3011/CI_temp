@@ -13,11 +13,14 @@ import './App.css'
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import Setting from 'material-ui/svg-icons/action/settings';
 import IconButton from 'material-ui/IconButton';
+import Request from 'superagent';
+
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: 'Configure',
+      repositories:[],
     };
   }
   handleChange = (value) => {
@@ -25,27 +28,52 @@ class Home extends Component {
       value: value,
     });
   };
-  render() {
-   return (<Grid>
 
+  componentDidMount() {
+     Request
+        .get('http://localhost:9080/api/jarvis/projects')
+        .end((err,resp)=> {
+          this.setState({
+          repositories:resp.body
+         });
+        console.log("Response", resp);
+
+      });
+  }
+ handleRepoData=(event)=>{
+    window.localStorage.setItem("repoData",event.target.className);
+ }
+
+
+  render() {
+
+    const repoList=this.state.repositories.map((repo)=>{
+
+      return(
+        <TableRow style={{fontSize:18}}>
+          <Link to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.reponame}</Link>
+          <Link to="/ownerName/repoName/pipelineSettings">
+             <IconButton style={{marginLeft:'90%'}}><Setting color={'#00897B'} size={80}/></IconButton>
+          </Link>
+        </TableRow>
+        );
+    });
+   return (
+    <Grid>
     <Row center="xs">
      <Col xs={12}>
         <Paper style={{padding:'20',marginTop:'50',textAlign:'center'}}>
 		     <Table >
 			    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
 	         <TableRow>
-	          <TableHeaderColumn style={{fontSize:25}}><b>Repository</b></TableHeaderColumn>
+	          <TableHeaderColumn style={{fontSize:25}}><b>Projects</b></TableHeaderColumn>
             <TableHeaderColumn></TableHeaderColumn>
 	         </TableRow>
           </TableHeader>
     		  <TableBody  displayRowCheckbox={false}>
           <TableRow>
-          <TableRowColumn style={{fontSize:18}}><Link to="/ownerName/repoName/branch">MovieSearch</Link></TableRowColumn>
-          <TableRowColumn><Link to="/ownerName/repoName/pipelineSettings">
-             <IconButton style={{marginLeft:'90%'}}><Setting color={'#00897B'} size={80}/></IconButton>
-          </Link></TableRowColumn>
+          {repoList}
           </TableRow>
-          
 	 	     </TableBody>
   		  </Table>
    	   </Paper>
