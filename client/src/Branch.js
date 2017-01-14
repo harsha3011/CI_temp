@@ -51,7 +51,6 @@ const style = {
                <Grid>
                <Paper style={styles.bar}>
                          <div>
-<<<<<<< HEAD
 
                            <Table>
                            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -65,32 +64,6 @@ const style = {
                            {rows}
                           </TableBody>
                          </Table>
-
-
-=======
-                         <Tabs>
-                           <Tab label="Branches" >
-                           <List>
-                               <ListItem primaryText="master(protected)"
-                               rightIcon={<Link to="/ownerName/repoName/branch/branchName">
-                               <RaisedButton label="Execute" primary={true} style={style} />
-                               </Link>}/>
-                               <ListItem primaryText="Integration(protected)"
-                               rightIcon={<Link to="/ownerName/repoName/branch/branchName">
-                               <RaisedButton label="Execute" primary={true} style={style} />
-                               </Link>}/>
-                               <ListItem primaryText="dev"
-                               rightIcon={<Link to="/ownerName/repoName/branch/branchName">
-                               <RaisedButton label="Execute" primary={true} style={style} />
-                               </Link>}/>
-                               <ListItem primaryText="testing"
-                               rightIcon={<Link to="/ownerName/repoName/branch/branchName">
-                               <RaisedButton label="Execute" primary={true} style={style} />
-                               </Link>}/>
-                           </List>
-                           </Tab>
-                           </Tabs>
->>>>>>> ebeeeefdaaaee5252fe7dc383a7353df1af41284
                          </div>
       </Paper>
                </Grid>
