@@ -1,4 +1,5 @@
-module.exports=function(callback){
+module.exports=function(htmlhint, callback){
+  console.log('build_pipeline HTMLHINT', htmlhint);
   const spawn=require('child_process').spawn;
   const docker=spawn('docker',["build","-t","test","."]);
   var BuildStatus;
@@ -8,23 +9,21 @@ module.exports=function(callback){
     docker.stderr.on('data', (data)=> {
       console.log(`${data}`);
       if(`${data}`)
-      {  
+      {
        BuildErrors.push(`${data}`);
       }
     });
     docker.stdout.on('data', (data)=> {
       console.log(`${data}`);
       BuildSteps.push(`${data}`);
-      
+
     });
     docker.on('close', (code) => {
       BuildStatus=`${code}`;
       console.log("Build Status:",BuildStatus);
       console.log("Build Steps",BuildSteps);
       console.log("Build Errors",BuildErrors);
-    
-      callback(null);
-    });    
-}
 
-      
+      callback(null, htmlhint);
+    });
+}

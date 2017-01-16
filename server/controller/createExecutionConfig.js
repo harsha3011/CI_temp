@@ -3,38 +3,20 @@ const buildDocker=require('../services/buildPipeline');
 const runDocker=require('../services/runPipeline');
 const async=require('async');
 
-module.exports=function(err,req,res){
-	async.waterfall([
+module.exports=function(req,res,err){
+  const htmlhint = req.body.htmlhint[0];
+  console.log(req.body.htmlhint[0]);
+  process.env.HTMLHINT=req.body.htmlhint[0];
+  console.log('HTMLHINT:'+process.env.HTMLHINT)
+  async.waterfall([
+      buildDocker.bind(null, htmlhint),
+      runDocker.bind(null),
 
-       buildDocker.bind(null),
-       runDocker.bind(null),
-       function(err,req,res,exitCode,stdOut,stdErr){
-       	console.log(exitCode);
-        const executionConfig = new executionConfigModel();
-        if (exitCode==0){
-        	executionConfig.state='Completed';
-        }
-        else{
-        	executionConfig.state='Failed';
-        }
-        
-		executionConfig.repoName='abc';
-		executionConfig.repoBranch = 'dev';
-		executionConfig.stdout = stdOut;
-		executionConfig.stderr = stdErr;
-		executionConfig.exitcode = exitCode;
-		executionConfig.save(function (err) {
- 			if(!err){
- 				res.send("created")
- 			}
-		});
-       }
-   
-   ], (err, results) => {
+   ],(err, results) => {
        if(err) { console.error('error', err); return; }
        console.log('successfull');
-});
-
 }
 
-	
+   );
+  res.send("done");
+}
