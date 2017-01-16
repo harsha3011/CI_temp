@@ -1,9 +1,22 @@
 #!/bin/sh
-set -e
-git clone https://github.com/wesbos/JavaScript30.git
-echo cloning is done
-cd JavaScript30
-echo started executing shell script
-echo HTMLHINT $HTMLHINT
-htmlhint $HTMLHINT
-eslint .
+
+git clone $REPO_URL -b $REPO_BRANCH
+
+
+cd $REPO_NAME
+
+htmlhint $HTMLHINT 
+
+eslint $ESLINT
+
+if (($MOCHA))
+then
+mocha $MOCHA
+else
+mocha 
+fi
+
+if (($ISTANBUL))
+then
+istanbul cover _mocha
+fi

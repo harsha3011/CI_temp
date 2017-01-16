@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const ExecutionsSchema = new Schema({
   state: { type: String, required: true },
-  repoName: { type: String , required: true, unique: true},
+  repoName: { type: String , required: true},
   repoBranch: { type: String, required: true },
   stdout : {type:String},
   stderr:{type:String},

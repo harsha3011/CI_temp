@@ -89,7 +89,7 @@ npm install
 
        handleSaveClick=(event)=>{
         var files={
-                  repo_URL:"https://github.com/typicode/json-server",
+                  repo_URL:"https://github.com/juliaeliz92/test",
                   repo_Ref:["master","dev","testing","integration"],
                   setup: this.state.setupCmds,
                   stages: [{
@@ -114,13 +114,13 @@ npm install
                     }
                   ]};
         Request
-        .get('http://localhost:9080/api/jarvis/testRepo/projects')
+        .get('http://localhost:9080/api/jarvis/test/projects')
         .end(function(err,resp)
         {
           if(resp.body)
           {
             Request
-            .put('http://localhost:9080/api/jarvis/testRepo/projects')
+            .put('http://localhost:9080/api/jarvis/test/projects')
             .send(files)
             .end(function(err){
               console.log(err);
@@ -128,7 +128,7 @@ npm install
           }
           else{
             Request
-            .post('http://localhost:9080/api/jarvis/testRepo/projects')
+            .post('http://localhost:9080/api/jarvis/test/projects')
             .set('Content-Type', 'application/json')
             .send(files)
             .end(function(err){

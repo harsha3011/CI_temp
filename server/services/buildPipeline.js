@@ -1,5 +1,4 @@
-module.exports=function(htmlhint, callback){
-  console.log('build_pipeline HTMLHINT', htmlhint);
+module.exports=function(repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul, callback){
   const spawn=require('child_process').spawn;
   const docker=spawn('docker',["build","-t","test","."]);
   var BuildStatus;
@@ -24,6 +23,6 @@ module.exports=function(htmlhint, callback){
       console.log("Build Steps",BuildSteps);
       console.log("Build Errors",BuildErrors);
 
-      callback(null, htmlhint);
+      callback(null, repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul);
     });
 }

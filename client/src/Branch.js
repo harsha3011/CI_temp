@@ -31,13 +31,17 @@ const style = {
        }
 
        handleExecute(event){
-
-        this.setState({
-          reportButton: 'block'
-        })
-
-        console.log(this.state.configFiles.stages[1].config);
-        var data={"htmlhint":this.state.configFiles.stages[1].config}
+        console.log(event.target.className);
+        
+        console.log(this.state.configFiles.stages[0].config);
+        var data={"repobranch":event.target.className,
+                  "reponame":this.state.configFiles.reponame,
+                  "repo_URL":this.state.configFiles.repo_URL,
+                  "eslint":this.state.configFiles.stages[0].config,
+                  "htmlhint":this.state.configFiles.stages[1].config,
+                  "mocha":this.state.configFiles.stages[2].config,
+                  "istanbul":this.state.configFiles.stages[3].config
+          }
         Request
         .post('http://localhost:9080/api/jarvis/myrepo/dev/executions')
         .set('Content-Type', 'application/json')
@@ -68,11 +72,8 @@ const style = {
                     <TableRowColumn style={{textAlign:'center'}}>{obj}</TableRowColumn>
 
                       <TableRowColumn style={{textAlign:'center'}}>
-                      <RaisedButton onClick={this.handleExecute} label="Execute"/>
-                      </TableRowColumn>
-
-                      <TableRowColumn style={{textAlign:'center'}}>
-                      <RaisedButton className="report" label="Report" style={{display:this.state.reportButton}}/>
+                      <RaisedButton><Link className={obj} onTouchTap={this.handleExecute}>execute
+                      </Link></RaisedButton>
                       </TableRowColumn>
 
                   </TableRow>);
