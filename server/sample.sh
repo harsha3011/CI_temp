@@ -2,6 +2,7 @@
 
 git clone $REPO_URL -b $REPO_BRANCH
 
+npm install
 
 cd $REPO_NAME
 
