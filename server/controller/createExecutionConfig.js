@@ -2,6 +2,7 @@ const executionConfigModel=require('../models/executionsConfig.model');
 // const buildDocker=require('../services/buildPipeline');
 const runDocker=require('../services/runPipeline');
 const async=require('async');
+const getExecutionConfig=require('./getExecutionConfig');
 
 module.exports=function(req,res,err){
   console.log(req.body.repobranch);
@@ -31,7 +32,8 @@ module.exports=function(req,res,err){
         executionsConfig.exitcode=exitCode;
         executionsConfig.save( (err)=> {
           if(!err){
-           console.log("saved")
+           console.log("saved");
+           res.send('success');
           }
           else{
              console.log('error')
@@ -48,5 +50,5 @@ module.exports=function(req,res,err){
 }
 
    );
-  res.send('success');
+  
 }

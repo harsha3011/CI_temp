@@ -35,9 +35,8 @@ class Executions extends Component {
         const repoName=this.state.repoName;
         const repoBranch=this.state.repoBranch;
         
-        const url='http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions';
-       console.log(url);
-         Request
+        const url='http://localhost:9080/api/jarvis/VisualBI-2/master/executions';
+        Request
        .get(url)
        .end(function(err,resp)
        {
@@ -46,7 +45,6 @@ class Executions extends Component {
  }
 
 render() {
-  {this.showConsole()}
   return (
     <div>
             

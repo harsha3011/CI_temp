@@ -31,12 +31,10 @@ const style = {
       }
 
       handleExecute(event){
-       console.log(event.target.className);
        localStorage.setItem("repoBranch",event.target.className);
        localStorage.setItem("repoName",this.state.configFiles.reponame);
        localStorage.setItem("owner",this.state.configFiles.owner);
                                 
-       console.log(this.state.configFiles.stages[0].config);
        var data={"repobranch":event.target.className,
                  "reponame":this.state.configFiles.reponame,
                  "repo_URL":this.state.configFiles.repo_URL,
@@ -46,13 +44,12 @@ const style = {
                  "istanbul":this.state.configFiles.stages[3].config
          }
        Request
-       .post('http://localhost:9080/api/jarvis/myrepo/dev/executions')
+       .post('http://localhost:9080/api/jarvis/VisualBI-2/master/executions')
        .set('Content-Type', 'application/json')
        .send(data)
-       .end(function(err,resp)
+       .end((err,res)=>
        {
-             if (err) console.log(err);
-             console.log(resp);
+        console.log(res);
          })
        }
 
@@ -64,7 +61,6 @@ const style = {
         this.setState({
           configFiles:getFiles
         });
-        console.log(getFiles.repo_Ref);
        
       }
       render(){
