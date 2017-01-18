@@ -89,8 +89,8 @@ npm install
 
        handleSaveClick=(event)=>{
         var files={
-                  repo_URL:"https://github.com/juliaeliz92/test",
-                  repo_Ref:["master","dev","testing","integration"],
+                  repo_URL:"https://github.com/stackroute/LogAggregator-AptCache",
+                  repo_Ref:["master","dev-wave11","testing","integration"],
                   setup: this.state.setupCmds,
                   stages: [{
                     stage: "eslint",
@@ -114,13 +114,13 @@ npm install
                     }
                   ]};
         Request
-        .get('http://localhost:9080/api/jarvis/test/projects')
+        .get('http://localhost:9080/api/jarvis/LogAggregator-AptCache/projects')
         .end(function(err,resp)
         {
           if(resp.body)
           {
             Request
-            .put('http://localhost:9080/api/jarvis/test/projects')
+            .put('http://localhost:9080/api/jarvis/LogAggregator-AptCache/projects')
             .send(files)
             .end(function(err){
               console.log(err);
@@ -128,7 +128,7 @@ npm install
           }
           else{
             Request
-            .post('http://localhost:9080/api/jarvis/test/projects')
+            .post('http://localhost:9080/api/jarvis/LogAggregator-AptCache/projects')
             .set('Content-Type', 'application/json')
             .send(files)
             .end(function(err){

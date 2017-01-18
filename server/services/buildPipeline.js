@@ -1,4 +1,4 @@
-module.exports=function(repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul, callback){
+module.exports=function(){
   const spawn=require('child_process').spawn;
   const docker=spawn('docker',["build","-t","test","."]);
   var BuildStatus;
@@ -20,9 +20,5 @@ module.exports=function(repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istan
     docker.on('close', (code) => {
       BuildStatus=`${code}`;
       console.log("Build Status:",BuildStatus);
-      console.log("Build Steps",BuildSteps);
-      console.log("Build Errors",BuildErrors);
-
-      callback(null, repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul);
     });
 }

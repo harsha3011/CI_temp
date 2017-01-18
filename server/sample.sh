@@ -1,23 +1,27 @@
 #!/bin/sh
-
 git clone $REPO_URL -b $REPO_BRANCH
+
+cd $REPO_NAME 
+echo cd $REPO_NAME -b $REPO_BRANCH $REPO_URL
 
 npm install
 
-cd $REPO_NAME
+npm install --save eslint-json
 
-htmlhint $HTMLHINT 
+mkdir outputJson -p
 
-eslint $ESLINT
+htmlhint -f json $HTMLHINT >> outputJson/htmlhintOutput.json
+
+eslint --format=../node_modules/eslint-json $ESLINT >> outputJson/eslintOuput.json
 
 if (($MOCHA))
 then
-mocha $MOCHA
+mocha $MOCHA --reporter mochawesome  >> outputJson/mochaOutput.json
 else
-mocha 
+mocha --reporter mochawesome
 fi
 
 if (($ISTANBUL))
 then
-istanbul cover _mocha
+istanbul cover _mocha >> outputJson/istanbulOutput.json
 fi
