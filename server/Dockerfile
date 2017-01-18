@@ -7,6 +7,7 @@ RUN npm install -save-dev -g istanbul
 RUN npm install --save-dev -g eslint eslint-config-google eslint-json
 RUN npm install --save-dev -g mocha mochawesome
 RUN npm install -g eslint-plugin-react
+RUN npm install -g eslint-plugin-angular
 RUN npm install -g babel-eslint
 COPY . .
 CMD ["./sample.sh"]

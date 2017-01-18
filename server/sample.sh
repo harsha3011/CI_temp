@@ -6,22 +6,26 @@ echo cd $REPO_NAME -b $REPO_BRANCH $REPO_URL
 
 npm install
 
-npm install --save eslint-json
+npm install --save eslint-config-google eslint-json
 
 mkdir outputJson -p
 
-htmlhint -f json $HTMLHINT >> outputJson/htmlhintOutput.json
+echo htmlhint
+htmlhint -f json $HTMLHINT 
 
-eslint --format=../node_modules/eslint-json $ESLINT >> outputJson/eslintOuput.json
+echo eslint
+eslint --format=node_modules/eslint-json $ESLINT 
 
+echo mocha
 if (($MOCHA))
 then
-mocha $MOCHA --reporter mochawesome  >> outputJson/mochaOutput.json
+mocha $MOCHA --reporter mochawesome  
 else
 mocha --reporter mochawesome
 fi
 
+echo istanbul
 if (($ISTANBUL))
 then
-istanbul cover _mocha >> outputJson/istanbulOutput.json
+istanbul cover _mocha 
 fi
