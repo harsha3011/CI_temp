@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Request from 'superagent';
+import ConsoleOutput from './ConsoleOutput';
+import RaisedButton from 'material-ui/RaisedButton'
 
 class Executions extends Component {
  
@@ -9,7 +11,8 @@ class Executions extends Component {
           this.state = {
             owner:'',
             repoName:'',
-            repoBranch:''
+            repoBranch:'',
+            output:[]
           };
       }
 
@@ -27,27 +30,33 @@ class Executions extends Component {
           repoName:reponame,
           repoBranch:repobranch
          });
-
       }
 
  showConsole(){
-    const owner=this.state.owner;
+        const owner=this.state.owner;
         const repoName=this.state.repoName;
         const repoBranch=this.state.repoBranch;
         
-        const url='http://localhost:9080/api/jarvis/VisualBI-2/master/executions';
+        const url='http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions';
         Request
        .get(url)
-       .end(function(err,resp)
+       .end((err,resp)=>
        {
-         console.log(resp);
+         console.log(resp.body.length);
+         var temp=[];
+          // for(var i=0;i<resp.body.length;i++){
+          //   temp.push(resp.body[i]);
+          // }
+          // this.setState({
+          //   output:temp
+          // })
        });
  }
 
 render() {
   return (
     <div>
-            
+    <RaisedButton onClick={this.showConsole()}>show</RaisedButton>
    </div>
    );
  }
