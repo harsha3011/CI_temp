@@ -34,6 +34,7 @@ handleConfigRepoData=(event)=>{
   }
 componentDidMount() {
     var ownerName="jarvis";
+    console.log('executing componentDidMount');
     Request
        .get('http://localhost:9080/api/'+ownerName+'/projects')
        .then((res) => {
@@ -56,6 +57,7 @@ componentDidMount() {
   }
  
  render() {
+  {/*this.componentDidMount()*/}
   const configuredRepoList=this.state.configrepositories.map((repo)=>{
      return(
        <TableRow style={{fontSize:18}}>

@@ -7,12 +7,11 @@ class Executions extends Component {
  
  constructor(props) {
           super(props);
-          this.showConsole=this.showConsole.bind(this);
           this.state = {
             owner:'',
             repoName:'',
             repoBranch:'',
-            output:[]
+            consoleOutput:[]
           };
       }
 
@@ -24,7 +23,6 @@ class Executions extends Component {
          const repobranch=JSON.parse(JSON.stringify(getFiles2));
           var getFiles3=localStorage.getItem("owner");
          const ownername=JSON.parse(JSON.stringify(getFiles3));
-        
         this.setState({
           owner:ownername,
           repoName:reponame,
@@ -32,33 +30,31 @@ class Executions extends Component {
          });
       }
 
- showConsole(){
+ showConsole=(event)=>{ 
         const owner=this.state.owner;
         const repoName=this.state.repoName;
         const repoBranch=this.state.repoBranch;
-        
         const url='http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions';
         Request
        .get(url)
        .end((err,resp)=>
        {
-         console.log(resp.body.length);
-         var temp=[];
-          // for(var i=0;i<resp.body.length;i++){
-          //   temp.push(resp.body[i]);
-          // }
-          // this.setState({
-          //   output:temp
-          // })
-       });
+         console.log(resp.body);
+         this.setState({
+            consoleOutput:resp.body
+         });
+         
+      });
  }
 
 render() {
-  return (
+console.log(this.state.consoleOutput);
+  return(
     <div>
-    <RaisedButton onClick={this.showConsole()}>show</RaisedButton>
-   </div>
-   );
+      <RaisedButton onClick={this.showConsole.bind(this)}>show</RaisedButton>
+    </div>
+    );
+  
  }
 }
 
