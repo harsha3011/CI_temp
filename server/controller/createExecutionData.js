@@ -1,5 +1,5 @@
   const executionConfigModel=require('../models/executionsConfig.model');
- module.exports=function(req,res,err,exitCode,stdOut,stdErr,repobranch,reponame,callback){
+ module.exports=function(req,res,err,repobranch,reponame,exitCode,stdOut,stdErr,callback){
    
      const executionsConfig=new executionConfigModel();
         if(exitCode==0){
@@ -15,13 +15,13 @@
         executionsConfig.exitcode=exitCode;
         executionsConfig.save( (err)=> {
           if(!err){
-           console.log("saved");
+           console.log("saved in executionsConfig");
            res.send('success');
           }
           else{
              console.log('error')
           }
-            
+          callback(null,'Done');  
         });
-        callback(null,'Done');
+        
 }

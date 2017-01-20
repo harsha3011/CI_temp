@@ -35,7 +35,8 @@ const style = {
        localStorage.setItem("repoName",this.state.configFiles.reponame);
        localStorage.setItem("owner",this.state.configFiles.owner);
                                 
-       var data={"repobranch":event.target.className,
+       var data={"owner":this.state.configFiles.owner,
+                 "repobranch":event.target.className,
                  "reponame":this.state.configFiles.reponame,
                  "repo_URL":this.state.configFiles.repo_URL,
                  "eslint":this.state.configFiles.stages[0].config,
@@ -43,9 +44,11 @@ const style = {
                  "mocha":this.state.configFiles.stages[2].config,
                  "istanbul":this.state.configFiles.stages[3].config
          }
+       const owner=this.state.configFiles.owner;
+       const repoName=this.state.configFiles.reponame;
+       const repoBranch=event.target.className;
        Request
-       .post('http://localhost:9080/api/jarvis/VisualBI-2/master/executions')
-       .set('Content-Type', 'application/json')
+       .post('http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions').set('Content-Type', 'application/json')
        .send(data)
        .end((err,res)=>
        {
