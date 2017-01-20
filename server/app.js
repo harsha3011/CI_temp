@@ -17,6 +17,7 @@ const pipelineConfigRoute=require('./route/pipelineConfig.route');
 const rubericConfigRoute=require('./route/rubericConfig.route');
 const projectConfigRoute=require('./route/projectsConfig.route');
 const executionsConfigRoute=require('./route/executionsConfig.route');
+const createRepoRoute=require('./route/createRepo.route');
 const evalFindingsConfigRoute=require('./route/evalFindingsConfig.route');
 const mongoose = require('mongoose');
 
@@ -28,6 +29,7 @@ buildDocker();
 app.use('/',executionsConfigRoute);
 app.use('/',pipelineConfigRoute);
 app.use('/',projectConfigRoute);
+app.use('/',createRepoRoute);
 app.use('/',evalFindingsConfigRoute);
 
 app.listen(port, function() {
