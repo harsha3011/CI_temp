@@ -221,7 +221,7 @@ class CreateProject extends Component {
                 < /DropDownMenu> < /Col> < /Row> < br / > 
                 < RaisedButton
                 primary = { true }
-                ><Link to="/ownerName/repoName/branch" onTouchTap = { this.createRepo.bind(this) } style={{textDecoration:'none', color:'white'}}>Create Repository</Link>
+                ><Link to="/ownerName" onTouchTap = { this.createRepo.bind(this) } style={{textDecoration:'none', color:'white'}}>Create Repository</Link>
                 </RaisedButton>
                 < br / >
                 < br / >

@@ -92,7 +92,7 @@ const style = {
                            </TableRow>
                            </TableHeader>
                           <TableBody  displayRowCheckbox={false}>
-                          {rows}
+                          
                          </TableBody>
                         </Table>
                         </div>

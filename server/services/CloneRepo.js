@@ -1,11 +1,11 @@
 var status;
 
-var gitClone = function(repoPath, repoName, callback) {
+var gitClone = function(repoPath, repoName, ownerName, callback) {
 
     console.log("hi")
 
     const spawn = require('child_process').spawn;
-    const gitCloneCmd = spawn('git', ['clone', 'git@github.com:' + repoName], { cwd: repoPath });
+    const gitCloneCmd = spawn('git', ['clone', 'git@github.com:' +ownerName+'/'+ repoName], { cwd: repoPath });
 
     gitCloneCmd.stderr.on('data', (data) => {
         status = `${data}`;

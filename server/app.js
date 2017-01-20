@@ -19,8 +19,10 @@ const projectConfigRoute=require('./route/projectsConfig.route');
 const executionsConfigRoute=require('./route/executionsConfig.route');
 const createRepoRoute=require('./route/createRepo.route');
 const evalFindingsConfigRoute=require('./route/evalFindingsConfig.route');
+const doGitOperationsRoute=require('./route/gitOperations.route')
 const mongoose = require('mongoose');
 
+console.log("app");
 
 const connection=mongoose.connect('mongodb://localhost:27017/Database_CI');
 
@@ -31,6 +33,7 @@ app.use('/',pipelineConfigRoute);
 app.use('/',projectConfigRoute);
 app.use('/',createRepoRoute);
 app.use('/',evalFindingsConfigRoute);
+app.use('/',doGitOperationsRoute);
 
 app.listen(port, function() {
 console.log('Express App listening on port ', port);

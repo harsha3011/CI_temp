@@ -14,6 +14,7 @@ import Executions from './Executions'
 import CreatePipeline from './CreatePipeline'
 import BuildReport from './BuildReport'
 import RubericSettings from './RubericSetting'
+import TeamType from './TeamType'
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
@@ -37,6 +38,7 @@ ReactDOM.render(
             <Route path="repoName/pipelineSettings" component={CreatePipeline}/>
             <Route path="repoName/branch/branchName" component={BuildReport}/>
             <Route path="Ruberic" component={RubericSettings}/>
+            <Route path="repoName/teamtype" component={TeamType}/>
           </Route>
       </Router>
  </MuiThemeProvider>

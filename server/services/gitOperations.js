@@ -3,16 +3,17 @@ var gitClone = require('./CloneRepo');
 var gitCreateBranch = require('./CreateBranches');
 var gitPushBranch = require('./PushBranches');
 var gitProtectBranch = require('./ProtectedBranches');
-const repoPath = '/media/srishti/6C58AAC458AA8D00/workspace';
+const repoPath = '/media/srishti/6C58AAC458AA8D00/workspace/demo';
 const repository = 'srishtinanda/Excercise1';
-const repoName = repository.split('/')[1];
 const ownerName=repository.split('/')[0];
-const branchPath = repoPath.concat('/' + repoName);
-var teamType = 'Single_Team';
 
+
+module.exports=function(repoName,teamType){
+    console.log("inside");
+const branchPath = repoPath.concat('/' + repoName);
 
 async.series([
-        gitClone.bind(null, repoPath, repository),
+        gitClone.bind(null, repoPath,repoName, ownerName),
         gitCreateBranch.bind(null, branchPath,teamType),
         gitPushBranch.bind(null, branchPath),
         gitProtectBranch.bind(null,ownerName,repoName)
@@ -24,3 +25,4 @@ async.series([
             return; }
         console.log("sucess")
     })
+}
