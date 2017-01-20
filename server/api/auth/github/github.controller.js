@@ -79,7 +79,7 @@ module.exports = {
             if(err3) { res.status(500).json(err3); return; }
               res
               .cookie('token', jwt)
-              .redirect('http://localhost:3000/#/ownerName');
+              .redirect('http://172.23.238.173:3000/#/ownerName');
             return;
           });
         });

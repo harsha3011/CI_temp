@@ -16,81 +16,122 @@ import IconButton from 'material-ui/IconButton';
 import Request from 'superagent';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: 'Configure',
-      repositories:[],
-    };
+ constructor(props) {
+   super(props);
+   this.state = {
+     value: 'Configure',
+     repositories:[],
+     configrepositories:[]
+   };
+ }
+ handleChange = (value) => {
+   this.setState({
+     value: value,
+   });
+ };
+handleConfigRepoData=(event)=>{
+     window.localStorage.setItem("repoData",event.target.className);
   }
-  handleChange = (value) => {
-    this.setState({
-      value: value,
-    });
-  };
-
-  componentDidMount() {
+componentDidMount() {
     var ownerName="jarvis";
-     Request
-        .get('http://localhost:9080/api/'+ownerName+'/projects')
-        .then((res) => {
-         this.setState({
-            repositories: res.body
-          });
-        });
-
-  }
-  
+    Request
+       .get('http://localhost:9080/api/'+ownerName+'/projects')
+       .then((res) => {
+        this.setState({
+           configrepositories: res.body
+         });
+       });
+    Request
+       .get("https://api.github.com/users/srishtinanda/repos")
+       .then((res) => {
+        this.setState({
+           repositories: res.body,
+         });
+       });
+ }
+ 
+ 
   handleRepoData=(event)=>{
       window.localStorage.setItem("repoData",event.target.className);
-   }
-   
-  render() {
-    {this.componentDidMount()}
-    const repoList=this.state.repositories.map((repo)=>{
-      return(
-        <TableRow style={{fontSize:18}}>
-          <Link to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.reponame}</Link>
-             <IconButton style={{marginLeft:'90%'}}><Link to="/ownerName/repoName/pipelineSettings">
-             <Setting color={'#00897B'} size={80}/></Link>
-             </IconButton>
-          
-        </TableRow>
-        );
-    });
-   return (
-    <Grid>
-    <Row center="xs">
-     <Col xs={12}>
-        <Paper style={{padding:'20',marginTop:'50',textAlign:'center'}}>
-		     <Table >
-			    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-	         <TableRow>
-	          <TableHeaderColumn style={{fontSize:25}}><b>Projects</b></TableHeaderColumn>
-            <TableHeaderColumn></TableHeaderColumn>
-	         </TableRow>
-          </TableHeader>
-    		  <TableBody  displayRowCheckbox={false}>
-          <TableRow>
-          {repoList}
-          </TableRow>
-	 	     </TableBody>
-  		  </Table>
-   	   </Paper>
-       <Row end='xs'  style={{marginBottom:100}}>
-                <IndexLink to="/ownerName/createRepo" activeClassName="active">
-                <Col xs={1}>
-                 <FloatingActionButton style={{position:'fixed',bottom:100,right:50,}}zDepth={1}>
-                  <ContentAdd />
-                 </FloatingActionButton>
-                 </Col>
-                </IndexLink>
-           </Row>
-   </Col>
-   </Row>
+  }
+ 
+ render() {
+  const configuredRepoList=this.state.configrepositories.map((repo)=>{
+     return(
+       <TableRow style={{fontSize:18}}>
+         <Link to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
+            <IconButton style={{marginLeft:'90%'}}><Link to="/ownerName/repoName/pipelineSettings">
+            <Setting color={'#00897B '} size={80}/></Link>
+            </IconButton>
+         
+       </TableRow>
+       );
+   });
+   const repoList=this.state.repositories.map((repo)=>{
+     console.log(repo.name);
 
-  </Grid>)
- }
+     return(
+       <TableRow style={{fontSize:18}}>
+            <TableRowColumn><Link to="/ownerName/repoName/teamtype" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.name}</Link>
+            </TableRowColumn>
+            <TableRowColumn>
+            <IconButton style={{marginLeft:'90%'}}><Link to="/ownerName/repoName/pipelineSettings">
+            <Setting color={'#00897B '} size={80}/></Link>
+            </IconButton></TableRowColumn>
+         
+       </TableRow>
+       );
+   });
+
+  return (
+   <Grid>
+   <Row center="xs">
+    <Col xs={12}>
+       <Paper >
+            <Table >
+               <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+             <TableHeaderColumn style={{fontSize:25}}><b>Projects</b></TableHeaderColumn>
+           <TableHeaderColumn></TableHeaderColumn>
+            </TableRow>
+         </TableHeader>
+             <TableBody  displayRowCheckbox={false}>
+         <TableRow>
+         <Tabs
+       value={this.state.value}
+       onChange={this.handleChange}
+     >
+       <Tab label="Configure" value="Configure" >
+         <div>
+           {configuredRepoList}
+
+           
+         </div>
+       </Tab>
+       <Tab label="Non-Configured" value="b">
+         <div>
+           {repoList}
+         </div>
+       </Tab>
+     </Tabs>
+         </TableRow>
+             </TableBody>
+           </Table>
+         </Paper>
+      <Row end='xs'  style={{marginBottom:100}}>
+               <IndexLink to="/ownerName/createRepo" activeClassName="active">
+               <Col xs={1}>
+                <FloatingActionButton style={{position:'fixed',bottom:100,right:50,}}zDepth={1}>
+                 <ContentAdd />
+                </FloatingActionButton>
+                </Col>
+               </IndexLink>
+          </Row>
+  </Col>
+  </Row>
+
+</Grid>)
+}
 }
 
 export default Home;

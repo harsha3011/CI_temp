@@ -32,7 +32,7 @@ constructor(props) {
   }
 }
   componentDidMount () {
-    request.get('http://localhost:9080/api/ci/auth/github/login')
+    request.get('http://172.23.238.173:9080/api/ci/auth/github/login')
            .set('Accept', 'application/json')
           .end((err, res) => {
               this.setState({githubUrl: res.text});
