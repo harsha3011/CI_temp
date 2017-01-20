@@ -27,7 +27,8 @@
   docker.on('close', (code) => {
     exitCode=`${code}`;
 
-    callback(null,exitCode,stdOut,stdErr);
+    callback(null,repobranch,reponame,exitCode,stdOut,stdErr);
   });
 
 }
+                

@@ -28,7 +28,7 @@ buildDocker();
 app.use('/',executionsConfigRoute);
 app.use('/',pipelineConfigRoute);
 app.use('/',projectConfigRoute);
-// app.use('/',evalFindingsConfigRoute);
+app.use('/',evalFindingsConfigRoute);
 
 app.listen(port, function() {
 console.log('Express App listening on port ', port);
