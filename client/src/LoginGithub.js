@@ -10,7 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-import {IndexIndexLink, IndexLink} from 'react-router';
+import {IndexIndexLink, Link} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Footer from './Footer';
 import logo from '../images/logo.jpg'
@@ -19,28 +19,35 @@ import cardImg from '../images/keepCalm.png'
 import gitLogo from '../images/gitLogo.png'
 import './App.css'
 import { Grid,Col,Row } from 'react-flexbox-grid/lib/index'
-import ActionBugReport from 'material-ui/svg-icons/action/bug-report'
-
+import ActionBugReport from 'material-ui/svg-icons/action/bug-report';
 import request from 'superagent';
-
-
-
 
 
 class login extends React.Component {
 
 constructor(props) {
    super(props);
-   this.state={name:''};
- }
-
+   this.state={
+    githubUrl: ''
+  }
+}
+  componentDidMount () {
+    request.get('http://localhost:9080/api/ci/auth/github/login')
+           .set('Accept', 'application/json')
+          .end((err, res) => {
+              this.setState({githubUrl: res.text});
+          });
+   };
+  
+ 
+ 
    render() {
-        
+
       return (
       	<div>
         	<div>
             <AppBar
-    
+
               title="KI-Keep Integrating"
               iconElementLeft={<IconButton><ActionBugReport /></IconButton>}
               iconElementRight=
@@ -58,34 +65,36 @@ constructor(props) {
             />
       		</div>
 
-          
+
           <div>
           <Grid>
           <Row center="xs">
                   <Card>
-                
-                <CardText> 
+
+                <CardText>
                   A CI platform you have been dreaming for !!
                 </CardText>
-                                
+
                 <CardMedia
                 >
                   <img src={cardImg} />
                 </CardMedia>
-                
+
                 <CardActions >
 
-                  <IndexLink to="/ownerName" activeClassName="active" >
-                    <FlatButton secondary={true} hoverColor='#D1C4E9' label="Login With Github" />
-                  </IndexLink>
+                    <a href={this.state.githubUrl}>
+
+                    <FlatButton secondary={true} hoverColor='#D1C4E9' label="Login With Github" type="submit"/>
+
+                    </a>
 
                 </CardActions>
-              
+
               </Card>
           </Row>
 
           </Grid>
-          
+
           <Footer />
         	</div>
         </div>
