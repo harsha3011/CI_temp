@@ -72,7 +72,7 @@ const style = {
                    <TableRowColumn style={{textAlign:'center'}}>{obj}</TableRowColumn>
 
                      <TableRowColumn style={{textAlign:'center'}}>
-                     <RaisedButton><Link to="/ownerName/executions" className={obj} onTouchTap={this.handleExecute}>execute
+                     <RaisedButton onClick={this.handleExecute}><Link to="/ownerName/executions" className={obj} >execute
                      </Link></RaisedButton>
                      </TableRowColumn>
 
