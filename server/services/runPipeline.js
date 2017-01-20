@@ -1,5 +1,4 @@
- module.exports=function(repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul, callback){
-  console.log('**htmlhint**', htmlhint);
+ module.exports=function(owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul, callback){
   const spawn=require('child_process').spawn;
   const docker=spawn('docker',["run","--net=host",
             "-e", `HTMLHINT=${htmlhint}`.replace(',',' '),
@@ -9,6 +8,7 @@
             "-e",`REPO_URL=${repo_URL}`,
             "-e",`REPO_NAME=${reponame}`,
             "-e",`REPO_BRANCH=${repobranch}`,
+            "-e",`OWNER=${owner}`,
              "test"]);
   var exitCode;
   var stdOut=[];

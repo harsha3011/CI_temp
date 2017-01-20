@@ -4,7 +4,7 @@ const async=require('async');
 const getExecutionConfig=require('./getExecutionConfig');
 
 module.exports=function(req,res,err){
-  console.log("Branch",req.body.repobranch);
+  const owner=req.body.owner;
   const htmlhint = req.body.htmlhint;
   const eslint = req.body.eslint;
   const mocha = req.body.mocha;
@@ -13,7 +13,7 @@ module.exports=function(req,res,err){
   const repobranch=req.body.repobranch;
   const reponame=req.body.reponame;
   async.waterfall([
-      runDocker.bind(null,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul),
+      runDocker.bind(null,owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul),
       createExecutionData.bind(null,req,res,err)
 
    ],(err, results) => {

@@ -86,6 +86,11 @@ npm install
       			setupCmds:event.target.value,
       		});
        }
+      static get contextTypes() {
+        return {
+          router: React.PropTypes.object.isRequired
+        };
+      }
 
        handleSaveClick=(event)=>{
         var ownerName="jarvis";
@@ -118,15 +123,16 @@ npm install
                   ]};
         Request
         .get('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
-        .end(function(err,resp)
+        .end((err,resp) =>
         {
           if(resp.body)
           {
             Request
             .put('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
             .send(files)
-            .end(function(err){
+            .end((err) => {
               console.log(err);
+              this.context.router.push('/ownerName');
             });
           }
           else{
@@ -134,8 +140,9 @@ npm install
             .post('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
             .set('Content-Type', 'application/json')
             .send(files)
-            .end(function(err){
+            .end((err) => {
               console.log(err);
+              this.context.router.push('/ownerName');
             });
           }
         })
@@ -269,9 +276,7 @@ npm install
         <Col xs={12}>
           <Row center="xs">
             <Col xs={12}>
-              <IndexLink to="/ownerName" activeClassName="active">
-                <RaisedButton label="Save and go to dashboard" primary={true} onClick={this.handleSaveClick}/>
-              </IndexLink>
+                <RaisedButton label="Save and go to dashboard" primary={true} onClick={this.handleSaveClick.bind(this)}/>
             </Col>
           </Row>
        </Col>

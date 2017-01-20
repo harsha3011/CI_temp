@@ -7,8 +7,13 @@
 6 silly lifecycle ciproject@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle ciproject@1.0.0~start: ciproject@1.0.0
 8 verbose lifecycle ciproject@1.0.0~start: unsafe-perm in lifecycle true
+<<<<<<< HEAD
 9 verbose lifecycle ciproject@1.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/media/srishti/6C58AAC458AA8D00/workspace/CI_temp/server/node_modules/.bin:/usr/local/lib/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 10 verbose lifecycle ciproject@1.0.0~start: CWD: /media/srishti/6C58AAC458AA8D00/workspace/CI_temp/server
+=======
+9 verbose lifecycle ciproject@1.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/media/user/5AC2D4DCC2D4BE07/workspace/ci-temp10thjan/CI_temp/server/node_modules/.bin:/usr/local/lib/npm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+10 verbose lifecycle ciproject@1.0.0~start: CWD: /media/user/5AC2D4DCC2D4BE07/workspace/ci-temp10thjan/CI_temp/server
+>>>>>>> 9330dfc0ffa490700e9559415665f406d1ec0ac7
 11 silly lifecycle ciproject@1.0.0~start: Args: [ '-c', 'node app.js' ]
 12 silly lifecycle ciproject@1.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle ciproject@1.0.0~start: Failed to exec start script
@@ -23,8 +28,13 @@
 14 verbose stack     at maybeClose (internal/child_process.js:885:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid ciproject@1.0.0
+<<<<<<< HEAD
 16 verbose cwd /media/srishti/6C58AAC458AA8D00/workspace/CI_temp/server
 17 error Linux 4.4.0-57-generic
+=======
+16 verbose cwd /media/user/5AC2D4DCC2D4BE07/workspace/ci-temp10thjan/CI_temp/server
+17 error Linux 4.4.0-59-generic
+>>>>>>> 9330dfc0ffa490700e9559415665f406d1ec0ac7
 18 error argv "/usr/bin/nodejs" "/usr/bin/npm" "start"
 19 error node v7.2.1
 20 error npm  v3.10.10
