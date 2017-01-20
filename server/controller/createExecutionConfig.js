@@ -1,9 +1,11 @@
 const executionConfigModel=require('../models/executionsConfig.model');
-const buildDocker=require('../services/buildPipeline');
+// const buildDocker=require('../services/buildPipeline');
 const runDocker=require('../services/runPipeline');
 const async=require('async');
+const getExecutionConfig=require('./getExecutionConfig');
 
 module.exports=function(req,res,err){
+  console.log("Branch",req.body.repobranch);
   const htmlhint = req.body.htmlhint;
   const eslint = req.body.eslint;
   const mocha = req.body.mocha;
@@ -12,8 +14,7 @@ module.exports=function(req,res,err){
   const repobranch=req.body.repobranch;
   const reponame=req.body.reponame;
   async.waterfall([
-      buildDocker.bind(null, repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul),
-      runDocker.bind(null),
+      runDocker.bind(null,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul),
       (exitCode,stdOut,stdErr,callback)=>{
 
         const executionsConfig=new executionConfigModel();
@@ -30,7 +31,8 @@ module.exports=function(req,res,err){
         executionsConfig.exitcode=exitCode;
         executionsConfig.save( (err)=> {
           if(!err){
-           console.log("saved")
+           console.log("saved");
+           res.send('success');
           }
           else{
              console.log('error')
@@ -47,4 +49,5 @@ module.exports=function(req,res,err){
 }
 
    );
+  
 }
