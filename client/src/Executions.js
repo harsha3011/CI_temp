@@ -11,20 +11,18 @@ class Executions extends Component {
             owner:'',
             repoName:'',
             repoBranch:'',
-            output:[]
+            consoleOutput:[]
           };
       }
 
  componentWillMount()
       {
-        console.log("component moiunt");
         var getFiles1=localStorage.getItem("repoName");
          const reponame=JSON.parse(JSON.stringify(getFiles1));
           var getFiles2=localStorage.getItem("repoBranch");
          const repobranch=JSON.parse(JSON.stringify(getFiles2));
           var getFiles3=localStorage.getItem("owner");
          const ownername=JSON.parse(JSON.stringify(getFiles3));
-        
         this.setState({
           owner:ownername,
           repoName:reponame,
@@ -32,26 +30,28 @@ class Executions extends Component {
          });
       }
 
- showConsole(){
-  console.log("entered");
-       //  const owner=this.state.owner;
-       //  const repoName=this.state.repoName;
-       //  const repoBranch=this.state.repoBranch;
-        
-       //  const url='http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions';
-       //  Request
-       // .get(url)
-       // .end((err,resp)=>
-       // {
-       //   console.log(resp.body);
+ showConsole=(event)=>{ 
+        const owner=this.state.owner;
+        const repoName=this.state.repoName;
+        const repoBranch=this.state.repoBranch;
+        const url='http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions';
+        Request
+       .get(url)
+       .end((err,resp)=>
+       {
+         console.log(resp.body);
+         this.setState({
+            consoleOutput:resp.body
+         });
          
-       //   });
+      });
  }
 
 render() {
+console.log(this.state.consoleOutput);
   return(
     <div>
-      <RaisedButton onClick={this.showConsole()}>show</RaisedButton>
+      <RaisedButton onClick={this.showConsole.bind(this)}>show</RaisedButton>
     </div>
     );
   

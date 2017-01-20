@@ -31,7 +31,6 @@ const style = {
       }
 
       handleExecute(event){
-        console.log("clicked execute");
        localStorage.setItem("repoBranch",event.target.className);
        localStorage.setItem("repoName",this.state.configFiles.reponame);
        localStorage.setItem("owner",this.state.configFiles.owner);
