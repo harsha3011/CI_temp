@@ -1,5 +1,4 @@
-const executionConfigModel=require('../models/executionsConfig.model');
-// const buildDocker=require('../services/buildPipeline');
+const createExecutionData=require('./createExecutionData');
 const runDocker=require('../services/runPipeline');
 const async=require('async');
 const getExecutionConfig=require('./getExecutionConfig');
@@ -15,36 +14,11 @@ module.exports=function(req,res,err){
   const reponame=req.body.reponame;
   async.waterfall([
       runDocker.bind(null,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul),
-      (exitCode,stdOut,stdErr,callback)=>{
-
-        const executionsConfig=new executionConfigModel();
-        if(exitCode==0){
-          executionsConfig.state='Completed';
-        }
-        else{
-          executionsConfig.state='Failed';
-        }
-        executionsConfig.repoName=reponame;
-        executionsConfig.repoBranch=repobranch;
-        executionsConfig.stdout =stdOut;
-        executionsConfig.stderr=stdErr;
-        executionsConfig.exitcode=exitCode;
-        executionsConfig.save( (err)=> {
-          if(!err){
-           console.log("saved");
-           res.send('success');
-          }
-          else{
-             console.log('error')
-          }
-            callback(null);
-        });
-        
-      }
+      createExecutionData.bind(null,req,res,err)
 
    ],(err, results) => {
        if(err) { console.error('error', err); return; }
-       console.log('successfull');
+       console.log(results);
 
 }
 
