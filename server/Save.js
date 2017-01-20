@@ -1,5 +1,4 @@
 const evalFindingsConfigModel=require('./models/evalFindingsConfig.model');
-// const connection=require('./app.js');
 console.log("entered");
 console.log(process.argv[2],process.argv[3]);
 const reponame=process.argv[2]
@@ -12,17 +11,17 @@ mongoose.connection.on('connected', () => {
 	console.log('Mongo Connected');
 });
 
-// var fs=require('fs');
-// var htmlhintJson = fs.readFileSync('./outputJson/htmlhintOutput.json','utf-8');
-// console.log('HTMLHINTJSON', htmlhintJson);
-// var eslintJson = fs.readFileSync('./outputJson/eslintOutput.json','utf-8');
-// console.log('ESLINTJSON', eslintJson);
-// var mochaJson = fs.readFileSync('./outputJson/mochawesome.json','utf-8');
-// console.log('MOCHAJSON', mochaJson);
-// var istanbulJson = fs.readFileSync('./'+reponame+'/coverage/coverage.json','utf-8');
-// console.log('ISTANBULJSON', istanbulJson);
+var fs=require('fs');
+var htmlhintJson = fs.readFileSync('./outputJson/htmlhintOutput.json','utf-8');
+console.log('HTMLHINTJSON', htmlhintJson);
+var eslintJson = fs.readFileSync('./outputJson/eslintOutput.json','utf-8');
+console.log('ESLINTJSON', eslintJson);
+var mochaJson = fs.readFileSync('./outputJson/mochawesome.json','utf-8');
+console.log('MOCHAJSON', mochaJson);
+var istanbulJson = fs.readFileSync('./'+reponame+'/coverage/coverage.json','utf-8');
+console.log('ISTANBULJSON', istanbulJson);
 	
-	const evalFindingsConfig = new evalFindingsConfigModel();
+const evalFindingsConfig = new evalFindingsConfigModel();
 
 		evalFindingsConfig.repoBranch= "";
         evalFindingsConfig.owner= "";
@@ -32,10 +31,12 @@ mongoose.connection.on('connected', () => {
         evalFindingsConfig.mochaConfig= "req.body.mochaConfig";
         evalFindingsConfig.istanbulConfig= "req.body.istanbulConfig";
 		
-		console.log("eval findings",evalFindingsConfig);
-
 		evalFindingsConfig.save((err)=> {
+
           if(err){
            throw err;
           }
+          console.log("saved");
+          mongoose.connection.close();
         });
+

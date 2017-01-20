@@ -23,10 +23,6 @@ const mongoose = require('mongoose');
 
 const connection=mongoose.connect('mongodb://localhost:27017/Database_CI');
 
-mongoose.connection.on('connected', () => {
-	console.log('Mongo Connected');
-});
-
 buildDocker();
 
 app.use('/',executionsConfigRoute);

@@ -88,9 +88,12 @@ npm install
        }
 
        handleSaveClick=(event)=>{
+        var ownerName="jarvis";
+        var projectName="VisualBI-2"
+        var branchArray=["master"];
         var files={
-                  repo_URL:"https://github.com/stackroute/Samarth-Candidate.git",
-                  repo_Ref:["master","dev-wave-12","testing","integration"],
+                  repo_URL:"https://github.com/stackroute/VisualBI-2.git",
+                  repo_Ref:branchArray,
                   setup: this.state.setupCmds,
                   stages: [{
                     stage: "eslint",
@@ -114,13 +117,13 @@ npm install
                     }
                   ]};
         Request
-        .get('http://localhost:9080/api/jarvis/Samarth-Candidate/projects')
+        .get('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
         .end(function(err,resp)
         {
           if(resp.body)
           {
             Request
-            .put('http://localhost:9080/api/jarvis/Samarth-Candidate/projects')
+            .put('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
             .send(files)
             .end(function(err){
               console.log(err);
@@ -128,7 +131,7 @@ npm install
           }
           else{
             Request
-            .post('http://localhost:9080/api/jarvis/Samarth-Candidate/projects')
+            .post('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
             .set('Content-Type', 'application/json')
             .send(files)
             .end(function(err){

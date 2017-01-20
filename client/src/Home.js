@@ -30,8 +30,9 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    var ownerName="jarvis";
      Request
-        .get('http://localhost:9080/api/jarvis/projects')
+        .get('http://localhost:9080/api/'+ownerName+'/projects')
         .then((res) => {
          this.setState({
             repositories: res.body
@@ -50,9 +51,10 @@ class Home extends Component {
       return(
         <TableRow style={{fontSize:18}}>
           <Link to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.reponame}</Link>
-          <Link to="/ownerName/repoName/pipelineSettings">
-             <IconButton style={{marginLeft:'90%'}}><Setting color={'#00897B'} size={80}/></IconButton>
-          </Link>
+             <IconButton style={{marginLeft:'90%'}}><Link to="/ownerName/repoName/pipelineSettings">
+             <Setting color={'#00897B'} size={80}/></Link>
+             </IconButton>
+          
         </TableRow>
         );
     });
