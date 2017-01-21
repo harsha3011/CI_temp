@@ -41,10 +41,6 @@ function getUser(token, callback) {
   .authBearer(token)
   .end(function(err, response) {
    if(err) { callback(err); return; }
-<<<<<<< HEAD
-=======
-   console.log(response.body);
->>>>>>> fe630e6999f65ec3cba0c57e4154e720d47d8930
    callback(null, response.body);
    return;
  }
