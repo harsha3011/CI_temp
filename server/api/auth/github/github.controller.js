@@ -13,6 +13,7 @@ function getOrganisations(response0, callback) {
   .end(function(err, response1) {
     if(err) {
       response0.status(500).json(err); return;
+
     }
     if(response1.body.length === 0) {
       adm = 'user';
@@ -40,8 +41,6 @@ function getUser(token, callback) {
   .authBearer(token)
   .end(function(err, response) {
    if(err) { callback(err); return; }
-   console.log(response.body);
-   // localStorage.setItem("user",response.body);
    callback(null, response.body);
    return;
  }
@@ -79,7 +78,7 @@ module.exports = {
             if(err3) { res.status(500).json(err3); return; }
               res
               .cookie('token', jwt)
-              .redirect('http://localhost:3000/#/ownerName');
+              .redirect('http://localhost:9080/#/ownerName');
             return;
           });
         });
@@ -87,8 +86,10 @@ module.exports = {
       );
     });},
     me: function(req, res) {
+      console.log("inside me");
       const claims = req.claims;
       getUser(claims.accessToken, function(err, user) {
+
         if(err) { res.status(500).err(err); return; }
         res.json(user);
       });

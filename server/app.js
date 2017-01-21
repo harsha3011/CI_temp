@@ -16,7 +16,7 @@ const _ = require('lodash');
 const path = require('path');
 const mongoose = require('mongoose');
 const connection=mongoose.connect('mongodb://localhost:27017/Database_CI');
-
+const doGitOperationsRoute=require('./route/gitOperations.route')
 
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,21 +27,30 @@ app.use(function(req, res, next) {
 
 var BodyParser = require('body-parser');
 app.use(BodyParser());
-const pipelineConfigRoute=require('./route/pipelineConfig.route');
-const rubericConfigRoute=require('./route/rubericConfig.route');
-const projectConfigRoute=require('./route/projectsConfig.route');
-const executionsConfigRoute=require('./route/executionsConfig.route');
-const createRepoRoute=require('./route/createRepo.route');
-const evalFindingsConfigRoute=require('./route/evalFindingsConfig.route');
-const doGitOperationsRoute=require('./route/gitOperations.route')
-const mongoose = require('mongoose');
 
 console.log("app");
 
-const connection=mongoose.connect('mongodb://localhost:27017/Database_CI');
-
-
 buildDocker();
+
+function createApp() {
+  const app = express();
+  return app;
+}
+
+function setupStaticRoutes(app) {
+  app.use(express.static(__dirname + '/public'));
+  return app;
+}
+
+function setupMiddlewares(app) {
+  app.use(require('cookie-parser')());
+}
+
+function setupRestRoutes(app) {
+  app.use('/api/ci', require(path.join(__dirname, 'api')));
+  return app;
+}
+
 
 app.use('/',executionsConfigRoute);
 app.use('/',pipelineConfigRoute);
@@ -51,8 +60,9 @@ app.use('/',evalFindingsConfigRoute);
 app.use('/',doGitOperationsRoute);
 app.use(cookieParser());
 app.use('/api/ci', require(path.join(__dirname, '..', 'server/api')));
-app.use('/',triggerCommit);
 
+app.use(express.static(path.join(__dirname, '..', 'client','build')));
+app.use('/',triggerCommit);
 
 const server = http.createServer(app);
 server.listen(port, () => {
