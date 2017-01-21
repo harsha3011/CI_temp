@@ -27,18 +27,18 @@ app.use(function(req, res, next) {
 
 var BodyParser = require('body-parser');
 app.use(BodyParser());
-const pipelineConfigRoute=require('./route/pipelineConfig.route');
-const rubericConfigRoute=require('./route/rubericConfig.route');
-const projectConfigRoute=require('./route/projectsConfig.route');
-const executionsConfigRoute=require('./route/executionsConfig.route');
-const createRepoRoute=require('./route/createRepo.route');
-const evalFindingsConfigRoute=require('./route/evalFindingsConfig.route');
+// const pipelineConfigRoute=require('./route/pipelineConfig.route');
+// const rubericConfigRoute=require('./route/rubericConfig.route');
+// const projectConfigRoute=require('./route/projectsConfig.route');
+// const executionsConfigRoute=require('./route/executionsConfig.route');
+// const createRepoRoute=require('./route/createRepo.route');
+// const evalFindingsConfigRoute=require('./route/evalFindingsConfig.route');
 const doGitOperationsRoute=require('./route/gitOperations.route')
-const mongoose = require('mongoose');
+// // const mongoose = require('mongoose');
 
-console.log("app");
+// console.log("app");
 
-const connection=mongoose.connect('mongodb://localhost:27017/Database_CI');
+// const connection=mongoose.connect('mongodb://localhost:27017/Database_CI');
 
 
 buildDocker();

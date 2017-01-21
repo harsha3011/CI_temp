@@ -60,7 +60,8 @@ const style = {
       componentWillMount()
       {
 
-        var getFiles=JSON.parse(window.localStorage.getItem("repoData"));
+        var getFiles=JSON.parse(window.localStorage.getItem("repoconfigData"));
+        console.log(getFiles);
         this.setState({
           configFiles:getFiles
         });
@@ -71,6 +72,7 @@ const style = {
 
         rows.push(this.state.configFiles.repo_Ref.map((obj)=>
         {
+          console.log(obj);
           return(<TableRow >
                    <TableRowColumn style={{textAlign:'center'}}>{obj}</TableRowColumn>
 
@@ -95,7 +97,7 @@ const style = {
                            </TableRow>
                            </TableHeader>
                           <TableBody  displayRowCheckbox={false}>
-                          
+                          {rows}
                          </TableBody>
                         </Table>
                         </div>

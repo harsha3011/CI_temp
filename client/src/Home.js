@@ -30,7 +30,8 @@ class Home extends Component {
    });
  };
 handleConfigRepoData=(event)=>{
-     window.localStorage.setItem("repoData",event.target.className);
+  console.log(event.target.className);
+     window.localStorage.setItem("repoconfigData",event.target.className);
   }
 componentDidMount() {
     var ownerName="jarvis";
