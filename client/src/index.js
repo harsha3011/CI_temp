@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import home from './Home'
+import Home from './Home'
 import login from './LoginGithub'
 import CreateProject from './CreateProject'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -46,6 +46,7 @@ function redirectIfNotLoggedIn(nextState, replace, next) {
 ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
       <Router history={hashHistory}>
+<<<<<<< HEAD
           <Route path="/" component={login} onEnter={redirectIfLoggedIn}/>
           <Route path="logout" component={login} onEnter={redirectIfLoggedIn}/>
           <Route path="ownerName" component={App} onEnter={redirectIfNotLoggedIn}>
@@ -57,6 +58,19 @@ ReactDOM.render(
             <Route path="repoName/branch/branchName" component={BuildReport} onEnter={redirectIfNotLoggedIn}/>
             <Route path="Ruberic" component={RubericSettings} onEnter={redirectIfNotLoggedIn}/>
             <Route path="repoName/teamtype" component={TeamType} onEnter={redirectIfNotLoggedIn}/>
+=======
+          <Route path="/" component={login}/>
+          <Route path="logout" component={login}/>
+          <Route path="ownerName" component={App}>
+            <IndexRoute component={Home}/>
+            <Route path="createRepo" component={CreateProject}/>
+            <Route path="repoName/branch" component={Branch}/>
+            <Route path="executions" component={Executions}/>
+            <Route path=":repoName/pipelineSettings" component={CreatePipeline}/>
+            <Route path="repoName/branch/branchName" component={BuildReport}/>
+            <Route path="Ruberic" component={RubericSettings}/>
+            <Route path=":repoName/teamtype" component={TeamType}/>
+>>>>>>> fe630e6999f65ec3cba0c57e4154e720d47d8930
           </Route>
       </Router>
  </MuiThemeProvider>

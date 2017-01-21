@@ -6,6 +6,7 @@ var gitProtectBranch = require('./ProtectedBranches');
 const repoPath = '/media/srishti/6C58AAC458AA8D00/workspace/demo';
 const repository = 'srishtinanda/Excercise1';
 const ownerName=repository.split('/')[0];
+const branchName='Integration';
 
 
 module.exports=function(repoName,teamType){
@@ -16,7 +17,7 @@ async.series([
         gitClone.bind(null, repoPath,repoName, ownerName),
         gitCreateBranch.bind(null, branchPath,teamType),
         gitPushBranch.bind(null, branchPath),
-        gitProtectBranch.bind(null,ownerName,repoName)
+        gitProtectBranch.bind(null,ownerName,repoName,branchName)
 
     ],
 

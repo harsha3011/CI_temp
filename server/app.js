@@ -27,10 +27,14 @@ app.use(function(req, res, next) {
 
 var BodyParser = require('body-parser');
 app.use(BodyParser());
+<<<<<<< HEAD
 
 console.log("app");
 
 buildDocker();
+=======
+const doGitOperationsRoute=require('./route/gitOperations.route')
+>>>>>>> fe630e6999f65ec3cba0c57e4154e720d47d8930
 
 function createApp() {
   const app = express();

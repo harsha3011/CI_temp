@@ -31,31 +31,15 @@ class CreateProject extends Component {
         }
       }
 
-        handlePrivate = (event, value) => {
-            console.log('value', value);
-            this.setState({ checkd: value });
-        }
-
         createRepo = (event) => {
-          let obj ={};
-
-          console.log(this.state.newRepository);
-            if (this.state.checkd == 'Private') {
-                obj ={
+            
+          let obj ={
                      'name':this.state.newRepository,
                      'description': this.state.desc, 
-                     'private': true
               }
+             
                 this.setState({ repoData: obj });
-            } else {
-               obj ={
-                     'name':this.state.newRepository,
-                     'description': this.state.desc, 
-                     'private': false
-              }
-                this.setState({
-                    repoData: obj});
-            }
+            
             Request
                 .post('http://localhost:9080/api/srishtinanda/repos')
                 .send(obj)
@@ -72,18 +56,13 @@ class CreateProject extends Component {
             openReadme: false
         };
 
-        handleOpen = () => {
-            this.setState({ open: true });
-        };
+        
 
         handleOpenReadme = () => {
             this.setState({ openReadme: true });
         };
 
-        handleClose = () => {
-            this.setState({ open: false });
-        };
-
+       
         handleCloseReadme = () => {
             this.setState({ openReadme: false });
         };
@@ -100,8 +79,9 @@ class CreateProject extends Component {
 
 
         render() {
+            var repoName=this.state.newRepository;
+            var link='/ownerName/'+repoName+'/teamtype'
 
-            console.log(this.state.repoData);
             const actions = [ < FlatButton
                 label = "OK"
                 primary = { true }
@@ -116,8 +96,6 @@ class CreateProject extends Component {
                 onTouchTap = { this.handleCloseReadme }
                 />,
             ];
-
-
             return ( < Grid >
                 < Row style = {
                     { marginTop: 60, marginBottom: 60 } } >
@@ -142,25 +120,6 @@ class CreateProject extends Component {
                 /><br / >
 
                 < br / >
-
-                < Row >
-                < Col lgOffset = { 4 }
-                lg = { 2 }
-                xs = { 6 } >
-                < RadioButtonGroup name = "privacyAccess"
-                onChange = { this.handlePrivate.bind(this) } >
-                < RadioButton value = "Public"
-                label = "Public" / >
-                < RadioButton value = "Private"
-                label = "Private"
-
-                / >
-                < /RadioButtonGroup> < /Col> < Col xs = { 3 } >
-                < IconButton onTouchTap = { this.handleOpen } > < ActionInfo / > < /IconButton> < Dialog title = "Choosing Private and Public"
-                actions = { actions }
-                modal = { false }
-                open = { this.state.open }
-                onRequestClose = { this.handleClose } > < h2 > Public < /h2> < p > Anyone can see this repository.You choose who can commit. < /p> < h2 > Private < /h2> < p > You choose who can see and commit to this repository. < /p> < /Dialog> < /Col> < /Row> < br / >
 
                 < Row >
                 < Col lgOffset = { 4 }
@@ -218,10 +177,11 @@ class CreateProject extends Component {
                 primaryText = "GNU General Public License " / >
                 < MenuItem value = { 4 }
                 primaryText = "MIT" / >
-                < /DropDownMenu> < /Col> < /Row> < br / > 
+                < /DropDownMenu> < /Col> < /Row> < br / >
+
                 < RaisedButton
                 primary = { true }
-                ><Link to="/ownerName" onTouchTap = { this.createRepo.bind(this) } style={{textDecoration:'none', color:'white'}}>Create Repository</Link>
+                ><Link to={link} onTouchTap = { this.createRepo.bind(this) } style={{textDecoration:'none', color:'white'}}>Create Repository</Link>
                 </RaisedButton>
                 < br / >
                 < br / >
