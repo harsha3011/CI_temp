@@ -58,9 +58,10 @@ componentDidMount() {
  
  render() {
   const configuredRepoList=this.state.configrepositories.map((repo)=>{
+    let url='/ownerName/'+repo.reponame+'/branch' ;
      return(
        <TableRow style={{fontSize:18}}>
-         <Link to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
+         <Link to={url} className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
             <IconButton style={{marginLeft:'90%'}}><Link to="/ownerName/repoName/pipelineSettings">
             <Setting color={'#00897B '} size={80}/></Link>
             </IconButton>
@@ -69,17 +70,12 @@ componentDidMount() {
        );
    });
    const repoList=this.state.repositories.map((repo)=>{
+    let url="/ownerName/"+repo.name+"/teamtype"
      console.log(repo.name);
-
      return(
        <TableRow style={{fontSize:18}}>
-            <TableRowColumn><Link to="/ownerName/repoName/teamtype" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.name}</Link>
-            </TableRowColumn>
-            <TableRowColumn>
-            <IconButton style={{marginLeft:'90%'}}><Link to="/ownerName/repoName/pipelineSettings">
-            <Setting color={'#00897B '} size={80}/></Link>
-            </IconButton></TableRowColumn>
-         
+            <TableRowColumn><Link to={url} className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.name}</Link>
+            </TableRowColumn>         
        </TableRow>
        );
    });

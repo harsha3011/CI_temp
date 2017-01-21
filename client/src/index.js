@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import home from './Home'
+import Home from './Home'
 import login from './LoginGithub'
 import CreateProject from './CreateProject'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -31,14 +31,14 @@ ReactDOM.render(
           <Route path="/" component={login}/>
           <Route path="logout" component={login}/>
           <Route path="ownerName" component={App}>
-            <IndexRoute component={home}/>
+            <IndexRoute component={Home}/>
             <Route path="createRepo" component={CreateProject}/>
             <Route path="repoName/branch" component={Branch}/>
             <Route path="executions" component={Executions}/>
-            <Route path="repoName/pipelineSettings" component={CreatePipeline}/>
+            <Route path=":repoName/pipelineSettings" component={CreatePipeline}/>
             <Route path="repoName/branch/branchName" component={BuildReport}/>
             <Route path="Ruberic" component={RubericSettings}/>
-            <Route path="repoName/teamtype" component={TeamType}/>
+            <Route path=":repoName/teamtype" component={TeamType}/>
           </Route>
       </Router>
  </MuiThemeProvider>

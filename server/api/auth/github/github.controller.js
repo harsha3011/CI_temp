@@ -41,7 +41,6 @@ function getUser(token, callback) {
   .end(function(err, response) {
    if(err) { callback(err); return; }
    console.log(response.body);
-   // localStorage.setItem("user",response.body);
    callback(null, response.body);
    return;
  }
@@ -79,7 +78,7 @@ module.exports = {
             if(err3) { res.status(500).json(err3); return; }
               res
               .cookie('token', jwt)
-              .redirect('http://172.23.238.223:3000/#/ownerName');
+              .redirect('http://localhost:3000/#/ownerName');
             return;
           });
         });

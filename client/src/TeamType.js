@@ -22,8 +22,9 @@ import Request from 'superagent';
         constructor(props) {
             super(props);
             this.state = {
-              value: 'a',
+              value: '',
               expanded: false,
+              repoName:''
             };
         }
         handleChange = (value) => {
@@ -35,13 +36,7 @@ import Request from 'superagent';
         handleExpandChange = (expanded) => {
             this.setState({expanded: expanded});
         };
-        componentWillMount()
-      {
-        var getFiles=JSON.parse(window.localStorage.getItem("repoData"));
-        this.setState({
-          configFiles:getFiles
-        });
-      }
+       
       setTabName=(event)=>{
         this.setState({
             tabName:this.state.value,
@@ -49,7 +44,7 @@ import Request from 'superagent';
       }
       teamType=(event)=>{
         
-        var teamDetails={'RepoName':this.state.configFiles.name,
+        var teamDetails={'RepoName':this.props.params.repoName,
                      'TeamType': this.state.tabName,
                    }
 
@@ -60,104 +55,109 @@ import Request from 'superagent';
                 .end(function(err, res) {
                     console.log(res);
                 });          
-
       }
 
         render(){
-            return(
-                <Grid>
-                <Paper style={styles.bar}>
-                    <Tabs
-                        value={this.state.value}
-                        onChange={this.handleChange}
+          var Rname=this.props.params.repoName;
+          let link='/ownerName/'+Rname+'/pipelineSettings';
+          const readyButton=(
+            <Row>
+              <Col xs={12}>
+                <Row center="xs">
+            <IndexLink to={link} activeClassName="active" onTouchTap={this.teamType.bind(this)}><RaisedButton  label="Ready for CI" primary={true}></RaisedButton></IndexLink>
+                </Row>
+              </Col>
+            </Row>
+            );
+    return(
+        <Grid>
+        <Paper style={styles.bar}>
+            <Tabs
+                value={this.state.value}
+                onChange={this.handleChange}
+            >
+            <Tab label="Single Developer" value="Single_User" onClick={this.setTabName.bind(this)}>
+                  <div>
+                    <h4 style={styles.headline}>Adding branches to your current repository is necessary to run CI</h4>
+                    <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+                    <CardHeader
+                      title="Single Developer Lay-Out"
+                      subtitle="Basic Requirements"
+                      avatar={logo1}
+                      actAsExpander={true}
+                      showExpandableButton={true}
+                    />
+                    <CardMedia
+                      expandable={true}
                     >
-                    <Tab label="Single Developer" value="Single_User" onClick={this.setTabName.bind(this)}>
-                          <div>
-                            <h4 style={styles.headline}>Adding branches to your current repository is necessary to run CI</h4>
-                            <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
-                            <CardHeader
-                              title="Single Developer Lay-Out"
-                              subtitle="Basic Requirements"
-                              avatar={logo1}
-                              actAsExpander={true}
-                              showExpandableButton={true}
-                            />
-                            <CardMedia
-                              expandable={true}
-                            >
-                              <img src={cardImg} />
-                            </CardMedia>
-                            </Card>
-                            <List>
-                                <ListItem primaryText="master(protected)" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
-                                <ListItem primaryText="dev" leftCheckbox={<Checkbox checked={true} disabled={true}/>}/>
-                            </List> 
-                          </div>
-                        </Tab>
-                        <Tab label="Single Team" value="Single_Team" onClick={this.setTabName.bind(this)} >
-                          <div>
-                            <h4 style={styles.headline}>Adding branches to your current repository is necessary to run CI</h4>
-                            <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
-                            <CardHeader
-                              title="Single Team Lay-Out"
-                              subtitle="Basic Requirements"
-                              avatar={logo1}
-                              actAsExpander={true}
-                              showExpandableButton={true}
-                            />
-                            <CardMedia
-                              expandable={true}
-                            >
-                              <img src={cardImg} />
-                            </CardMedia>
-                            </Card>
-                            <List>
-                                <ListItem primaryText="master(protected)" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
-                                <ListItem primaryText="dev" leftCheckbox={<Checkbox checked={true} disabled={true}/>}/>
-                                <ListItem primaryText="testing" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
-                            </List> 
-                          </div>
-                        </Tab>
-                        <Tab label="Multiple Teams" value="Multiple_Team" onClick={this.setTabName.bind(this)}>
-                          <div>
-                            <h4 style={styles.headline}>Adding branches to your current repository necessary to run CI</h4>
-                             <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
-                            <CardHeader
-                              title="Multiple Team Lay-Out"
-                              subtitle="Basic Requirements"
-                              avatar={logo2}
-                              actAsExpander={true}
-                              showExpandableButton={true}
-                            />
-                            <CardMedia
-                              expandable={true}
-                            >
-                              <img src={cardImg1} />
-                            </CardMedia>
-                            </Card>
-                            <List>
-                                <ListItem primaryText="master(protected)" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
-                                <ListItem primaryText="Integration(protected)" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
-                                <ListItem primaryText="dev" leftCheckbox={<Checkbox checked={true} disabled={true}/>}/>
-                                <ListItem primaryText="testing" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
-                            </List> 
-                          </div>
-                        </Tab>
-                    </Tabs>
-                    <Row>
-                      <Col xs={12}>
-                        <Row center="xs">
-                    <IndexLink to="/ownerName/repoName/pipelineSettings" activeClassName="active" onTouchTap={this.teamType.bind(this)}><RaisedButton style={styles.button} label="Ready for CI" primary={true}></RaisedButton></IndexLink>
-                        </Row>
-                      </Col>
-                    </Row>
-                    <br/>
-                </Paper>
-                </Grid>
-                
-                
-                );
-            }
-        }
+                      <img src={cardImg} />
+                    </CardMedia>
+                    </Card>
+                    <List>
+                        <ListItem primaryText="master(protected)" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
+                        <ListItem primaryText="dev" leftCheckbox={<Checkbox checked={true} disabled={true}/>}/>
+                    </List> 
+                    {readyButton}
+                  </div>
+                </Tab>
+                <Tab label="Single Team" value="Single_Team" onClick={this.setTabName.bind(this)} >
+                  <div>
+                    <h4 style={styles.headline}>Adding branches to your current repository is necessary to run CI</h4>
+                    <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+                    <CardHeader
+                      title="Single Team Lay-Out"
+                      subtitle="Basic Requirements"
+                      avatar={logo1}
+                      actAsExpander={true}
+                      showExpandableButton={true}
+                    />
+                    <CardMedia
+                      expandable={true}
+                    >
+                      <img src={cardImg} />
+                    </CardMedia>
+                    </Card>
+                    <List>
+                        <ListItem primaryText="master(protected)" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
+                        <ListItem primaryText="dev" leftCheckbox={<Checkbox checked={true} disabled={true}/>}/>
+                        <ListItem primaryText="testing" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
+                    </List>
+                    {readyButton} 
+                  </div>
+                </Tab>
+                <Tab label="Multiple Teams" value="Multiple_Team" onClick={this.setTabName.bind(this)}>
+                  <div>
+                    <h4 style={styles.headline}>Adding branches to your current repository necessary to run CI</h4>
+                     <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+                    <CardHeader
+                      title="Multiple Team Lay-Out"
+                      subtitle="Basic Requirements"
+                      avatar={logo2}
+                      actAsExpander={true}
+                      showExpandableButton={true}
+                    />
+                    <CardMedia
+                      expandable={true}
+                    >
+                      <img src={cardImg1} />
+                    </CardMedia>
+                    </Card>
+                    <List>
+                        <ListItem primaryText="master(protected)" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
+                        <ListItem primaryText="Integration(protected)" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
+                        <ListItem primaryText="dev" leftCheckbox={<Checkbox checked={true} disabled={true}/>}/>
+                        <ListItem primaryText="testing" leftCheckbox={<Checkbox checked={true} disabled={true}/>} />
+                    </List> 
+                    {readyButton}
+                  </div>
+                </Tab>
+            </Tabs>
+        </Paper>
+        </Grid>
+        
+        
+        );
+    }
+}
 
 export default TeamType;
