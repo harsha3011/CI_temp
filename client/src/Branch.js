@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
 import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -10,7 +11,7 @@ import {Table, TableBody,  TableRow, TableRowColumn, TableHeader, TableHeaderCol
 import Request from 'superagent';
 const styles={
       bar:{
-          marginTop:120,
+          marginTop:50,
           marginBottom:100,
           padding:20
       },
@@ -18,6 +19,9 @@ const styles={
 const style = {
   marginLeft: -100,
 };
+
+
+
   class Branch extends Component{
       constructor(props) {
           super(props);
@@ -31,6 +35,7 @@ const style = {
       }
 
       handleExecute(event){
+
        localStorage.setItem("repoBranch",event.target.className);
        localStorage.setItem("repoName",this.state.configFiles.reponame);
        localStorage.setItem("owner",this.state.configFiles.owner);
@@ -47,7 +52,8 @@ const style = {
        const owner=this.state.configFiles.owner;
        const repoName=this.state.configFiles.reponame;
        const repoBranch=event.target.className;
-       Request
+      
+      Request
        .post('http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions').set('Content-Type', 'application/json')
        .send(data)
        .end((err,res)=>
@@ -61,26 +67,28 @@ const style = {
       {
 
         var getFiles=JSON.parse(window.localStorage.getItem("repoconfigData"));
-        console.log(getFiles);
         this.setState({
           configFiles:getFiles
         });
        
       }
       render(){
+       
         var rows=[];
 
         rows.push(this.state.configFiles.repo_Ref.map((obj)=>
         {
-          console.log(obj);
           return(<TableRow >
-                   <TableRowColumn style={{textAlign:'center'}}>{obj}</TableRowColumn>
+                   <TableRowColumn style={{textAlign:'center',fontSize:25}}>{obj}
+                   </TableRowColumn>
 
-                     <TableRowColumn style={{textAlign:'center'}}>
-                     <RaisedButton onClick={this.handleExecute}><Link to="/ownerName/executions" className={obj} >execute
-                     </Link></RaisedButton>
-                     </TableRowColumn>
-
+                  <TableRowColumn style={{textAlign:'center',fontSize:20}}>
+                     <RaisedButton primary='true' onClick={this.handleExecute}><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >Execute
+                     </Link></RaisedButton>       
+               
+                     <RaisedButton style={{marginLeft:20}} primary='true'><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >View Build Report
+                     </Link></RaisedButton>       
+               </TableRowColumn>
                  </TableRow>);
         }));
           return(
@@ -89,14 +97,11 @@ const style = {
                         <div>
 
                           <Table>
-                          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                           <TableRow>
-                            <TableHeaderColumn style={{fontSize:25, textAlign:'center'}}><b>Branch</b></TableHeaderColumn>
-                             <TableHeaderColumn>
-                             </TableHeaderColumn>
-                           </TableRow>
-                           </TableHeader>
-                          <TableBody  displayRowCheckbox={false}>
+                         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                    <TableRow style={{fontSize:35,textAlign:'center'}}><b>BRANCH</b>
+                  </TableRow>
+                </TableHeader>
+          <TableBody  displayRowCheckbox={false}>
                           {rows}
                          </TableBody>
                         </Table>

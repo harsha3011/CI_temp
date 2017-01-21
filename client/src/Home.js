@@ -30,7 +30,6 @@ class Home extends Component {
    });
  };
 handleConfigRepoData=(event)=>{
-  console.log(event.target.className);
      window.localStorage.setItem("repoconfigData",event.target.className);
   }
 componentDidMount() {
@@ -59,27 +58,23 @@ componentDidMount() {
  render() {
   const configuredRepoList=this.state.configrepositories.map((repo)=>{
      return(
-       <TableRow style={{fontSize:18}}>
-         <Link to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
-            <IconButton style={{marginLeft:'90%'}}><Link to="/ownerName/repoName/pipelineSettings">
-            <Setting color={'#00897B '} size={80}/></Link>
+       <TableRow>
+       <TableRowColumn>
+         <Link style={{fontSize:18}} to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
+            </TableRowColumn>
+            <TableRowColumn>
+            <IconButton ><Link to="/ownerName/repoName/pipelineSettings">
+            <Setting color={'#00897B '} size={200}/></Link>
             </IconButton>
-         
+         </TableRowColumn>
        </TableRow>
        );
    });
    const repoList=this.state.repositories.map((repo)=>{
-     console.log(repo.name);
 
      return(
        <TableRow style={{fontSize:18}}>
-            <TableRowColumn><Link to="/ownerName/repoName/teamtype" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.name}</Link>
-            </TableRowColumn>
-            <TableRowColumn>
-            <IconButton style={{marginLeft:'90%'}}><Link to="/ownerName/repoName/pipelineSettings">
-            <Setting color={'#00897B '} size={80}/></Link>
-            </IconButton></TableRowColumn>
-         
+            <Link to="/ownerName/repoName/teamtype" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.name}</Link>
        </TableRow>
        );
    });
@@ -88,12 +83,10 @@ componentDidMount() {
    <Grid>
    <Row center="xs">
     <Col xs={12}>
-       <Paper >
+       <Paper style={{marginTop:50}} >
             <Table >
                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-            <TableRow>
-             <TableHeaderColumn style={{fontSize:25}}><b>Projects</b></TableHeaderColumn>
-           <TableHeaderColumn></TableHeaderColumn>
+            <TableRow style={{fontSize:35}}><b>PROJECTS</b>
             </TableRow>
          </TableHeader>
              <TableBody  displayRowCheckbox={false}>
