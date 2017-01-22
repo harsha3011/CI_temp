@@ -7,7 +7,9 @@ const ExecutionsSchema = new Schema({
   repoBranch: { type: String, required: true },
   stdout : {type:String},
   stderr:{type:String},
-  exitcode:{type:String}
+  exitcode:{type:String},
+  starttime:{type:Date},
+  endtime:{type:Date}
 });
 
 module.exports = mongoose.model('Executions', ExecutionsSchema);

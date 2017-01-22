@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Request from 'superagent';
-import ConsoleOutput from './ConsoleOutput';
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import {Table, TableBody,  TableRow, TableRowColumn, TableHeader, TableHeaderColumn} from 'material-ui/Table';
@@ -11,6 +10,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {white} from 'material-ui/styles/colors';
 import Paper from 'material-ui/Paper';
+import CircularProgress from 'material-ui/CircularProgress';
 
 const muiTheme = getMuiTheme({
  palette: {
@@ -41,7 +41,7 @@ class Executions extends Component {
           var getFiles3=localStorage.getItem("owner");
          const ownername=JSON.parse(JSON.stringify(getFiles3));
         
-        const url='http://localhost:9080/api/'+ownername+'/'+reponame+'/'+repobranch+'/executions';
+        const url='http://172.23.238.173:9080/api/'+ownername+'/'+reponame+'/'+repobranch+'/executions';
         Request
        .get(url)
        .end((err,resp) => {
@@ -51,15 +51,16 @@ class Executions extends Component {
             });
       }
 
+
  
 render() {
-  if(this.state.consoleOutput.length!=0)
-  {
+  {this.componentWillMount()}
+
     var consoleRows=[];
 
         consoleRows.push(this.state.consoleOutput.map((obj)=>
         {
-          console.log(obj);
+          
           var output=[];
           if(obj.state=="Completed")
           {
@@ -72,7 +73,7 @@ render() {
           }
           else if(obj.state=="Running")
           {
-              
+            
           }
           else
           {
@@ -83,14 +84,14 @@ render() {
               return  (<li>{data}</li>);
             })
           }
-          
+         
           return(
             <Row>
             <Col xs={12}>
             <Card >
               <CardHeader style={{fontSize:20}}
               actAsExpander={this.state.expanded}
-              >Build Date : dd/mm/yyyy Status : {obj.state}
+              >Build Date : {obj.starttime} Status : {obj.state}
               <RaisedButton style={{marginLeft:50}} label="Show Console" onTouchTap={this.handleExpand} />
               <Link to="ownerName/repoName/branch/branchName"><RaisedButton label="Build Report" style={{marginLeft:50,width:170}}/></Link>
              
@@ -107,8 +108,7 @@ render() {
             </Row>
             );
         }));
-  }
-    
+  
   return(
     <div style={{marginTop:20}}>
         <h1 style={{color:'white',marginLeft:600}}>BUILDS</h1>

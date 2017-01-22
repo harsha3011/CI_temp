@@ -122,13 +122,13 @@ npm install
                     }
                   ]};
         Request
-        .get('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
+        .get('http://172.23.238.173:9080/api/'+ownerName+'/'+projectName+'/projects')
         .end((err,resp) =>
         {
           if(resp.body)
           {
             Request
-            .put('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
+            .put('http://172.23.238.173:9080/api/'+ownerName+'/'+projectName+'/projects')
             .send(files)
             .end((err) => {
               console.log(err);
@@ -137,7 +137,7 @@ npm install
           }
           else{
             Request
-            .post('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
+            .post('http://172.23.238.173:9080/api/'+ownerName+'/'+projectName+'/projects')
             .set('Content-Type', 'application/json')
             .send(files)
             .end((err) => {

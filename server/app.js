@@ -6,7 +6,6 @@ const pipelineConfigRoute=require('./route/pipelineConfig.route')
 const projectConfigRoute=require('./route/projectsConfig.route')
 const executionsConfigRoute=require('./route/executionsConfig.route');
 const triggerCommit=require('./route/updateCommit.route');
-const rubericConfigRoute=require('./route/rubericConfig.route');
 const createRepoRoute=require('./route/createRepo.route');
 const evalFindingsConfigRoute=require('./route/evalFindingsConfig.route');
 const http = require('http');
@@ -56,5 +55,5 @@ app.use('/',triggerCommit);
 
 const server = http.createServer(app);
 server.listen(port, () => {
-    console.log('Express server started');
+    // console.log('Express server started');
 });

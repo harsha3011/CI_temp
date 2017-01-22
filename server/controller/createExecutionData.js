@@ -1,27 +1,23 @@
   const executionConfigModel=require('../models/executionsConfig.model');
- module.exports=function(req,res,err,repobranch,reponame,exitCode,stdOut,stdErr,callback){
+ module.exports=function(req,res,err,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state,callback){
    
      const executionsConfig=new executionConfigModel();
-        if(exitCode==0){
-          executionsConfig.state='Completed';
+     executionConfigModel.findOneAndUpdate({starttime:starttime},
+        {$set:
+          {
+            state:state,
+            stdout:stdOut,
+            stderr:stdErr,
+            exitcode:exitCode,
+            endtime:new Date()
+          } 
+        },
+        function(err,data){
+          if(err) throw err;
+          console.log("");
+          res.send("success");
         }
-        else{
-          executionsConfig.state='Failed';
-        }
-        executionsConfig.repoName=reponame;
-        executionsConfig.repoBranch=repobranch;
-        executionsConfig.stdout =stdOut;
-        executionsConfig.stderr=stdErr;
-        executionsConfig.exitcode=exitCode;
-        executionsConfig.save( (err)=> {
-          if(!err){
-           console.log("saved in executionsConfig");
-           res.send('success');
-          }
-          else{
-             console.log('error')
-          }
-          callback(null,'Done');  
-        });
-        
-}
+    )
+        callback(null,'completed build');
+}   
+

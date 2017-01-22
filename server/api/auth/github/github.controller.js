@@ -40,7 +40,7 @@ function getUser(token, callback) {
   .authBearer(token)
   .end(function(err, response) {
    if(err) { callback(err); return; }
-   console.log(response.body);
+   // console.log(response.body);
    // localStorage.setItem("user",response.body);
    callback(null, response.body);
    return;
@@ -53,7 +53,7 @@ module.exports = {
     res.send('https://github.com/login/oauth/authorize?client_id=' + config.GITHUB_CLIENT_ID);
   },
   complete: function(req, res) {
-    console.log(req.query.code);
+    // console.log(req.query.code);
     const code = req.query.code;
     request
     .get('https://github.com/login/oauth/access_token')

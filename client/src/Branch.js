@@ -21,7 +21,6 @@ const style = {
 };
 
 
-
   class Branch extends Component{
       constructor(props) {
           super(props);
@@ -32,6 +31,11 @@ const style = {
             reportButton: 'none',
             configFiles:[]
           };
+      }
+static get contextTypes() {
+        return {
+          router: React.PropTypes.object.isRequired
+        };
       }
 
       handleExecute(event){
@@ -54,10 +58,12 @@ const style = {
        const repoBranch=event.target.className;
       
       Request
-       .post('http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions').set('Content-Type', 'application/json')
+       .post('http://172.23.238.173:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions').set('Content-Type', 'application/json')
        .send(data)
        .end((err,res)=>
        {
+        this.context.router.push('/ownerName/executions');
+
         console.log(res);
          })
        }
@@ -83,7 +89,7 @@ const style = {
                    </TableRowColumn>
 
                   <TableRowColumn style={{textAlign:'center',fontSize:20}}>
-                     <RaisedButton primary='true' onClick={this.handleExecute}><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >Execute
+                     <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >Execute
                      </Link></RaisedButton>       
                
                      <RaisedButton style={{marginLeft:20}} primary='true'><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >View Build Report

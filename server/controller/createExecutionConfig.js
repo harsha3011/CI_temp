@@ -2,7 +2,8 @@ const createExecutionData=require('./createExecutionData');
 const runDocker=require('../services/runPipeline');
 const async=require('async');
 const getExecutionConfig=require('./getExecutionConfig');
-
+const executionConfigModel=require('../models/executionsConfig.model');
+ 
 module.exports=function(req,res,err){
   const owner=req.body.owner;
   const htmlhint = req.body.htmlhint;
@@ -12,8 +13,26 @@ module.exports=function(req,res,err){
   const repo_URL=req.body.repo_URL;
   const repobranch=req.body.repobranch;
   const reponame=req.body.reponame;
+  const starttime=new Date();
+   const executionsConfig=new executionConfigModel();
+        executionsConfig.state='Running';
+        executionsConfig.repoName=reponame;
+        executionsConfig.repoBranch=repobranch;
+        executionsConfig.stdout ="";
+        executionsConfig.stderr="";
+        executionsConfig.exitcode=0;
+        executionsConfig.starttime=starttime;
+        executionsConfig.endtime=starttime;
+        executionsConfig.save( (err)=> {
+          if(!err){
+           // res.send('success');
+          }
+          else{
+             console.log('error')
+          } 
+        });
   async.waterfall([
-      runDocker.bind(null,owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul),
+      runDocker.bind(null,owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,starttime),
       createExecutionData.bind(null,req,res,err)
 
    ],(err, results) => {

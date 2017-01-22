@@ -48,7 +48,7 @@ constructor(props) {
         	<div>
             <AppBar
 
-              title="KI-Keep Integrating"
+              title="JARVIS-Keep Integrating"
               iconElementLeft={<IconButton><ActionBugReport /></IconButton>}
               iconElementRight=
                     {<IconMenu

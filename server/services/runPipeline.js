@@ -1,4 +1,5 @@
- module.exports=function(owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul, callback){
+ module.exports=function(owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,starttime, callback){
+  let state='';
   const spawn=require('child_process').spawn;
   const docker=spawn('docker',["run","--net=host",
             "-e", `HTMLHINT=${htmlhint}`.replace(',',' '),
@@ -26,8 +27,15 @@
   });
   docker.on('close', (code) => {
     exitCode=`${code}`;
+    if(exitCode==0)
+    {
+      state="Completed";
+    }
+    else{
+      state="Failed";
+    }
 
-    callback(null,repobranch,reponame,exitCode,stdOut,stdErr);
+    callback(null,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state);
   });
 
 }

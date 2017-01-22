@@ -35,5 +35,4 @@ then
 istanbul cover _mocha
 fi
  cd ..
-echo Saving into MongoDB
 node Save.js $REPO_NAME $REPO_BRANCH $OWNER
