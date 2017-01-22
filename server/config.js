@@ -1,8 +1,8 @@
 module.exports = {
   port: process.env.PORT || 9080,
 
-GITHUB_CLIENT_ID: '614d81a7149f184b4c21',
-  GITHUB_CLIENT_SECRET: '15812aedf586e740a8acdc19f45e51fc7f065e86',
+GITHUB_CLIENT_ID: 'df12170672229199cd99',
+  GITHUB_CLIENT_SECRET: 'af6e9535473361bc4dd0edc9bfdcb41522782f9c',
 
   GITHUB_ORGANISATION: 'CI',
   MONGO_URL: 'mongodb://localhost:27017/Database_CI',

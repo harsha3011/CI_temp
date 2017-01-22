@@ -1,4 +1,4 @@
- module.exports=function(owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul, callback){
+ module.exports=function(owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,starttime,callback){
   const spawn=require('child_process').spawn;
   const docker=spawn('docker',["run","--net=host",
             "-e", `HTMLHINT=${htmlhint}`.replace(',',' '),
@@ -27,8 +27,6 @@
   docker.on('close', (code) => {
     exitCode=`${code}`;
 
-    callback(null,repobranch,reponame,exitCode,stdOut,stdErr);
+    callback(null,repobranch,reponame,starttime,exitCode,stdOut,stdErr);
   });
-
 }
-                
