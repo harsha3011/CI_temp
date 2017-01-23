@@ -29,13 +29,13 @@
     exitCode=`${code}`;
     if(exitCode==0)
     {
-      state="Completed";
+      state="Passed";
     }
     else{
       state="Failed";
     }
 
-    callback(null,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state);
+    callback(null,owner,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state);
   });
 
 }

@@ -35,4 +35,4 @@ then
 istanbul cover _mocha
 fi
  cd ..
-node Save.js $REPO_NAME $REPO_BRANCH $OWNER
+node Save.js $REPO_NAME $REPO_BRANCH $OWNER $ISTANBUL

@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { IndexLink } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Grid, Row, Col} from'react-flexbox-grid';
-import {Link} from 'react-router';
+ import {Link} from 'react-router';
 import {Table, TableBody,  TableRow, TableRowColumn, TableHeader, TableHeaderColumn} from 'material-ui/Table';
 import Request from 'superagent';
 const styles={
@@ -58,7 +58,7 @@ static get contextTypes() {
        const repoBranch=event.target.className;
       
       Request
-       .post('http://172.23.238.173:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions').set('Content-Type', 'application/json')
+       .post('http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions').set('Content-Type', 'application/json')
        .send(data)
        .end((err,res)=>
        {
@@ -92,7 +92,7 @@ static get contextTypes() {
                      <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >Execute
                      </Link></RaisedButton>       
                
-                     <RaisedButton style={{marginLeft:20}} primary='true'><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >View Build Report
+                     <RaisedButton style={{marginLeft:20,width:190}} primary='true'><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >View Build Report
                      </Link></RaisedButton>       
                </TableRowColumn>
                  </TableRow>);

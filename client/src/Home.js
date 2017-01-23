@@ -35,7 +35,7 @@ handleConfigRepoData=(event)=>{
 componentDidMount() {
     var ownerName="jarvis";
     Request
-       .get('http://172.23.238.173:9080/api/'+ownerName+'/projects')
+       .get('http://localhost:9080/api/'+ownerName+'/projects')
        .then((res) => {
         this.setState({
            configrepositories: res.body
