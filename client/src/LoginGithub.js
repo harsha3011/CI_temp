@@ -31,22 +31,18 @@ constructor(props) {
   }
 }
   componentDidMount () {
-    request.get('http://localhost:9080/api/ci/auth/github/login')
+    request.get('http://172.23.238.186:9080/api/ci/auth/github/login')
           .set('Accept', 'application/json')
           .end((err, res) => {
               this.setState({githubUrl: res.text});
           });
    };
 
-
-
    render() {
-
       return (
       	<div>
         	<div>
             <AppBar
-
               title="KI-Keep Integrating"
               iconElementLeft={<IconButton><ActionBugReport /></IconButton>}
               iconElementRight=
@@ -83,7 +79,7 @@ constructor(props) {
 
                     <a href={this.state.githubUrl}>
 
-                    <FlatButton secondary={true} hoverColor='#D1C4E9' label="Login With Github" type="submit"/>
+                    <FlatButton secondary={true} hoverColor='#D1C4E9' label="Login With Github" type="submit" onClick={this.handleButton}/>
 
                     </a>
 

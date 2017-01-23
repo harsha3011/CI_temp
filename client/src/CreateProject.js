@@ -32,16 +32,16 @@ class CreateProject extends Component {
       }
 
         createRepo = (event) => {
-            
+
           let obj ={
                      'name':this.state.newRepository,
-                     'description': this.state.desc, 
+                     'description': this.state.desc,
               }
-             
+
                 this.setState({ repoData: obj });
-            
+
             Request
-                .post('http://localhost:9080/api/srishtinanda/repos')
+                .post('http://172.23.238.186:9080/api/srishtinanda/repos')
                 .send(obj)
                 .end(function(err, res) {
                     console.log(res);
@@ -56,13 +56,13 @@ class CreateProject extends Component {
             openReadme: false
         };
 
-        
+
 
         handleOpenReadme = () => {
             this.setState({ openReadme: true });
         };
 
-       
+
         handleCloseReadme = () => {
             this.setState({ openReadme: false });
         };

@@ -49,13 +49,13 @@ ReactDOM.render(
 
           <Route path="/" component={login} onEnter={redirectIfLoggedIn}/>
           <Route path="logout" component={login} onEnter={redirectIfLoggedIn}/>
-          <Route path="ownerName" component={App} onEnter={redirectIfNotLoggedIn}>
-            <IndexRoute component={home} onEnter={redirectIfNotLoggedIn}/>
+          <Route path=":ownerName" component={App} onEnter={redirectIfNotLoggedIn}>
+            <IndexRoute component={Home} onEnter={redirectIfNotLoggedIn}/>
             <Route path="createRepo" component={CreateProject} onEnter={redirectIfNotLoggedIn}/>
-            <Route path="repoName/branch" component={Branch} onEnter={redirectIfNotLoggedIn}/>
+            <Route path=":repoName/:branch" component={Branch} onEnter={redirectIfNotLoggedIn}/>
             <Route path="executions" component={Executions} onEnter={redirectIfNotLoggedIn}/>
             <Route path=":repoName/pipelineSettings" component={CreatePipeline} onEnter={redirectIfNotLoggedIn}/>
-            <Route path="repoName/branch/branchName" component={BuildReport} onEnter={redirectIfNotLoggedIn}/>
+            <Route path=":repoName/:branch/branchName" component={BuildReport} onEnter={redirectIfNotLoggedIn}/>
             <Route path="Ruberic" component={RubericSettings} onEnter={redirectIfNotLoggedIn}/>
             <Route path=":repoName/teamtype" component={TeamType} onEnter={redirectIfNotLoggedIn}/>
 
