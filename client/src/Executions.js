@@ -59,7 +59,6 @@ class Executions extends Component {
   }
  
 render() {
-  {this.componentWillMount()}
 
     var consoleRows=[];
     var list="The build is running.....";
@@ -113,7 +112,7 @@ render() {
             </div>
             buildReport=<div>
             <RaisedButton primary='true' style={{marginLeft:50,marginTop:20}} label="Show Console" onTouchTap={this.handleExpand} />
-            <RaisedButton primary='true' style={{marginTop:30,marginLeft:70,width:170}}><Link to="ownerName/repoName/branch/branchName" style={{textDecoration:'none',color:'white'}} onTouchTap={this.handleReport.bind(this)} className={JSON.stringify(obj)}>BUILD REPORT</Link></RaisedButton>
+            <RaisedButton primary='true' style={{marginTop:30,marginLeft:70,width:170}}><Link to="ownerName/repoName/branch/branchName" style={{textDecoration:'none',color:'white'}} onTouchTap={this.handleReport.bind(this)} className={obj}>BUILD REPORT</Link></RaisedButton>
             </div>
             list=output.map(function(data)
             {

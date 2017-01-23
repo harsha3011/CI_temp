@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import {Card, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-
+import Request from 'superagent';
 
 const styles={
       bar:{
@@ -20,31 +20,49 @@ class Report extends Component {
           super();
           this.state = {
             tests:["HTMLHINT","MOCHA","ISTANBUL","ESLINT"],
-            reportData:''
+            reportData:'',
+            testData:''
           };
       }
 
-      componentWillMount()
+      componentDidMount()
       {
 
         var getReport=JSON.parse(window.localStorage.getItem("reportData"));
         this.setState({
           reportData:getReport
         });
-        
+        var owner=getReport.owner;
+        var repoName=getReport.repoName;
+        var repoBranch=getReport.repoBranch;
+        var starttime=new Date((getReport.starttime)).toString();
         Request
-       .get('http://localhost:9080/api/:owner/:repoName/:repoBranch/:starttime/evalFindings')
+       .get('http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/'+starttime+'/evalFindings')
        .end((err,res)=>
        {
-        console.log(res);
+        this.setState({
+        	testData:res.body
+        })
          })
        }
-       
+
+
   render(){
-  	 var reportRows=[];
-  	 reportRows.push(this.state.tests.map((obj)=>
+  		 	var testData=''
+  		 	var testReport=[]
+  		 	if(this.state.testData.length!=0)
+  		 	{
+  		 		console.log(this.state.testData);
+  		 		testData=this.state.testData;
+  		 		console.log('TYRING TO CONVERT TO OBJECTS',JSON.parse(testData[0].eslintConfig));
+  		 		testReport.push(JSON.parse(testData[0].htmlhintConfig));
+  		 		testReport.push(testData[0].mochaConfig);	
+  		 		testReport.push(testData[0].istanbulConfig);
+  		 		testReport.push(testData[0].eslintConfig);
+  		 	}
+  	 var testRows=[];
+  	 testRows.push(this.state.tests.map((obj,i)=>
 	  	 {
-	  	 	
           return(
             <Row>
             <Col xs={12}>
@@ -56,6 +74,7 @@ class Report extends Component {
 		      style={{fontSize:25}}>
               </CardHeader>
               <CardText expandable={true}>
+            
               </CardText>
             </Card>
             </Col>
@@ -74,7 +93,7 @@ class Report extends Component {
                   </TableRow>
                 </TableHeader>
           <TableBody  displayRowCheckbox={false}>
-                         {reportRows}
+                         {testRows}
                          </TableBody>
                         </Table>
                         </div>

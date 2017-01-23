@@ -10,6 +10,7 @@
             "-e",`REPO_NAME=${reponame}`,
             "-e",`REPO_BRANCH=${repobranch}`,
             "-e",`OWNER=${owner}`,
+            "-e",`STARTTIME=${starttime}`,
              "test"]);
   var exitCode;
   var stdOut=[];
