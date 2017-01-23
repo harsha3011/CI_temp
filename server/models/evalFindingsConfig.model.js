@@ -8,7 +8,8 @@ const EvalFindingSchema = new Schema({
   eslintConfig: { type: Object},
   htmlhintConfig: { type: Object},
   mochaConfig: { type: Object},
-  istanbulConfig: { type: Object}
+  istanbulConfig: { type: Object},
+  starttime:{type: Date}
 });
 
 module.exports = mongoose.model('EvalFindings', EvalFindingSchema);

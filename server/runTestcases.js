@@ -1,3 +1,6 @@
+const evalFindingsConfigModel=require('./models/executionsConfig.model');
+const mongoose = require('mongoose');
+const connection=mongoose.connect('mongodb://localhost:27017/Database_CI');
 const async=require('async');
 const htmlhint =process.argv[0];
 const eslint =process.argv[1];

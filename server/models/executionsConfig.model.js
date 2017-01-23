@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ExecutionsSchema = new Schema({
+  owner:{type:String, required:true},
   state: { type: String, required: true },
   repoName: { type: String , required: true},
   repoBranch: { type: String, required: true },

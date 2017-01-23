@@ -23,8 +23,10 @@ else{
 	 istanbulJson='';
 }
 const evalFindingsConfig = new evalFindingsConfigModel();
+        var time=process.argv[6]+" "+process.argv[7]+" "+process.argv[8]+" "+process.argv[9]+" "+process.argv[10]+" "+process.argv[11]+" "+process.argv[12];
 
-		evalFindingsConfig.repoBranch= repobranch;
+        evalFindingsConfig.starttime=new Date(time).toISOString();
+		    evalFindingsConfig.repoBranch= repobranch;
         evalFindingsConfig.owner= owner;
         evalFindingsConfig.repoName= reponame;
         evalFindingsConfig.eslintConfig= eslintJson;

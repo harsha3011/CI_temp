@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { IndexLink } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Grid, Row, Col} from'react-flexbox-grid';
-import {Link} from 'react-router';
+ import {Link} from 'react-router';
 import {Table, TableBody,  TableRow, TableRowColumn, TableHeader, TableHeaderColumn} from 'material-ui/Table';
 import Request from 'superagent';
 const styles={

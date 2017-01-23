@@ -12,11 +12,13 @@ import {white} from 'material-ui/styles/colors';
 import Paper from 'material-ui/Paper';
 import CircularProgress from 'material-ui/CircularProgress';
 
-const muiTheme = getMuiTheme({
- palette: {
-   textColor: white,
- }
-});
+const styles={
+      bar:{
+          marginTop:50,
+          marginBottom:100,
+          padding:20
+      },
+  };
 
 class Executions extends Component {
 
@@ -41,6 +43,7 @@ class Executions extends Component {
           var getFiles3=localStorage.getItem("owner");
          const ownername=JSON.parse(JSON.stringify(getFiles3));
 
+
         const url='http://localhost:9080/api/'+ownername+'/'+reponame+'/'+repobranch+'/executions';
         Request
        .get(url)
@@ -51,34 +54,67 @@ class Executions extends Component {
             });
       }
 
-
+ handleReport=(event)=>{
+      window.localStorage.setItem("reportData",event.target.className);
+  }
 
 render() {
 
     var consoleRows=[];
-
+    var list="The build is running.....";
+    var progress=""
+    var executiontime=""
+    var buildReport=""
         consoleRows.push(this.state.consoleOutput.map((obj)=>
         {
-
+          var date=new Date((obj.starttime)).toString();
+          var endtime=new Date((obj.endtime)).toString();
+          var parsedDateA = new Date(date).getTime();
+          var parsedDateB = new Date(endtime).getTime();
+          var msec = parsedDateB-parsedDateA;
+          var hh = Math.floor(msec / 1000 / 60 / 60);
+          msec -= hh * 1000 * 60 * 60;
+          var mm = Math.floor(msec / 1000 / 60);
+          msec -= mm * 1000 * 60;
+          var ss = Math.floor(msec / 1000);
+          msec -= ss * 1000;
+          var totaltime=" "+mm+" minutes "+ss+" seconds"
           var output=[];
-          if(obj.state=="Completed")
+          if(obj.state=="Passed")
           {
             output=obj.stdout;
             output=output.split(/[\n,]+/);
-            var list=output.map(function(data)
+
+            progress=" "
+            executiontime=<div><h3>Execution Time : </h3>
+            <p style={{marginTop:21,marginLeft:10}}>{totaltime}</p>
+            </div>
+            buildReport=<div>
+            <RaisedButton primary='true' style={{marginLeft:50,marginTop:20}} label="Show Console" onTouchTap={this.handleExpand} />
+            <RaisedButton primary='true' style={{marginTop:30,marginLeft:70,width:170}}><Link to="ownerName/repoName/branch/branchName" style={{textDecoration:'none',color:'white'}} onTouchTap={this.handleReport.bind(this)} className={JSON.stringify(obj)}>BUILD REPORT</Link></RaisedButton>
+            </div>
+            list=output.map(function(data)
             {
               return  (<li>{data}</li>);
             })
           }
           else if(obj.state=="Running")
           {
-
+            progress=<CircularProgress/>
           }
           else
           {
             output=obj.stderr;
             output=output.split(',');
-            var list=output.map(function(data)
+            progress=" "
+             executiontime=<div><h3>Execution Time : </h3>
+            <p style={{marginTop:21,marginLeft:10}}>{totaltime}</p>
+            </div>
+            buildReport=<div>
+            <RaisedButton primary='true' style={{marginLeft:50,marginTop:20}} label="Show Console" onTouchTap={this.handleExpand} />
+            <RaisedButton primary='true' style={{marginTop:30,marginLeft:70,width:170}}><Link to="ownerName/repoName/branch/branchName" style={{textDecoration:'none',color:'white'}} onTouchTap={this.handleReport.bind(this)} className={obj}>BUILD REPORT</Link></RaisedButton>
+            </div>
+            list=output.map(function(data)
             {
               return  (<li>{data}</li>);
             })
@@ -88,11 +124,25 @@ render() {
             <Row>
             <Col xs={12}>
             <Card >
-              <CardHeader style={{fontSize:20}}
+              <CardHeader style={{fontSize:16}}
               actAsExpander={this.state.expanded}
-              >Build Date : {obj.starttime} Status : {obj.state}
-              <RaisedButton style={{marginLeft:50}} label="Show Console" onTouchTap={this.handleExpand} />
-              <Link to="ownerName/repoName/branch/branchName"><RaisedButton label="Build Report" style={{marginLeft:50,width:170}}/></Link>
+              ><Row>
+                <Col>
+                <h3>Build Date : </h3><h3>Status : </h3>
+                </Col>
+                <Col>
+                <p style={{marginTop:21,marginLeft:10}}>{date}</p><p style={{marginLeft:10,marginTop:21}}>{obj.state}</p>
+
+               </Col>
+               <Col style={{marginLeft:20,marginTop:21}}>
+              {progress}
+              </Col>
+               <Col>
+               {buildReport}
+              </Col>
+
+             </Row>
+             <Row>{executiontime}</Row>
 
               </CardHeader>
               <CardText expandable={true} style={{background:'black'}}>
@@ -109,11 +159,22 @@ render() {
         }));
 
   return(
-    <div style={{marginTop:20}}>
-        <h1 style={{color:'white',marginLeft:600}}>BUILDS</h1>
-          {consoleRows}
+    <Grid>
+              <Paper style={styles.bar}>
+                        <div>
 
-    </div>
+                          <Table>
+                         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                    <TableRow style={{fontSize:35,textAlign:'center'}}><b>BUILDS</b>
+                  </TableRow>
+                </TableHeader>
+          <TableBody  displayRowCheckbox={false}>
+                          {consoleRows}
+                         </TableBody>
+                        </Table>
+                        </div>
+     </Paper>
+              </Grid>
     );
 
  }
