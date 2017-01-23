@@ -21,7 +21,6 @@ const style = {
 };
 
 
-
   class Branch extends Component{
       constructor(props) {
           super(props);
@@ -33,13 +32,18 @@ const style = {
             configFiles:[]
           };
       }
+static get contextTypes() {
+        return {
+          router: React.PropTypes.object.isRequired
+        };
+      }
 
       handleExecute(event){
 
        localStorage.setItem("repoBranch",event.target.className);
        localStorage.setItem("repoName",this.state.configFiles.reponame);
        localStorage.setItem("owner",this.state.configFiles.owner);
-                                
+
        var data={"owner":this.state.configFiles.owner,
                  "repobranch":event.target.className,
                  "reponame":this.state.configFiles.reponame,
@@ -52,12 +56,15 @@ const style = {
        const owner=this.state.configFiles.owner;
        const repoName=this.state.configFiles.reponame;
        const repoBranch=event.target.className;
-      
+
       Request
-       .post('http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions').set('Content-Type', 'application/json')
+       .post('http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions')
+       .set('Content-Type', 'application/json')
        .send(data)
        .end((err,res)=>
        {
+        this.context.router.push('/ownerName/executions');
+
         console.log(res);
          })
        }
@@ -70,10 +77,10 @@ const style = {
         this.setState({
           configFiles:getFiles
         });
-       
+
       }
       render(){
-       
+
         var rows=[];
 
         rows.push(this.state.configFiles.repo_Ref.map((obj)=>
@@ -83,11 +90,11 @@ const style = {
                    </TableRowColumn>
 
                   <TableRowColumn style={{textAlign:'center',fontSize:20}}>
-                     <RaisedButton primary='true' onClick={this.handleExecute}><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >Execute
-                     </Link></RaisedButton>       
-               
+                     <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >Execute
+                     </Link></RaisedButton>
+
                      <RaisedButton style={{marginLeft:20}} primary='true'><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >View Build Report
-                     </Link></RaisedButton>       
+                     </Link></RaisedButton>
                </TableRowColumn>
                  </TableRow>);
         }));

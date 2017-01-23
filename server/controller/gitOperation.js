@@ -1,5 +1,4 @@
 const runAsync=require('../services/gitOperations');
-console.log("outside Controller");
 module.exports=function (req, res) {
   console.log("controller");
   const repoName = req.body.RepoName;

@@ -1,26 +1,22 @@
   const executionConfigModel=require('../models/executionsConfig.model');
- module.exports=function(req,res,err,owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,callback){
+ module.exports=function(req,res,err,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state,callback){
 
      const executionsConfig=new executionConfigModel();
-
-     const starttime= new Date();
-     console.log('starttime',starttime);
-       executionsConfig.state='';
-       executionsConfig.repoName=reponame;
-       executionsConfig.repoBranch=repobranch;
-       executionsConfig.stdout ='';
-       executionsConfig.stderr='';
-       executionsConfig.exitcode='';
-       executionsConfig.endtime=new Date();
-     executionsConfig.starttime=new Date();
-     executionsConfig.save( (err)=> {
-      if(!err){
-       console.log("saved in executionsConfig");
-       res.send('success');
-      }
-      else{
-         console.log('error')
-      }
-      callback(null,owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,starttime);
-     });
+     executionConfigModel.findOneAndUpdate({starttime:starttime},
+        {$set:
+          {
+            state:state,
+            stdout:stdOut,
+            stderr:stdErr,
+            exitcode:exitCode,
+            endtime:new Date()
+          }
+        },
+        function(err,data){
+          if(err) throw err;
+          console.log("");
+          res.send("success");
+        }
+    )
+        callback(null,'completed build');
 }

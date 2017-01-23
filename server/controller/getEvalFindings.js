@@ -6,7 +6,6 @@ module.exports=function (req, res) {
 		if (err) throw error;
 		if(mySchema){
 			res.send(mySchema);
-			console.log(mySchema[0].eslintConfig.hi);
 		}
 		else{
 			res.send("User doesn't exist");

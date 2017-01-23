@@ -1,6 +1,6 @@
 FROM mhart/alpine-node
-RUN mkdir test
-WORKDIR test
+RUN mkdir /test
+WORKDIR /test
 RUN apk update && apk add git
 RUN npm install --save-dev -g  htmlhint
 RUN npm install -save-dev -g istanbul

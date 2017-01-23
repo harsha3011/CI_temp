@@ -1,20 +1,21 @@
-module.exports=function(){
+
  const spawn=require('child_process').spawn;
- const docker=spawn('shell',["./dockerExecution.js"]]);
- docker.stderr.on('data', (data)=> {
-   console.log(`${data}`);
+ const shell=spawn('mocha',["ComparisonOperator.js"]);
+ var stdErr=[];
+ var stdOut=[];
+ var exitCode;
+ shell.stderr.on('data', (data)=> {
+   console.log('stderr',`${data}`);
     if(`${data}`)
      {
       stdErr.push(`${data}`);
      }
  });
- docker.stdout.on('data', (data)=> {
-   console.log(`${data}`);
+ shell.stdout.on('data', (data)=> {
+   console.log('STDOUT',`${data}`);
     stdOut.push(`${data}`);
  });
- docker.on('close', (code) => {
+ shell.on('close', (code) => {
    exitCode=`${code}`;
-
-   callback(null,repobranch,reponame,starttime,exitCode,stdOut,stdErr);
+   console.log('EXITCODE',`${code}`)
  });
-}
