@@ -1,28 +1,32 @@
-console.log("entered Save.js");
 const evalFindingsConfigModel=require('./models/evalFindingsConfig.model');
 const reponame=process.argv[2];
 const repobranch=process.argv[3];
 const owner=process.argv[4];
-
+var htmlhintJson='';
+var eslintJson='';
+var mochaJson='';
+var istanbulJson='';
 const mongoose = require('mongoose');
 const connection=mongoose.connect('mongodb://localhost:27017/Database_CI');
-mongoose.connection.on('connected', () => {
-	console.log('Mongo Connected');
-});
 
 var fs=require('fs');
-var htmlhintJson = fs.readFileSync('./outputJson/htmlhintOutput.json','utf-8');
-console.log('HTMLHINTJSON', htmlhintJson);
-var eslintJson = fs.readFileSync('./outputJson/eslintOutput.json','utf-8');
-console.log('ESLINTJSON', eslintJson);
-var mochaJson = fs.readFileSync('./outputJson/mochawesome.json','utf-8');
-console.log('MOCHAJSON', mochaJson);
-var istanbulJson = fs.readFileSync('./'+reponame+'/coverage/coverage.json','utf-8');
-
-console.log('ISTANBULJSON', istanbulJson);
+htmlhintJson = fs.readFileSync('./outputJson/htmlhintOutput.json','utf-8');
+console.log('htmlhint',htmlhintJson);
+eslintJson = fs.readFileSync('./outputJson/eslintOutput.json','utf-8');
+console.log('eslint',eslintJson);
+mochaJson = fs.readFileSync('./outputJson/mochawesome.json','utf-8');
+console.log('mocha',mochaJson);
+if(process.argv[5]){
+	istanbulJson = fs.readFileSync('./'+reponame+'/coverage/coverage.json','utf-8');
+}
+else{
+	 istanbulJson='';
+}
 const evalFindingsConfig = new evalFindingsConfigModel();
+        var time=process.argv[6]+" "+process.argv[7]+" "+process.argv[8]+" "+process.argv[9]+" "+process.argv[10]+" "+process.argv[11]+" "+process.argv[12];
 
-		evalFindingsConfig.repoBranch= repobranch;
+        evalFindingsConfig.starttime=new Date(time).toISOString();
+		    evalFindingsConfig.repoBranch= repobranch;
         evalFindingsConfig.owner= owner;
         evalFindingsConfig.repoName= reponame;
         evalFindingsConfig.eslintConfig= eslintJson;
@@ -35,6 +39,5 @@ const evalFindingsConfig = new evalFindingsConfigModel();
           if(err){
            throw err;
           }
-          console.log("saved in eval findings");
           mongoose.connection.close();
         });

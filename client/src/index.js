@@ -15,7 +15,11 @@ import CreatePipeline from './CreatePipeline'
 import BuildReport from './BuildReport'
 import RubericSettings from './RubericSetting'
 import TeamType from './TeamType'
+<<<<<<< HEAD
 import cookie from 'react-cookie';
+=======
+import Report from './Report'
+>>>>>>> 435017fd7aa1fd12db87d7ea304a34357bd6dbb4
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
@@ -46,6 +50,7 @@ function redirectIfNotLoggedIn(nextState, replace, next) {
 }
 
 ReactDOM.render(
+<<<<<<< HEAD
   <div>
     <h1>Hello World!</h1>
     <MuiThemeProvider muiTheme={muiTheme}>
@@ -67,3 +72,21 @@ ReactDOM.render(
  </div>
 , document.querySelector("#root"));
 
+=======
+  <MuiThemeProvider muiTheme={muiTheme}>
+      <Router history={hashHistory}>
+          <Route path="/" component={login}/>
+          <Route path="logout" component={login}/>
+          <Route path="ownerName" component={App}>
+            <IndexRoute component={Home}/>
+            <Route path="createRepo" component={CreateProject}/>
+            <Route path="repoName/branch" component={Branch}/>
+            <Route path="executions" component={Executions}/>
+            <Route path="repoName/pipelineSettings" component={CreatePipeline}/>
+            <Route path="repoName/branch/branchName" component={Report}/>
+            <Route path="repoName/teamtype" component={TeamType}/>
+          </Route>
+      </Router>
+ </MuiThemeProvider>
+, document.querySelector("#root"));
+>>>>>>> 435017fd7aa1fd12db87d7ea304a34357bd6dbb4

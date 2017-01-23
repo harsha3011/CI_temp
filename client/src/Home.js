@@ -30,7 +30,6 @@ class Home extends Component {
    });
  };
 handleConfigRepoData=(event)=>{
-  console.log(event.target.className);
      window.localStorage.setItem("repoconfigData",event.target.className);
   }
 
@@ -61,22 +60,41 @@ componentDidMount() {
   const configuredRepoList=this.state.configrepositories.map((repo)=>{
     let url='/app/'+this.props.params.ownerName+'/'+repo.reponame+'/branch' ;
      return(
+<<<<<<< HEAD
        <TableRow style={{fontSize:18}}>
          <Link to={url} className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
             <IconButton style={{marginLeft:'90%'}}><Link to="/app/ownerName/repoName/pipelineSettings">
             <Setting color={'#00897B '} size={80}/></Link>
             </IconButton>
 
+=======
+       <TableRow>
+       <TableRowColumn>
+         <Link style={{fontSize:18}} to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
+            </TableRowColumn>
+            <TableRowColumn>
+            <IconButton ><Link to="/ownerName/repoName/pipelineSettings">
+            <Setting color={'#00897B '} size={200}/></Link>
+            </IconButton>
+         </TableRowColumn>
+>>>>>>> 435017fd7aa1fd12db87d7ea304a34357bd6dbb4
        </TableRow>
        );
    });
    const repoList=this.state.repositories.map((repo)=>{
+<<<<<<< HEAD
     let url="/app/"+this.props.params.ownerName+"/"+repo.name+"/teamtype";
      console.log(url);
      return(
        <TableRow style={{fontSize:18}}>
             <TableRowColumn><Link to={url} className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.name}</Link>
             </TableRowColumn>
+=======
+
+     return(
+       <TableRow style={{fontSize:18}}>
+            <Link to="/ownerName/repoName/teamtype" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.name}</Link>
+>>>>>>> 435017fd7aa1fd12db87d7ea304a34357bd6dbb4
        </TableRow>
        );
    });
@@ -85,12 +103,10 @@ componentDidMount() {
    <Grid>
    <Row center="xs">
     <Col xs={12}>
-       <Paper >
+       <Paper style={{marginTop:50}} >
             <Table >
                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-            <TableRow>
-             <TableHeaderColumn style={{fontSize:25}}><b>Projects</b></TableHeaderColumn>
-           <TableHeaderColumn></TableHeaderColumn>
+            <TableRow style={{fontSize:35}}><b>PROJECTS</b>
             </TableRow>
          </TableHeader>
              <TableBody  displayRowCheckbox={false}>
