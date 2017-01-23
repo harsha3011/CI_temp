@@ -34,7 +34,7 @@ class Executions extends Component {
         const owner=this.state.owner;
         const repoName=this.state.repoName;
         const repoBranch=this.state.repoBranch;
-        const url='http://172.23.238.186:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions';
+        const url='http://172.23.238.223:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions';
         Request
        .get(url)
        .end((err,resp)=>

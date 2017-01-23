@@ -82,12 +82,7 @@ module.exports = {
             if(err3) { res.status(500).json(err3); return; }
               res
               .cookie('token', jwt)
-<<<<<<< HEAD
-              .redirect('http://172.23.238.223:9080/#/ownerName');
-=======
-              .redirect('http://172.23.238.186:9080/#/'+response1.login);
->>>>>>> 9c9e104af973b00465c5f044f18444ff13094c5e
-            return;
+              .redirect('http://172.23.238.223:9080/#/'+response1.login);
           });
         });
       }

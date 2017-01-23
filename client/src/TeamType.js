@@ -82,7 +82,7 @@ class TeamType extends Component {
     }
 
 render() {
- 
+ console.log("im inside teamtype");
 let link = '/ownerName/' + this.state.Rname + '/pipelineSettings';
 const readyButton = ( <Row>
               <Col xs={12}>
@@ -151,7 +151,7 @@ return ( < Grid >
                             < h4 style = { styles.headline } > Adding branches to your current repository necessary to run CI < /h4> < Card expanded = { this.state.expanded }
                             onExpandChange = { this.handleExpandChange } >
                             < CardHeader
-                            title = "Multiple Team Lay-Out"
+                            title = "Multiple Team Lay-Out "
                             subtitle = "Basic Requirements"
                             avatar = { logo2 }
                             actAsExpander = { true }

@@ -32,29 +32,8 @@ class CreateProject extends Component {
                 'Access_Token': ''
             }
         }
-<<<<<<< HEAD
     }
     componentWillMount() {
-=======
-      }
-
-        createRepo = (event) => {
-
-          let obj ={
-                     'name':this.state.newRepository,
-                     'description': this.state.desc,
-              }
-
-                this.setState({ repoData: obj });
-
-            Request
-                .post('http://172.23.238.186:9080/api/srishtinanda/repos')
-                .send(obj)
-                .end(function(err, res) {
-                    console.log(res);
-                });
->>>>>>> 9c9e104af973b00465c5f044f18444ff13094c5e
-
         const token = cookie.load('token');
         var decoded = jwtDecode(token);
         console.log(decoded.accessToken);
@@ -62,8 +41,7 @@ class CreateProject extends Component {
         this.setState({
             access_token: decoded.accessToken,
         });
-    }
-
+    }   
 
     createRepo = (event) => {
 
@@ -72,16 +50,17 @@ class CreateProject extends Component {
             'description': this.state.desc,
             'Access_Token': this.state.access_token,
         }
-<<<<<<< HEAD
-
-        this.setState({ repoData: obj });
+        this.setState({ 
+            repoData: obj
+             });
 
         Request
             .post('http://localhost:9080/api/srishtinanda/repos')
             .send(obj)
             .end(function(err, res) {
                 console.log(res);
-=======
+            });
+    }
         handleChange = (event, index, value) => this.setState({ value });
         handleChangeLicense = (event, index, valueLicense) => this.setState({ valueLicense });
 
@@ -108,40 +87,10 @@ class CreateProject extends Component {
         handleChangedesc = (event) => {
             this.setState({
                 desc: event.target.value,
->>>>>>> 9c9e104af973b00465c5f044f18444ff13094c5e
             });
 
     }
-    handleChange = (event, index, value) => this.setState({ value });
-    handleChangeLicense = (event, index, valueLicense) => this.setState({ valueLicense });
-
-    state = {
-        open: false,
-        openReadme: false
-    };
-
-
-
-    handleOpenReadme = () => {
-        this.setState({ openReadme: true });
-    };
-
-
-    handleCloseReadme = () => {
-        this.setState({ openReadme: false });
-    };
-    handleChangename = (event) => {
-        this.setState({
-            newRepository: event.target.value,
-        });
-    }
-    handleChangedesc = (event) => {
-        this.setState({
-            desc: event.target.value,
-        });
-    }
-
-
+    
     render() {
         var repoName = this.state.newRepository;
         var link = '/ownerName/' + repoName + '/teamtype'

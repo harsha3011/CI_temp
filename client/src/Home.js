@@ -37,11 +37,7 @@ handleConfigRepoData=(event)=>{
 componentDidMount() {
     var ownerName=this.props.params.ownerName;
     Request
-<<<<<<< HEAD
        .get('http://172.23.238.223:9080/api/'+ownerName+'/projects')
-=======
-       .get('http://172.23.238.186:9080/api/'+ownerName+'/projects')
->>>>>>> 9c9e104af973b00465c5f044f18444ff13094c5e
        .then((res) => {
         this.setState({
            configrepositories: res.body
@@ -75,7 +71,7 @@ componentDidMount() {
        );
    });
    const repoList=this.state.repositories.map((repo)=>{
-    let url="/"+this.props.params.ownerName+"/"+repo.name+"/teamtype"
+    let url="/"+this.props.params.ownerName+"/"+repo.name+"/teamtype";
      console.log(repo.name);
      return(
        <TableRow style={{fontSize:18}}>
@@ -84,7 +80,7 @@ componentDidMount() {
        </TableRow>
        );
    });
-     var route="/"+this.props.params.ownerName+"/createRepo";
+     let route="/"+this.props.params.ownerName+"/createRepo";
   return (
    <Grid>
    <Row center="xs">
@@ -106,8 +102,6 @@ componentDidMount() {
        <Tab label="Configure" value="Configure" >
          <div>
            {configuredRepoList}
-
-
          </div>
        </Tab>
        <Tab label="Non-Configured" value="b">

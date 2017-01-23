@@ -31,11 +31,8 @@ constructor(props) {
   }
 }
   componentDidMount () {
-<<<<<<< HEAD
+
     request.get('http://172.23.238.223:9080/api/ci/auth/github/login')
-=======
-    request.get('http://172.23.238.186:9080/api/ci/auth/github/login')
->>>>>>> 9c9e104af973b00465c5f044f18444ff13094c5e
           .set('Accept', 'application/json')
           .end((err, res) => {
               this.setState({githubUrl: res.text});
