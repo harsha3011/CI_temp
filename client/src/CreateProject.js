@@ -29,7 +29,7 @@ class CreateProject extends Component {
             repoData: {
                 'name': '',
                 'description': '',
-                'private': ''
+                'Access_Token': ''
             }
         }
     }

@@ -50,8 +50,7 @@ function getUser(token, callback) {
 module.exports = {
   url: function(req, res) {
     res.send('https://github.com/login/oauth/authorize?client_id=' + config.GITHUB_CLIENT_ID+'&scope='+config.SCOPE);
-  console.log('https://github.com/login/oauth/authorize?client_id=' + config.GITHUB_CLIENT_ID+'&scope='+config.SCOPE);
-  },
+    },
   complete: function(req, res) {
     console.log(req.query.code);
     const code = req.query.code;
@@ -65,7 +64,6 @@ module.exports = {
     .end(function(err0, response0) {
       if(err0) { res.status(500).json(err0); return; }
       const accessToken = response0.body.access_token;
-      console.log('Access Token', accessToken);
       getUser(accessToken, function(err1, response1) {
         if(err1) { res.status(500).json(err1); return; }
 
@@ -88,7 +86,6 @@ module.exports = {
       );
     });},
     me: function(req, res) {
-      console.log("inside me");
       const claims = req.claims;
       getUser(claims.accessToken, function(err, user) {
 
