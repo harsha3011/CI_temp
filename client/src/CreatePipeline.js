@@ -21,9 +21,9 @@ const muiTheme = getMuiTheme({
    textColor: white,
  }
 });
-  
+
 class CreatePipeline extends Component{
-   
+
     constructor(props) {
         super(props);
         this.handleCheckbox=this.handleCheckbox.bind(this);
@@ -49,7 +49,7 @@ npm install
       }
       getRepoData(repoName){
         console.log();
-          
+
       }
       //create a component for custom shell commands
       changeEsLint(values)
@@ -91,15 +91,15 @@ npm install
         let url = `https://api.github.com/repos/srishtinanda/${this.props.params.repoName}/branches`
          Request
          .get(url)
-                
+
                 .end((err, res)=>{
                     res.body.map((obj)=>{
                       this.setState({
                         repo_Ref:obj.name
                       });
                  });
-                    
-          });  
+
+          });
       }
 
        handleSaveClick=(event)=>{
@@ -132,13 +132,13 @@ npm install
                     }
                   ]};
         Request
-        .get('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
+        .get('http://172.23.238.186:9080/api/'+ownerName+'/'+repoName+'/projects')
         .end((err,resp) =>
         {
           if(resp.body)
           {
             Request
-            .put('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
+            .put('http://172.23.238.186:9080/api/'+ownerName+'/'+repoName+'/projects')
             .send(files)
             .end((err) => {
               console.log(err);
@@ -147,7 +147,7 @@ npm install
           }
           else{
             Request
-            .post('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
+            .post('http://172.23.238.186:9080/api/'+ownerName+'/'+repoName+'/projects')
             .set('Content-Type', 'application/json')
             .send(files)
             .end((err) => {

@@ -2,7 +2,7 @@ const getCommit=require('../controller/updateCommits');
 const express = require('express');
 const router = express.Router();
 
-router.post('/commitStatus',getCommit);
+router.post('/cihook',getCommit);
 
 
 module.exports=router;

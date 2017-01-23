@@ -29,7 +29,7 @@ const evalFindingsConfig = new evalFindingsConfigModel();
         evalFindingsConfig.htmlhintConfig= htmlhintJson;
         evalFindingsConfig.mochaConfig= mochaJson;
         evalFindingsConfig.istanbulConfig= istanbulJson;
-		
+
 		evalFindingsConfig.save((err)=> {
 
           if(err){
@@ -38,4 +38,3 @@ const evalFindingsConfig = new evalFindingsConfigModel();
           console.log("saved in eval findings");
           mongoose.connection.close();
         });
-

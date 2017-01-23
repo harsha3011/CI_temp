@@ -15,7 +15,7 @@ const config = require('./config');
 const _ = require('lodash');
 const path = require('path');
 const mongoose = require('mongoose');
-const connection=mongoose.connect('mongodb://localhost:27017/Database_CI');
+const connection=mongoose.connect('mongodb://localhost/Database_CI');
 const doGitOperationsRoute=require('./route/gitOperations.route')
 
 app.use(function(req, res, next) {
@@ -59,7 +59,6 @@ app.use('/',evalFindingsConfigRoute);
 app.use('/',doGitOperationsRoute);
 app.use(cookieParser());
 app.use('/api/ci', require(path.join(__dirname, '..', 'server/api')));
-
 app.use(express.static(path.join(__dirname, '..', 'client','build')));
 app.use('/',triggerCommit);
 
