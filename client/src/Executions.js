@@ -4,7 +4,7 @@ import ConsoleOutput from './ConsoleOutput';
 import RaisedButton from 'material-ui/RaisedButton'
 
 class Executions extends Component {
- 
+
  constructor(props) {
           super(props);
           this.state = {
@@ -30,7 +30,7 @@ class Executions extends Component {
          });
       }
 
- showConsole=(event)=>{ 
+ showConsole=(event)=>{
         const owner=this.state.owner;
         const repoName=this.state.repoName;
         const repoBranch=this.state.repoBranch;
@@ -43,7 +43,7 @@ class Executions extends Component {
          this.setState({
             consoleOutput:resp.body
          });
-         
+
       });
  }
 
@@ -54,7 +54,7 @@ console.log(this.state.consoleOutput);
       <RaisedButton onClick={this.showConsole.bind(this)}>show</RaisedButton>
     </div>
     );
-  
+
  }
 }
 

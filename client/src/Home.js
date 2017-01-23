@@ -33,8 +33,9 @@ handleConfigRepoData=(event)=>{
   console.log(event.target.className);
      window.localStorage.setItem("repoconfigData",event.target.className);
   }
+
 componentDidMount() {
-    var ownerName="jarvis";
+    var ownerName=this.props.params.ownerName;
     Request
        .get('http://localhost:9080/api/'+ownerName+'/projects')
        .then((res) => {
@@ -43,47 +44,43 @@ componentDidMount() {
          });
        });
     Request
-       .get("https://api.github.com/users/srishtinanda/repos")
+       .get("https://api.github.com/users/"+ownerName+"/repos")
        .then((res) => {
         this.setState({
            repositories: res.body,
          });
        });
  }
- 
- 
+
+
   handleRepoData=(event)=>{
       window.localStorage.setItem("repoData",event.target.className);
   }
- 
+
  render() {
   const configuredRepoList=this.state.configrepositories.map((repo)=>{
+    let url='/app/'+this.props.params.ownerName+'/'+repo.reponame+'/branch' ;
      return(
        <TableRow style={{fontSize:18}}>
-         <Link to="/ownerName/repoName/branch" className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
-            <IconButton style={{marginLeft:'90%'}}><Link to="/ownerName/repoName/pipelineSettings">
+         <Link to={url} className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
+            <IconButton style={{marginLeft:'90%'}}><Link to="/app/ownerName/repoName/pipelineSettings">
             <Setting color={'#00897B '} size={80}/></Link>
             </IconButton>
-         
+
        </TableRow>
        );
    });
    const repoList=this.state.repositories.map((repo)=>{
-     console.log(repo.name);
-
+    let url="/app/"+this.props.params.ownerName+"/"+repo.name+"/teamtype";
+     console.log(url);
      return(
        <TableRow style={{fontSize:18}}>
-            <TableRowColumn><Link to="/ownerName/repoName/teamtype" className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.name}</Link>
+            <TableRowColumn><Link to={url} className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.name}</Link>
             </TableRowColumn>
-            <TableRowColumn>
-            <IconButton style={{marginLeft:'90%'}}><Link to="/ownerName/repoName/pipelineSettings">
-            <Setting color={'#00897B '} size={80}/></Link>
-            </IconButton></TableRowColumn>
-         
        </TableRow>
        );
    });
-
+     let route="/app/"+this.props.params.ownerName+"/createRepo";
   return (
    <Grid>
    <Row center="xs">
@@ -105,8 +102,6 @@ componentDidMount() {
        <Tab label="Configure" value="Configure" >
          <div>
            {configuredRepoList}
-
-           
          </div>
        </Tab>
        <Tab label="Non-Configured" value="b">
@@ -120,7 +115,8 @@ componentDidMount() {
            </Table>
          </Paper>
       <Row end='xs'  style={{marginBottom:100}}>
-               <IndexLink to="/ownerName/createRepo" activeClassName="active">
+
+               <IndexLink to={route} activeClassName="active">
                <Col xs={1}>
                 <FloatingActionButton style={{position:'fixed',bottom:100,right:50,}}zDepth={1}>
                  <ContentAdd />

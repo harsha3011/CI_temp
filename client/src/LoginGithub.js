@@ -15,7 +15,6 @@ import AppBar from 'material-ui/AppBar';
 import Footer from './Footer';
 import logo from '../images/logo.jpg'
 import cardImg from '../images/keepCalm.png'
-// import backgroundImg from '../images/backgroundImg.jpg'
 import gitLogo from '../images/gitLogo.png'
 import './App.css'
 import { Grid,Col,Row } from 'react-flexbox-grid/lib/index'
@@ -32,22 +31,19 @@ constructor(props) {
   }
 }
   componentDidMount () {
-    request.get('http://172.23.238.223:9080/api/ci/auth/github/login')
-           .set('Accept', 'application/json')
+
+    request.get('http://localhost:9080/api/ci/auth/github/login')
+          .set('Accept', 'application/json')
           .end((err, res) => {
               this.setState({githubUrl: res.text});
           });
    };
-  
- 
- 
-   render() {
 
+   render() {
       return (
       	<div>
         	<div>
             <AppBar
-
               title="KI-Keep Integrating"
               iconElementLeft={<IconButton><ActionBugReport /></IconButton>}
               iconElementRight=
@@ -84,7 +80,7 @@ constructor(props) {
 
                     <a href={this.state.githubUrl}>
 
-                    <FlatButton secondary={true} hoverColor='#D1C4E9' label="Login With Github" type="submit"/>
+                    <FlatButton secondary={true} hoverColor='#D1C4E9' label="Login With Github" type="submit" onClick={this.handleButton}/>
 
                     </a>
 

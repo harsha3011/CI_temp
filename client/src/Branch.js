@@ -34,7 +34,7 @@ const style = {
        localStorage.setItem("repoBranch",event.target.className);
        localStorage.setItem("repoName",this.state.configFiles.reponame);
        localStorage.setItem("owner",this.state.configFiles.owner);
-                                
+
        var data={"owner":this.state.configFiles.owner,
                  "repobranch":event.target.className,
                  "reponame":this.state.configFiles.reponame,
@@ -65,11 +65,11 @@ const style = {
         this.setState({
           configFiles:getFiles
         });
-       
+
       }
       render(){
         var rows=[];
-
+        console.log("dsfdfsf");
         rows.push(this.state.configFiles.repo_Ref.map((obj)=>
         {
           console.log(obj);

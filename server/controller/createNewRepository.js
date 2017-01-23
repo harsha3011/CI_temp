@@ -1,10 +1,11 @@
 const Request = require('superagent');
+require('superagent-auth-bearer')(Request);
 module.exports=function (req, res) {
+  const token=req.body.Access_Token;
+  delete req.body.Access_Token;
 	     Request
         .post('https://api.github.com/user/repos')
-        .query({
-          access_token: '6fbb19ea4b7bb01025fbe11b549ccc61e10fa2b9'
-        })
+        .authBearer(token)
         .send(req.body)
         .set("Accept","application/vnd.github.loki-preview+json")
         .end(function(err, res) {
