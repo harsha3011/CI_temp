@@ -11,11 +11,11 @@ class App extends Component {
  render() {
    return (
      <div>
-             <Header/>
-              <div className="main" >
-                  {this.props.children}
-              </div>
-              <Footer/>
+       <Header/>
+        <div className="main" >
+            {this.props.children}
+        </div>
+        <Footer/>
 
     </div>
     );

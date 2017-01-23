@@ -88,26 +88,27 @@ npm install
         };
       }
       componentDidMount() {
-        let url = `https://api.github.com/repos/srishtinanda/${this.props.params.repoName}/branches`
+        let url = `https://api.github.com/repos/${this.props.params.ownerName}/${this.props.params.repoName}/branches`
+         let arr=[];
          Request
          .get(url)
-
-                .end((err, res)=>{
-                    res.body.map((obj)=>{
-                      this.setState({
-                        repo_Ref:obj.name
-                      });
-                 });
-
-          });
+         .end((err, res)=>{
+            res.body.map((obj)=>{
+              console.log(obj);
+               arr.push(obj.name);
+             });
+              this.setState({
+                repo_Ref:arr,
+              });
+         });
       }
 
        handleSaveClick=(event)=>{
-        var ownerName="jarvis";
+        let ownerName=this.props.params.ownerName;
         let repoName=this.props.params.repoName;
         console.log(this.state.repo_Ref);
         var files={
-                  repo_URL:'https://github.com/ownerName/'+repoName+'.git',
+                  repo_URL:'https://github.com/'+ownerName+'/'+repoName+'.git',
                   repo_Ref:this.state.repo_Ref,
                   setup: this.state.setupCmds,
                   stages: [{
@@ -132,13 +133,13 @@ npm install
                     }
                   ]};
         Request
-        .get('http://172.23.238.223:9080/api/'+ownerName+'/'+repoName+'/projects')
+        .get('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
         .end((err,resp) =>
         {
           if(resp.body)
           {
             Request
-            .put('http://172.23.238.223:9080/api/'+ownerName+'/'+repoName+'/projects')
+            .put('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
             .send(files)
             .end((err) => {
               console.log(err);
@@ -147,17 +148,18 @@ npm install
           }
           else{
             Request
-            .post('http://172.23.238.223:9080/api/'+ownerName+'/'+repoName+'/projects')
+            .post('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
             .set('Content-Type', 'application/json')
             .send(files)
             .end((err) => {
               console.log(err);
-              this.context.router.push('/ownerName');
+              this.context.router.push('/app/'+ownerName);
             });
           }
         })
       }
   render(){
+    console.log(this.state.repo_Ref);
   return(
     <Paper>
         <Grid>

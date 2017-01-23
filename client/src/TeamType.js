@@ -67,6 +67,7 @@ class TeamType extends Component {
         var teamDetails = {
             'RepoName': this.props.params.repoName,
             'TeamType': this.state.tabName,
+            'ownerName':this.props.params.ownerName,
             'Access_token': this.state.access_token,
         }
 
@@ -82,8 +83,8 @@ class TeamType extends Component {
     }
 
 render() {
- console.log("im inside teamtype");
-let link = '/ownerName/' + this.state.Rname + '/pipelineSettings';
+    let ownerName=this.props.params.ownerName;
+let link = '/app/'+ownerName+'/'+ this.state.Rname + '/pipelineSettings';
 const readyButton = ( <Row>
               <Col xs={12}>
                 <Row center="xs">
@@ -136,11 +137,11 @@ return ( < Grid >
                 leftCheckbox = { < Checkbox checked = { true }
                     disabled = { true }
                     />} / >
-                    < ListItem primaryText = "dev"
+                    < ListItem primaryText = "integration"
                     leftCheckbox = { < Checkbox checked = { true }
                         disabled = { true }
                         />}/ >
-                        < ListItem primaryText = "testing"
+                        < ListItem primaryText = "dev"
                         leftCheckbox = { < Checkbox checked = { true }
                             disabled = { true }
                             />} / >
@@ -163,11 +164,11 @@ return ( < Grid >
                             leftCheckbox = { < Checkbox checked = { true }
                                 disabled = { true }
                                 />} / >
-                                < ListItem primaryText = "Integration(protected)"
+                                < ListItem primaryText = "testing(protected)"
                                 leftCheckbox = { < Checkbox checked = { true }
                                     disabled = { true }
                                     />} / >
-                                    < ListItem primaryText = "dev"
+                                    < ListItem primaryText = ""
                                     leftCheckbox = { < Checkbox checked = { true }
                                         disabled = { true }
                                         />}/ >

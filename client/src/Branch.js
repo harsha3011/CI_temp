@@ -48,7 +48,7 @@ const style = {
        const repoName=this.state.configFiles.reponame;
        const repoBranch=event.target.className;
        Request
-       .post('http://172.23.238.223:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions').set('Content-Type', 'application/json')
+       .post('http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions').set('Content-Type', 'application/json')
        .send(data)
        .end((err,res)=>
        {

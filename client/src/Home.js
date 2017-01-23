@@ -37,7 +37,7 @@ handleConfigRepoData=(event)=>{
 componentDidMount() {
     var ownerName=this.props.params.ownerName;
     Request
-       .get('http://172.23.238.223:9080/api/'+ownerName+'/projects')
+       .get('http://localhost:9080/api/'+ownerName+'/projects')
        .then((res) => {
         this.setState({
            configrepositories: res.body
@@ -59,11 +59,11 @@ componentDidMount() {
 
  render() {
   const configuredRepoList=this.state.configrepositories.map((repo)=>{
-    let url='/'+this.props.params.ownerName+'/'+repo.reponame+'/branch' ;
+    let url='/app/'+this.props.params.ownerName+'/'+repo.reponame+'/branch' ;
      return(
        <TableRow style={{fontSize:18}}>
          <Link to={url} className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
-            <IconButton style={{marginLeft:'90%'}}><Link to="/ownerName/repoName/pipelineSettings">
+            <IconButton style={{marginLeft:'90%'}}><Link to="/app/ownerName/repoName/pipelineSettings">
             <Setting color={'#00897B '} size={80}/></Link>
             </IconButton>
 
@@ -71,8 +71,8 @@ componentDidMount() {
        );
    });
    const repoList=this.state.repositories.map((repo)=>{
-    let url="/"+this.props.params.ownerName+"/"+repo.name+"/teamtype";
-     console.log(repo.name);
+    let url="/app/"+this.props.params.ownerName+"/"+repo.name+"/teamtype";
+     console.log(url);
      return(
        <TableRow style={{fontSize:18}}>
             <TableRowColumn><Link to={url} className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.name}</Link>
@@ -80,7 +80,7 @@ componentDidMount() {
        </TableRow>
        );
    });
-     let route="/"+this.props.params.ownerName+"/createRepo";
+     let route="/app/"+this.props.params.ownerName+"/createRepo";
   return (
    <Grid>
    <Row center="xs">

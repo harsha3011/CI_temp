@@ -44,7 +44,7 @@ class CreateProject extends Component {
     }   
 
     createRepo = (event) => {
-
+        let ownerName=this.props.params.ownerName;
         let obj = {
             'name': this.state.newRepository,
             'description': this.state.desc,
@@ -53,9 +53,9 @@ class CreateProject extends Component {
         this.setState({ 
             repoData: obj
              });
-
+            console.log(obj);
         Request
-            .post('http://localhost:9080/api/srishtinanda/repos')
+            .post('http://localhost:9080/api/'+ownerName+'/repos')
             .send(obj)
             .end(function(err, res) {
                 console.log(res);
@@ -92,8 +92,11 @@ class CreateProject extends Component {
     }
     
     render() {
-        var repoName = this.state.newRepository;
-        var link = '/ownerName/' + repoName + '/teamtype'
+        let repoName = this.state.newRepository;
+        let ownerName=this.props.params.ownerName;
+
+        let link = '/app/'+ownerName+'/'+ repoName + '/teamtype'
+        console.log(link);
 
         const actions = [ < FlatButton
             label = "OK"
