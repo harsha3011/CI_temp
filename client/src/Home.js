@@ -33,10 +33,11 @@ handleConfigRepoData=(event)=>{
   console.log(event.target.className);
      window.localStorage.setItem("repoconfigData",event.target.className);
   }
+
 componentDidMount() {
     var ownerName="jarvis";
     Request
-       .get('http://localhost:9080/api/'+ownerName+'/projects')
+       .get('http://172.23.238.223:9080/api/'+ownerName+'/projects')
        .then((res) => {
         this.setState({
            configrepositories: res.body

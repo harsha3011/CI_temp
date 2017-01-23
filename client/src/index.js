@@ -50,7 +50,7 @@ ReactDOM.render(
           <Route path="/" component={login} onEnter={redirectIfLoggedIn}/>
           <Route path="logout" component={login} onEnter={redirectIfLoggedIn}/>
           <Route path="ownerName" component={App} onEnter={redirectIfNotLoggedIn}>
-            <IndexRoute component={home} onEnter={redirectIfNotLoggedIn}/>
+            <IndexRoute component={Home} onEnter={redirectIfNotLoggedIn}/>
             <Route path="createRepo" component={CreateProject} onEnter={redirectIfNotLoggedIn}/>
             <Route path="repoName/branch" component={Branch} onEnter={redirectIfNotLoggedIn}/>
             <Route path="executions" component={Executions} onEnter={redirectIfNotLoggedIn}/>

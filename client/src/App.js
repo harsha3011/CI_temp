@@ -47,7 +47,7 @@ class App extends Component {
 
     if(!localStorage.user) {
       request
-      .get('http://localhost:9080/api/ci/auth/github/me')
+      .get('http://172.23.238.223:9080/api/ci/auth/github/me')
       .end(function(err, response) {
         if(err) { throw err; }
         localStorage.user = JSON.stringify(response.body);
