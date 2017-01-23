@@ -42,12 +42,10 @@ class CreatePipeline extends Component{
           //remove shellcmd and shelltitle
           setupCmds:`# By default we use the Node.js version set in your package.json or the latest
 # version from the 0.10 release
-# You can use nvm to install any Node.js (or io.js) version you require.
-# nvm install 4.0
-nvm install 0.10
-npm install
-# Install grunt-cli for running your tests or other tasks
-# npm install -g grunt-cli`,
+# We use npm to install any Node.js (or io.js) version you require.
+# npm install 4.0
+# Clone your repository for running your tests or other tasks
+# Installing corresponding modules as per your package.json`,
           esLintData:[],
           htmlData:[],
           arrShell:[],
@@ -172,7 +170,6 @@ npm install
                     multiLine={true}
                     defaultValue={this.state.setupCmds}
                     fullWidth={true}
-                    onChange={this.handleSetup.bind(this)}
                   />
                 </Col>
               </Row>
@@ -255,17 +252,6 @@ npm install
                   </Row>
                 </Paper>
                 </Tab>
-                  <Tab label="CUSTOM SCRIPTS" >
-                    <Paper>
-                     <Grid>
-                      <Row>
-                        <Col xs={12}>
-                         <MultiScriptConfig/>
-                        </Col>
-                      </Row>
-                  </Grid>
-                </Paper>
-              </Tab>
             </Tabs>
          </Col>
       </Row>

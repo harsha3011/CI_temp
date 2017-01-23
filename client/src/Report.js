@@ -52,13 +52,10 @@ class Report extends Component {
   		 	var testReport=[]
   		 	if(this.state.testData.length!=0)
   		 	{
-  		 		console.log(this.state.testData);
   		 		testData=this.state.testData;
-  		 		console.log('TYRING TO CONVERT TO OBJECTS',JSON.parse(testData[0].eslintConfig));
-  		 		testReport.push(JSON.parse(testData[0].htmlhintConfig));
-  		 		testReport.push(testData[0].mochaConfig);	
-  		 		testReport.push(testData[0].istanbulConfig);
-  		 		testReport.push(testData[0].eslintConfig);
+  		 		var htmlhintConfig=JSON.parse(testData[0].htmlhintConfig);
+  		 		console.log(htmlhintConfig[0].file);
+  		 		
   		 	}
   	 var testRows=[];
   	 testRows.push(this.state.tests.map((obj,i)=>
