@@ -20,8 +20,7 @@ const PipelineSchema = new Schema({
   repo_URL:{type:String},
   repo_Ref:{type:Array},
   setup:{type: String },
-  stages: [StageSchema],
-  hookid:{type:String}
+  stages: [StageSchema]
 });
 PipelineSchema.index({ reponame: 1, owner: 1}, { unique: true });
 

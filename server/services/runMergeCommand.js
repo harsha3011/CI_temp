@@ -1,4 +1,4 @@
-module.exports=function(repo_URL,basebranch,comparebranch,reponame, callback){
+module.exports=function(repo_URL,basebranch,comparebranch,reponame,result,callback){
   const spawn=require('child_process').spawn;
   console.log(comparebranch);
   const env = process.env;
@@ -23,6 +23,6 @@ module.exports=function(repo_URL,basebranch,comparebranch,reponame, callback){
   merge.on('close', (code) =>
   {
     exitCode=`${code}`;
-    callback(null,()=>{console.log("into merge");});
+    callback(null,()=>{console.log("into merge");},result);
   });
 }

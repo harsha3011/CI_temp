@@ -19,6 +19,7 @@ import Chip from 'material-ui/Chip';
 import request from 'superagent'
 import Checkbox from 'material-ui/Checkbox';
 import LintTest from './LintTest';
+
 const muiTheme = getMuiTheme({
  palette: {
    textColor: white,

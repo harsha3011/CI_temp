@@ -3,13 +3,13 @@ const async = require('async');
 const spawn = require('child_process').spawn;
 
 var branchObj = {
-    'Single_User': ['Dev'],
-    'Single_Team': ['Dev',
-        'Testing'
+    'Single_User': ['dev'],
+    'Single_Team': ['dev',
+        'integration'
     ],
-    'Multiple_Team': ['Integration',
-        'Dev',
-        'Testing'
+    'Multiple_Team': ['integration',
+        'dev',
+        'testing'
     ]
 };
 

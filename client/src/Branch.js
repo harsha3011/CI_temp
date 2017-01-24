@@ -39,7 +39,8 @@ static get contextTypes() {
       }
 
       handleExecute(event){
-
+        console.log("entered");
+        console.log(event.target.className);
        localStorage.setItem("repoBranch",event.target.className);
        localStorage.setItem("repoName",this.state.configFiles.reponame);
        localStorage.setItem("owner",this.state.configFiles.owner);
@@ -64,7 +65,6 @@ static get contextTypes() {
        .end((err,res)=>
        {
         this.context.router.push('/ownerName/executions');
-
         console.log(res);
          })
        }
@@ -89,11 +89,11 @@ static get contextTypes() {
                    </TableRowColumn>
 
                   <TableRowColumn style={{textAlign:'center',fontSize:20}}>
-                     <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >Execute
-                     </Link></RaisedButton>
+                     <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link className={obj}>Execute</Link>
+                    </RaisedButton>
 
-                     <RaisedButton style={{marginLeft:20}} primary='true'><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >View Build Report
-                     </Link></RaisedButton>
+                     <RaisedButton style={{marginLeft:20}} primary='true' className={obj} >View Build Report
+                    </RaisedButton>
                </TableRowColumn>
                  </TableRow>);
         }));

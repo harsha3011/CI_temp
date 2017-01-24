@@ -1,14 +1,18 @@
 const express = require('express');
 const Request = require ('superagent');
-var url='';
 const runMerge=require('../services/runMergeCommand');
-const router = express.Router();
-const createExecutionConfig=require('../controller/createExecutionConfig');
 const createExecutionData=require('./createExecutionData');
 const runDocker=require('../services/runPipeline');
 const async=require('async');
 const pushCommand=require('../services/runPushCommand');
-
+const getTestData=require('./getTestData');
+const createExecutionData=require('./createExecutionData');
+const runDocker=require('../services/runPipeline');
+const async=require('async');
+const getExecutionConfig=require('./updateExecution');
+const getExitCode=require('./getExitCode');
+// const executionConfigModel=require('../models/executionsConfig.model');
+const notify=require('../slackNotification');
 var data=function (req, res,next)
 {
 
@@ -44,10 +48,14 @@ var data=function (req, res,next)
 		console.log("branch",branch);
 		var repo_URL="https://github.com/"+owner+"/"+repo+".git";
 		async.waterfall([
-				runMerge.bind(null,repo_URL,basebranch,branch,repo),
-	      runDocker.bind(null,owner,repo_URL,branch,repo,'app.js','public/views/dialogs/chartModal.tpl.html',null,null),
-	      createExecutionData.bind(null,req,res,next),
-				pushCommand.bind(null,repo_URL,repo,basebranch)
+			getTestData.bind(null,owner,repo),
+      getExecutionConfig.bind(null,req,res,err,owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,starttime),
+      runMerge.bind(null,repo_URL,basebranch,branch,repo),
+      runDocker.bind(null),
+      createExecutionData.bind(null,req,res,err),
+      pushCommand.bind(null,repo_URL,repo,basebranch),
+      getExitCode.bind(null),
+      notify.bind(null)
 
 	   ],(err, results) => {
 	       if(err) { console.error('error', err); return; }
