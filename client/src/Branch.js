@@ -29,7 +29,8 @@ const style = {
             value: 'a',
             expanded: false,
             reportButton: 'none',
-            configFiles:[]
+            configFiles:[],
+            branch:''
           };
       }
 static get contextTypes() {
@@ -43,6 +44,7 @@ static get contextTypes() {
         console.log(event.target.className);
         let ownerName=this.props.params.ownerName;
 
+        this.setState({branch:event.target.className})
        localStorage.setItem("repoBranch",event.target.className);
        localStorage.setItem("repoName",this.state.configFiles.reponame);
        localStorage.setItem("owner",this.state.configFiles.owner);
@@ -84,7 +86,7 @@ static get contextTypes() {
       render(){
         let ownerName=this.props.params.ownerName;
         let url='/app/'+ownerName+'/executions';
-        let url1=this.props.params.repoName+'/'+repoBranch+'/branchName';
+        let url1=this.props.params.repoName+'/'+this.state.branch+'/branchName';
         var rows=[];
         rows.push(this.state.configFiles.repo_Ref.map((obj)=>
         {
@@ -93,7 +95,7 @@ static get contextTypes() {
                    </TableRowColumn>
 
                   <TableRowColumn style={{textAlign:'center',fontSize:20}}>
-                     <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link to={url} className={obj}>Execute</Link>
+                     <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link className={obj}>Execute</Link>
                     </RaisedButton>
 
                      <RaisedButton style={{marginLeft:20}} primary='true' className={obj} ><Link to={url1}>View Build Report

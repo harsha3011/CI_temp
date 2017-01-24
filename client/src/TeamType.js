@@ -14,6 +14,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import Request from 'superagent';
 import cookie from 'react-cookie';
 import jwtDecode from 'jwt-decode';
+import authBearer from 'superagent-auth-bearer';
 
 const styles ={
     bar: {
@@ -48,16 +49,29 @@ class TeamType extends Component {
             tabName: this.state.value,
         });
     }
+    
     componentWillMount() {
 
         const token = cookie.load('token');
-        var decoded = jwtDecode(token);
-        console.log(decoded.accessToken);
+        let decoded = jwtDecode(token);
+        let acc_token=decoded.accessToken;
+        let ownerName=this.props.params.ownerName;
+        let repoName=this.props.params.repoName;
 
         this.setState({
             access_token: decoded.accessToken,
             Rname:this.props.params.repoName,
         });
+
+        Request
+            .put('https://api.github.com/repos/'+ownerName+'/'+repoName+'/collaborators/CI-JARVIS')
+            .set("Accept","application/vnd.github.swamp-thing-preview+json")
+            .query({ access_token: acc_token })
+            .end(function(err, res) {
+              if(err){
+                  alert(err);}
+                console.log("Success");              
+            });
     }
 
 

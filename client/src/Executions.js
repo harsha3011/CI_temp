@@ -21,9 +21,9 @@ const styles={
   };
 
 class Executions extends Component {
- constructor(props) {
-          super(props);
 
+ constructor() {
+          super();
           this.state = {
              expanded: false,
             consoleOutput:[]
@@ -43,38 +43,24 @@ class Executions extends Component {
           var getFiles3=localStorage.getItem("owner");
          const ownername=JSON.parse(JSON.stringify(getFiles3));
 
-        this.setState({
-          owner:ownername,
-          repoName:reponame,
-          repoBranch:repobranch
-         });
-      }
 
-
-
- showConsole=(event)=>{
-        const owner=this.state.owner;
-        const repoName=this.state.repoName;
-        const repoBranch=this.state.repoBranch;
-        const url='http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions';
-
+        const url='http://localhost:9080/api/'+ownername+'/'+reponame+'/'+repobranch+'/executions';
         Request
        .get(url)
-       .end((err,resp)=>
-       {
-         console.log(resp.body);
-         this.setState({
-            consoleOutput:resp.body
-         });
-
-      });
- }
-
+       .end((err,resp) => {
+              this.setState({
+                consoleOutput:resp.body
+              })
+              console.log(this.state.consoleOutput);
+            });
+      }
 
  handleReport=(event)=>{
       window.localStorage.setItem("reportData",event.target.className);
   }
+
 render() {
+  {this.componentWillMount()}
     var consoleRows=[];
     var list="The build is running.....";
     var progress=""
