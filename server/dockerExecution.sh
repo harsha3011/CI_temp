@@ -15,8 +15,8 @@ echo cd $REPO_NAME -b $REPO_BRANCH $REPO_URL
 npm install
 
 npm install --save eslint-config-google eslint-json
-
+echo running testcases
 node $ROOT_DIR/runTestcases.js $MOCHA $ESLINT $ISTANBUL $HTMLHINT $REPO_NAME $REPO_BRANCH $OWNER
 cd ..
-
+echo testing over
 node Save.js $REPO_NAME $REPO_BRANCH $OWNER $ISTANBUL $STARTTIME

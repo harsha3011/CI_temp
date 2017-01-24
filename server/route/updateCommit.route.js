@@ -4,5 +4,4 @@ const router = express.Router();
 
 router.post('/cihook',getCommit);
 
-
 module.exports=router;

@@ -7,11 +7,12 @@ const createExecutionConfig=require('../controller/createExecutionConfig');
 const createExecutionData=require('./createExecutionData');
 const runDocker=require('../services/runPipeline');
 const async=require('async');
+const pushCommand=require('../services/runPushCommand');
 
-var data=function (req, res,err)
+var data=function (req, res,next)
 {
 
-	var payload=JSON.parse(req.body.payload);
+	var payload=req.body;
 	console.log(payload);
 	if(payload.head_commit!=undefined)
 	{
@@ -40,11 +41,13 @@ var data=function (req, res,err)
 		var repo=payload.repository.name;
 		var basebranch=payload.pull_request.base.ref;
 		var branch=payload.pull_request.head.ref;
+		console.log("branch",branch);
 		var repo_URL="https://github.com/"+owner+"/"+repo+".git";
 		async.waterfall([
-				runMerge.bind(null,repo_URL,basebranch,branch,repo,null),
-	      runDocker.bind(null,owner,repo_URL,branch,repo,null,null,null,null),
-	      createExecutionData.bind(null,req,res,err)
+				runMerge.bind(null,repo_URL,basebranch,branch,repo),
+	      runDocker.bind(null,owner,repo_URL,branch,repo,'app.js','public/views/dialogs/chartModal.tpl.html',null,null),
+	      createExecutionData.bind(null,req,res,next),
+				pushCommand.bind(null,repo_URL,repo,basebranch)
 
 	   ],(err, results) => {
 	       if(err) { console.error('error', err); return; }

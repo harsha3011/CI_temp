@@ -1,7 +1,7 @@
   const executionConfigModel=require('../models/executionsConfig.model');
 
  module.exports=function(req,res,err,owner,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state,callback){
-   
+    console.log("starting execution data");
      const executionsConfig=new executionConfigModel();
      executionConfigModel.findOneAndUpdate({starttime:starttime},
         {$set:

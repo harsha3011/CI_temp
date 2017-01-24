@@ -9,5 +9,6 @@ RUN npm install --save-dev -g mocha mochawesome
 RUN npm install -g eslint-plugin-react
 RUN npm install -g eslint-plugin-angular
 RUN npm install -g babel-eslint
+
 COPY . .
 CMD ["./dockerExecution.sh"]

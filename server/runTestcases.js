@@ -21,7 +21,7 @@ async.parallel([
   ],(err, results) => {
       if(err) { console.error('error', err); return; }
       if(results) {console.log('tested Successfully',results)};
-
+      mongoose.connection.close();
 }
 
   );

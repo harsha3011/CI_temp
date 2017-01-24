@@ -20,10 +20,10 @@ const PipelineSchema = new Schema({
   repo_URL:{type:String},
   repo_Ref:{type:Array},
   setup:{type: String },
-  stages: [StageSchema]
+  stages: [StageSchema],
+  hookid:{type:String}
 });
 PipelineSchema.index({ reponame: 1, owner: 1}, { unique: true });
 
 
 module.exports = mongoose.model('Projects', PipelineSchema);
-
