@@ -29,7 +29,8 @@ class CreateProject extends Component {
             repoData: {
                 'name': '',
                 'description': '',
-                'Access_Token': ''
+                'Access_Token': '',
+                'ownerName':'',
             }
         }
     }
@@ -41,7 +42,7 @@ class CreateProject extends Component {
         this.setState({
             access_token: decoded.accessToken,
         });
-    }   
+    }
 
     createRepo = (event) => {
         let ownerName=this.props.params.ownerName;
@@ -49,8 +50,9 @@ class CreateProject extends Component {
             'name': this.state.newRepository,
             'description': this.state.desc,
             'Access_Token': this.state.access_token,
-        }
-        this.setState({ 
+            'ownerName':ownerName,
+          }
+        this.setState({
             repoData: obj
              });
             console.log(obj);
@@ -90,7 +92,7 @@ class CreateProject extends Component {
             });
 
     }
-    
+
     render() {
         let repoName = this.state.newRepository;
         let ownerName=this.props.params.ownerName;

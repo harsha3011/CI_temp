@@ -14,7 +14,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import LintTest from './LintTest';
 import MultiScriptConfig from './MultiScriptConfig';
 import Checkbox from 'material-ui/Checkbox';
-
+import cookie from 'react-cookie';
+import jwtDecode from 'jwt-decode';
 
 const muiTheme = getMuiTheme({
  palette: {
@@ -33,12 +34,10 @@ class CreatePipeline extends Component{
           //remove shellcmd and shelltitle
           setupCmds:`# By default we use the Node.js version set in your package.json or the latest
 # version from the 0.10 release
-# You can use nvm to install any Node.js (or io.js) version you require.
-# nvm install 4.0
-nvm install 0.10
-npm install
-# Install grunt-cli for running your tests or other tasks
-# npm install -g grunt-cli`,
+# We use npm to install any Node.js (or io.js) version you require.
+# npm install 4.0
+# Clone your repository for running your tests or other tasks
+# Installing corresponding modules as per your package.json`,
           esLintData:[],
           htmlData:[],
           arrShell:[],
@@ -82,7 +81,26 @@ npm install
       			setupCmds:event.target.value,
       		});
        }
-
+       static get contextTypes() {
+              return {
+                router: React.PropTypes.object.isRequired
+              };
+            }
+      componentDidMount() {
+        let url = `https://api.github.com/repos/${this.props.params.ownerName}/${this.props.params.repoName}/branches`
+         let arr=[];
+         Request
+         .get(url)
+         .end((err, res)=>{
+            res.body.map((obj)=>{
+              console.log(obj);
+               arr.push(obj.name);
+             });
+              this.setState({
+                repo_Ref:arr,
+              });
+         });
+      }
       componentDidMount() {
         let url = `https://api.github.com/repos/${this.props.params.ownerName}/${this.props.params.repoName}/branches`
          let arr=[];
@@ -102,7 +120,10 @@ npm install
        handleSaveClick=(event)=>{
         let ownerName=this.props.params.ownerName;
         let repoName=this.props.params.repoName;
-        console.log(this.state.repo_Ref);
+        const token = cookie.load('token');
+       var decoded = jwtDecode(token);
+       var access=decoded.accessToken;
+
         var files={
                   repo_URL:'https://github.com/'+ownerName+'/'+repoName+'.git',
                   repo_Ref:this.state.repo_Ref,
@@ -127,25 +148,30 @@ npm install
                       stage:"custom scripts",
                       config:this.state.arrShell
                     }
-                  ]};
-        console.log('URI', 'http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects');
+                  ],
+                  access_token:access
+                };
+
         Request
-        .get('/api/'+ownerName+'/'+repoName+'/projects')
+        .get('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
         .end((err,resp) =>
         {
           console.log('err-ppp',err);
           console.log('ppp',resp);
           if(resp.body)
           {
+            console.log("if yes")
             Request
             .put('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
             .send(files)
             .end((err) => {
               console.log(err);
-
+              this.context.router.push('/app/'+ownerName);
             });
           }
           else{
+            console.log("new one");
+            console.log(ownerName);
             Request
             .post('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
             .set('Content-Type', 'application/json')
@@ -153,10 +179,11 @@ npm install
             .end((err) => {
               console.log(err);
 
+              this.context.router.push('/app/'+ownerName);
             });
           }
         });
-        
+
 
 
       }
@@ -185,7 +212,6 @@ npm install
                     multiLine={true}
                     defaultValue={this.state.setupCmds}
                     fullWidth={true}
-                    onChange={this.handleSetup.bind(this)}
                   />
                 </Col>
               </Row>
@@ -268,17 +294,6 @@ npm install
                   </Row>
                 </Paper>
                 </Tab>
-                  <Tab label="CUSTOM SCRIPTS" >
-                    <Paper>
-                     <Grid>
-                      <Row>
-                        <Col xs={12}>
-                         <MultiScriptConfig/>
-                        </Col>
-                      </Row>
-                  </Grid>
-                </Paper>
-              </Tab>
             </Tabs>
          </Col>
       </Row>

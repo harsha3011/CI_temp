@@ -32,6 +32,7 @@ constructor(props) {
 }
   componentDidMount () {
 
+
     request.get('http://localhost:9080/api/ci/auth/github/login')
           .set('Accept', 'application/json')
           .end((err, res) => {
@@ -44,7 +45,9 @@ constructor(props) {
       	<div>
         	<div>
             <AppBar
-              title="KI-Keep Integrating"
+
+              title="JARVIS-Keep Integrating"
+
               iconElementLeft={<IconButton><ActionBugReport /></IconButton>}
               iconElementRight=
                     {<IconMenu

@@ -6,5 +6,8 @@ GITHUB_CLIENT_ID: 'bd2b0a5de9af8a6f04d9',
   MONGO_URL: 'mongodb://localhost:27017/Database_CI',
   JWT_SECRET: process.env.JWT_SECRET || '824hdaueranteuhn',
   USER_AGENT: process.env.USER_AGENT || 'ReactBoilerplate',
-  SCOPE: "repo%20read:public_key%20write:public_key%20admin:public_key%20read:repo_hook%20write:repo_hook%20admin:repo_hook"
+
+  SCOPE: "repo%20read:public_key%20write:public_key%20admin:public_key%20read:repo_hook%20write:repo_hook%20admin:repo_hook",
+  WORKSPACE_DIRECTORY:'/tmp',
+
 }

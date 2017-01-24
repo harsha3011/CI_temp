@@ -1,13 +1,9 @@
 const pipelineConfigModel=require('../models/pipelineConfig.model');
 
 const jwtDecode=require('jwt-decode');
-module.exports=function (req, res,next) {
+module.exports=function (req, res) {
 	const pipelineConfig = new pipelineConfigModel();
 		console.log("hello config");
-		const token = cookie.load('token');
-	       var decoded = jwtDecode(token);
-	       console.log(decoded.accessToken);
-
 	var hookData={
 	 "name": "web",
 	 "active": true,
@@ -20,7 +16,7 @@ module.exports=function (req, res,next) {
 		 "insecure_ssl": "1"
 	 }
 	}
-	next();
+	
   // var decoded = jwtDecode(token);
   //   var code=decoded.accessToken;
   //   console.log(code);
@@ -44,6 +40,8 @@ module.exports=function (req, res,next) {
 			res.send('Already Exsist');
 		}
 		else{
+			console.log("params", req.params);
+			console.log("body", req.body);
 			pipelineConfig.repo_URL=req.body.repo_URL;
 			pipelineConfig.repo_Ref=req.body.repo_Ref;
 			pipelineConfig.owner=req.params.owner;

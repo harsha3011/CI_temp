@@ -63,7 +63,6 @@ module.exports = {
                 if (err0) { res.status(500).json(err0);
                     return; }
                 const accessToken = response0.body.access_token;
-                console.log("token "+accessToken);
                 getUser(accessToken, function(err1, response1) {
                     if (err1) { res.status(500).json(err1);
                         return; }
@@ -86,6 +85,7 @@ module.exports = {
                 });
             });
     },
+
     me: function(req, res) {
         const claims = req.claims;
         getUser(claims.accessToken, function(err, user) {

@@ -33,6 +33,7 @@ var data=function (req, res,err)
 		});
 	}
 
+
 	else if(payload.pull_request!=undefined&&payload.action!='closed')
 	{
 		var owner=payload.repository.owner.login;
@@ -40,8 +41,6 @@ var data=function (req, res,err)
 		var basebranch=payload.pull_request.base.ref;
 		var branch=payload.pull_request.head.ref;
 		var repo_URL="https://github.com/"+owner+"/"+repo+".git";
-
-
 		async.waterfall([
 				runMerge.bind(null,repo_URL,basebranch,branch,repo,null),
 	      runDocker.bind(null,owner,repo_URL,branch,repo,null,null,null,null),

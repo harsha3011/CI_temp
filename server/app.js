@@ -6,7 +6,6 @@ const pipelineConfigRoute=require('./route/pipelineConfig.route')
 const projectConfigRoute=require('./route/projectsConfig.route')
 const executionsConfigRoute=require('./route/executionsConfig.route');
 const triggerCommit=require('./route/updateCommit.route');
-const rubericConfigRoute=require('./route/rubericConfig.route');
 const createRepoRoute=require('./route/createRepo.route');
 const evalFindingsConfigRoute=require('./route/evalFindingsConfig.route');
 const http = require('http');
@@ -17,6 +16,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const connection=mongoose.connect('mongodb://localhost/Database_CI');
 const doGitOperationsRoute=require('./route/gitOperations.route')
+
 const getWebhook=require('./route/createWebhook.route');
 
 app.use(function(req, res, next) {
@@ -29,8 +29,13 @@ app.use(function(req, res, next) {
 var BodyParser = require('body-parser');
 app.use(BodyParser());
 
+
 buildDocker();
 
+function createApp() {
+  const app = express();
+  return app;
+}
 app.use('/', getWebhook);
 function createApp() {
   const app = express();
@@ -65,5 +70,6 @@ app.use('/',triggerCommit);
 
 const server = http.createServer(app);
 server.listen(port, () => {
+
     console.log('Express server started');
 });

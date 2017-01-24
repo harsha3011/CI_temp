@@ -15,7 +15,7 @@ import Request from 'superagent';
 import cookie from 'react-cookie';
 import jwtDecode from 'jwt-decode';
 
-const styles ={ 
+const styles ={
     bar: {
         marginTop: '80',
         marginBottom: '100',
@@ -31,8 +31,8 @@ class TeamType extends Component {
             access_token: '',
             Rname:'',
         }
-    }  
-   
+    }
+
     handleChange = (value) => {
         this.setState({
             value: value,
@@ -78,7 +78,7 @@ class TeamType extends Component {
             .end(function(err, res) {
               if(err){
                   alert(err);}
-                console.log("Success");              
+                console.log("Success");
             });
     }
 
@@ -168,11 +168,11 @@ return ( < Grid >
                                 leftCheckbox = { < Checkbox checked = { true }
                                     disabled = { true }
                                     />} / >
-                                    < ListItem primaryText = ""
+                                    < ListItem primaryText = "Integration"
                                     leftCheckbox = { < Checkbox checked = { true }
                                         disabled = { true }
                                         />}/ >
-                                        < ListItem primaryText = "testing"
+                                        < ListItem primaryText = "dev"
                                         leftCheckbox = { < Checkbox checked = { true }
                                             disabled = { true }
                                             />} / >

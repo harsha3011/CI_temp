@@ -1,8 +1,12 @@
+
+const config = require('../config');
 var async = require('async');
 var gitClone = require('./CloneRepo');
 var gitCreateBranch = require('./CreateBranches');
 var gitPushBranch = require('./PushBranches');
 var gitProtectBranch = require('./ProtectedBranches');
+
+const repoPath = config.WORKSPACE_DIRECTORY;
 const branchName='Integration';
 
 
@@ -13,10 +17,12 @@ async.series([
         gitCreateBranch.bind(null, branchPath,teamType),
         gitPushBranch.bind(null, branchPath),
         gitProtectBranch.bind(null,ownerName,repoName,branchName,token)
+
     ],
 
     function(err, results) {
         if (err)
+
          {
             return err.message;
           }else{

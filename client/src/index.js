@@ -16,6 +16,7 @@ import BuildReport from './BuildReport'
 import RubericSettings from './RubericSetting'
 import TeamType from './TeamType'
 import cookie from 'react-cookie';
+import Report from './Report'
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
@@ -66,4 +67,3 @@ ReactDOM.render(
         </MuiThemeProvider>
  </div>
 , document.querySelector("#root"));
-
