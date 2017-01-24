@@ -17,6 +17,8 @@ const mongoose = require('mongoose');
 const connection=mongoose.connect('mongodb://localhost/Database_CI');
 const doGitOperationsRoute=require('./route/gitOperations.route')
 
+const getWebhook=require('./route/createWebhook.route');
+
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
@@ -30,7 +32,11 @@ app.use(BodyParser());
 
 buildDocker();
 
-
+function createApp() {
+  const app = express();
+  return app;
+}
+app.use('/', getWebhook);
 function createApp() {
   const app = express();
   return app;
@@ -67,4 +73,3 @@ server.listen(port, () => {
 
     console.log('Express server started');
 });
-    

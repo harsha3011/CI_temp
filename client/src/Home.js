@@ -67,6 +67,7 @@ componentDidMount() {
     let url='/app/'+this.props.params.ownerName+'/'+repo.reponame+'/branch' ; 
     config_repos.push(repo.reponame);  
      return(
+
        <TableRow>
        <TableRowColumn>
          <Link style={{fontSize:18}} to={url} className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
@@ -75,7 +76,7 @@ componentDidMount() {
             <IconButton ><Link to="/app/ownerName/repoName/pipelineSettings">
             <Setting color={'#00897B '} size={200}/></Link>
             </IconButton>
-         </TableRowColumn>
+          </TableRowColumn>
        </TableRow>
        );
    });
@@ -94,8 +95,7 @@ componentDidMount() {
       }
     
    });
-     
-  let route="/app/"+this.props.params.ownerName+"/createRepo";
+     let route="/app/"+this.props.params.ownerName+"/createRepo";
   return (
    <Grid>
    <Row center="xs">

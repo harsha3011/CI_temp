@@ -14,7 +14,8 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import LintTest from './LintTest';
 import MultiScriptConfig from './MultiScriptConfig';
 import Checkbox from 'material-ui/Checkbox';
-
+import cookie from 'react-cookie';
+import jwtDecode from 'jwt-decode';
 
 const muiTheme = getMuiTheme({
  palette: {
@@ -75,11 +76,11 @@ class CreatePipeline extends Component{
       			setupCmds:event.target.value,
       		});
        }
-      static get contextTypes() {
-        return {
-          router: React.PropTypes.object.isRequired
-        };
-      }
+       static get contextTypes() {
+              return {
+                router: React.PropTypes.object.isRequired
+              };
+            }
       componentDidMount() {
         let url = `https://api.github.com/repos/${this.props.params.ownerName}/${this.props.params.repoName}/branches`
          let arr=[];
@@ -95,11 +96,14 @@ class CreatePipeline extends Component{
               });
          });
       }
-
+     
        handleSaveClick=(event)=>{
         let ownerName=this.props.params.ownerName;
         let repoName=this.props.params.repoName;
-        console.log(this.state.repo_Ref);
+        const token = cookie.load('token');
+       var decoded = jwtDecode(token);
+       var access=decoded.accessToken;
+
         var files={
                   repo_URL:'https://github.com/'+ownerName+'/'+repoName+'.git',
                   repo_Ref:this.state.repo_Ref,
@@ -124,12 +128,16 @@ class CreatePipeline extends Component{
                       stage:"custom scripts",
                       config:this.state.arrShell
                     }
-                  ]};
-                  console.log("here");
+                  ],
+                  access_token:access
+                };
+
         Request
         .get('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
         .end((err,resp) =>
         {
+          console.log('err-ppp',err);
+          console.log('ppp',resp);
           if(resp.body)
           {
             console.log("if yes")
@@ -143,16 +151,21 @@ class CreatePipeline extends Component{
           }
           else{
             console.log("new one");
+            console.log(ownerName);
             Request
             .post('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
             .set('Content-Type', 'application/json')
             .send(files)
             .end((err) => {
               console.log(err);
+
               this.context.router.push('/app/'+ownerName);
             });
           }
-        })
+        });
+
+
+
       }
   render(){
     console.log(this.state.repo_Ref);

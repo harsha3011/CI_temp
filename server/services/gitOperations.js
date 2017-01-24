@@ -6,7 +6,6 @@ var gitCreateBranch = require('./CreateBranches');
 var gitPushBranch = require('./PushBranches');
 var gitProtectBranch = require('./ProtectedBranches');
 const repoPath = config.WORKSPACE_DIRECTORY;
-const branchName='Integration';
 
 
 module.exports=function(repoName,teamType,token,ownerName){

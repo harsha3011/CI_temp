@@ -67,4 +67,3 @@ ReactDOM.render(
         </MuiThemeProvider>
  </div>
 , document.querySelector("#root"));
-

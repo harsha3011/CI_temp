@@ -16,7 +16,7 @@ import cookie from 'react-cookie';
 import jwtDecode from 'jwt-decode';
 import authBearer from 'superagent-auth-bearer';
 
-const styles ={ 
+const styles ={
     bar: {
         marginTop: '80',
         marginBottom: '100',
@@ -32,8 +32,8 @@ class TeamType extends Component {
             access_token: '',
             Rname:'',
         }
-    }  
-   
+    }
+
     handleChange = (value) => {
         this.setState({
             value: value,
@@ -92,7 +92,7 @@ class TeamType extends Component {
             .end(function(err, res) {
               if(err){
                   alert(err);}
-                console.log("Success");              
+                console.log("Success");
             });
     }
 

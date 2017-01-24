@@ -80,7 +80,6 @@ static get contextTypes() {
 
       }
       render(){
-
         var rows=[];
         console.log("dsfdfsf");
         rows.push(this.state.configFiles.repo_Ref.map((obj)=>

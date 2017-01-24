@@ -1,6 +1,7 @@
 const express = require('express');
 const Request = require ('superagent');
 var url='';
+const runMerge=require('../services/runMergeCommand');
 const router = express.Router();
 const createExecutionConfig=require('../controller/createExecutionConfig');
 const createExecutionData=require('./createExecutionData');
@@ -31,14 +32,17 @@ var data=function (req, res,err)
 		if (err) console.log('error');
 		});
 	}
-	else if(payload.pull_request!=undefined)
+
+
+	else if(payload.pull_request!=undefined&&payload.action!='closed')
 	{
 		var owner=payload.repository.owner.login;
 		var repo=payload.repository.name;
-		var branch=payload.pull_request.base.ref;
-		console.log(owner+" "+repo+" "+branch);
+		var basebranch=payload.pull_request.base.ref;
+		var branch=payload.pull_request.head.ref;
 		var repo_URL="https://github.com/"+owner+"/"+repo+".git";
 		async.waterfall([
+				runMerge.bind(null,repo_URL,basebranch,branch,repo,null),
 	      runDocker.bind(null,owner,repo_URL,branch,repo,null,null,null,null),
 	      createExecutionData.bind(null,req,res,err)
 

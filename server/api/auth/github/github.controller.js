@@ -42,7 +42,6 @@ function getUser(token, callback) {
             if (err) { callback(err);
                 return; }
             callback(null, response.body);
-            console.log('DEFINITION ' + response.body);
             return;
         });
 }
@@ -52,7 +51,6 @@ module.exports = {
         res.send('https://github.com/login/oauth/authorize?client_id=' + config.GITHUB_CLIENT_ID + '&scope=' + config.SCOPE);
     },
     complete: function(req, res) {
-        console.log(req.query.code);
         const code = req.query.code;
         request
             .get('https://github.com/login/oauth/access_token')
@@ -65,13 +63,11 @@ module.exports = {
                 if (err0) { res.status(500).json(err0);
                     return; }
                 const accessToken = response0.body.access_token;
-
                 getUser(accessToken, function(err1, response1) {
                     if (err1) { res.status(500).json(err1);
                         return; }
 
                     getOrganisations(response1, function(err2, response2) {
-                        console.log(response1);
                         jsonwebtoken.sign({
                             roles: [response2.userType],
                             accessToken: accessToken

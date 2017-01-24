@@ -35,7 +35,6 @@ constructor(props) {
 
     request.get('http://localhost:9080/api/ci/auth/github/login')
           .set('Accept', 'application/json')
-
           .end((err, res) => {
               this.setState({githubUrl: res.text});
           });
@@ -46,7 +45,9 @@ constructor(props) {
       	<div>
         	<div>
             <AppBar
+
               title="JARVIS-Keep Integrating"
+
               iconElementLeft={<IconButton><ActionBugReport /></IconButton>}
               iconElementRight=
                     {<IconMenu

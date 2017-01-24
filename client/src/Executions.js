@@ -42,13 +42,22 @@ class Executions extends Component {
          const repobranch=JSON.parse(JSON.stringify(getFiles2));
           var getFiles3=localStorage.getItem("owner");
          const ownername=JSON.parse(JSON.stringify(getFiles3));
-}
+
+        this.setState({
+          owner:ownername,
+          repoName:reponame,
+          repoBranch:repobranch
+         });
+      }
+
+
+
  showConsole=(event)=>{
         const owner=this.state.owner;
         const repoName=this.state.repoName;
         const repoBranch=this.state.repoBranch;
         const url='http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions';
-       
+
         Request
        .get(url)
        .end((err,resp)=>
