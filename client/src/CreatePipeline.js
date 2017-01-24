@@ -82,11 +82,7 @@ npm install
       			setupCmds:event.target.value,
       		});
        }
-      static get contextTypes() {
-        return {
-          router: React.PropTypes.object.isRequired
-        };
-      }
+
       componentDidMount() {
         let url = `https://api.github.com/repos/${this.props.params.ownerName}/${this.props.params.repoName}/branches`
          let arr=[];
@@ -132,10 +128,13 @@ npm install
                       config:this.state.arrShell
                     }
                   ]};
+        console.log('URI', 'http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects');
         Request
-        .get('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
+        .get('/api/'+ownerName+'/'+repoName+'/projects')
         .end((err,resp) =>
         {
+          console.log('err-ppp',err);
+          console.log('ppp',resp);
           if(resp.body)
           {
             Request
@@ -143,7 +142,7 @@ npm install
             .send(files)
             .end((err) => {
               console.log(err);
-              this.context.router.push('/ownerName');
+
             });
           }
           else{
@@ -153,10 +152,13 @@ npm install
             .send(files)
             .end((err) => {
               console.log(err);
-              this.context.router.push('/app/'+ownerName);
+
             });
           }
-        })
+        });
+        
+
+
       }
   render(){
     console.log(this.state.repo_Ref);
