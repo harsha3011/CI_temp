@@ -1,8 +1,13 @@
 const pipelineConfigModel=require('../models/pipelineConfig.model');
-module.exports=function (req, res,err) {
+
+const jwtDecode=require('jwt-decode');
+module.exports=function (req, res,next) {
 	const pipelineConfig = new pipelineConfigModel();
-	const token = req.cookies.token;
-	console.log("token "+req.cookies);
+		console.log("hello config");
+		const token = cookie.load('token');
+	       var decoded = jwtDecode(token);
+	       console.log(decoded.accessToken);
+
 	var hookData={
 	 "name": "web",
 	 "active": true,
@@ -13,8 +18,9 @@ module.exports=function (req, res,err) {
 		 "url": "http://localhost:9080",
 		 "content_type": "json",
 		 "insecure_ssl": "1"
-	 },
+	 }
 	}
+	next();
   // var decoded = jwtDecode(token);
   //   var code=decoded.accessToken;
   //   console.log(code);

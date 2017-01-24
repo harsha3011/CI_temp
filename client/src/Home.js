@@ -63,7 +63,7 @@ componentDidMount() {
      return(
        <TableRow style={{fontSize:18}}>
          <Link to={url} className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
-            <IconButton style={{marginLeft:'90%'}}><Link to="/app/ownerName/repoName/pipelineSettings">
+            <IconButton style={{marginLeft:'90%'}}><Link to={url}>
             <Setting color={'#00897B '} size={80}/></Link>
             </IconButton>
 

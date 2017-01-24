@@ -3,7 +3,6 @@ var gitClone = require('./CloneRepo');
 var gitCreateBranch = require('./CreateBranches');
 var gitPushBranch = require('./PushBranches');
 var gitProtectBranch = require('./ProtectedBranches');
-const repoPath = '/media/srishti/6C58AAC458AA8D00/workspace/demo';
 const branchName='Integration';
 
 
@@ -14,12 +13,11 @@ async.series([
         gitCreateBranch.bind(null, branchPath,teamType),
         gitPushBranch.bind(null, branchPath),
         gitProtectBranch.bind(null,ownerName,repoName,branchName,token)
-
     ],
 
     function(err, results) {
         if (err)
-         { 
+         {
             return err.message;
           }else{
             return results;
