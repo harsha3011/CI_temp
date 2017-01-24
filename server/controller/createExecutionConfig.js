@@ -3,7 +3,7 @@ const runDocker=require('../services/runPipeline');
 const async=require('async');
 const getExecutionConfig=require('./getExecutionConfig');
 const executionConfigModel=require('../models/executionsConfig.model');
- 
+
 module.exports=function(req,res,err){
   const owner=req.params.owner;
   const htmlhint = req.body.htmlhint;
@@ -26,23 +26,24 @@ module.exports=function(req,res,err){
         executionsConfig.endtime=starttime;
         executionsConfig.save( (err)=> {
           if(!err){
-           // res.send('success');
+           res.send('success');
           }
           else{
              console.log('error')
-          } 
+          }
         });
   async.waterfall([
       runDocker.bind(null,owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,starttime),
       createExecutionData.bind(null,req,res,err)
-      
 
-   ],(err, results) => {
-       if(err) { console.error('error', err); return; }
-       console.log(results);
+
+
+  ],(err, results) => {
+      if(err) { console.error('error', err); return; }
+      console.log(results);
 
 }
 
-   );
-  
+  );
+
 }

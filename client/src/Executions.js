@@ -21,7 +21,7 @@ const styles={
   };
 
 class Executions extends Component {
- 
+
  constructor() {
           super();
           this.state = {
@@ -42,8 +42,8 @@ class Executions extends Component {
          const repobranch=JSON.parse(JSON.stringify(getFiles2));
           var getFiles3=localStorage.getItem("owner");
          const ownername=JSON.parse(JSON.stringify(getFiles3));
-        
-        
+
+
         const url='http://localhost:9080/api/'+ownername+'/'+reponame+'/'+repobranch+'/executions';
         Request
        .get(url)
@@ -57,9 +57,8 @@ class Executions extends Component {
  handleReport=(event)=>{
       window.localStorage.setItem("reportData",event.target.className);
   }
- 
-render() {
 
+render() {
     var consoleRows=[];
     var list="The build is running.....";
     var progress=""
@@ -119,7 +118,7 @@ render() {
               return  (<li>{data}</li>);
             })
           }
-          
+
           return(
             <Row>
             <Col xs={12}>
@@ -132,7 +131,7 @@ render() {
                 </Col>
                 <Col>
                 <p style={{marginTop:21,marginLeft:10}}>{date}</p><p style={{marginLeft:10,marginTop:21}}>{obj.state}</p>
-               
+
                </Col>
                <Col style={{marginLeft:20,marginTop:21}}>
               {progress}
@@ -157,7 +156,7 @@ render() {
             </Row>
             );
         }));
-  
+
   return(
     <Grid>
               <Paper style={styles.bar}>
@@ -176,7 +175,7 @@ render() {
      </Paper>
               </Grid>
     );
-  
+
  }
 }
 
