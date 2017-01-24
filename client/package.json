@@ -17,6 +17,7 @@
     "detect-port": "1.0.1",
     "dotenv": "2.0.0",
     "eslint": "3.8.1",
+    "eslint-config-google": "^0.7.1",
     "eslint-config-react-app": "^0.5.0",
     "eslint-loader": "1.6.0",
     "eslint-plugin-flowtype": "2.21.0",
@@ -48,16 +49,19 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "async": "^2.1.4",
     "body-parser": "^1.15.2",
     "classnames": "^2.2.5",
     "express": "^4.14.0",
     "flexboxgrid": "^6.3.1",
     "htmlhint": "^0.9.13",
+    "jwt-decode": "^2.1.0",
     "material-ui": "^0.16.6",
     "plugin": "^0.3.3",
     "rc-tooltip": "^3.4.2",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.7",
+    "react-cookie": "^1.0.4",
     "react-dom": "^15.4.1",
     "react-flexbox-grid": "^0.10.2",
     "react-fontawesome": "^1.5.0",
@@ -86,7 +90,7 @@
       "<rootDir>[/\\\\](build|docs|node_modules)[/\\\\]"
     ],
     "testEnvironment": "node",
-    "testURL": "http://localhost",
+    "testURL": "http://localhost:9080/#/",
     "transform": {
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",

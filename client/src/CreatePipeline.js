@@ -1,42 +1,34 @@
 import React,{Component} from 'react';
 import Paper from 'material-ui/Paper';
-import {List, ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {white} from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
-import {IndexLink, Link} from 'react-router';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import {Card, CardHeader,CardText} from 'material-ui/Card';
 import './App.css';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import _ from 'lodash';
 import Request from 'superagent';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
 import LintTest from './LintTest';
 import MultiScriptConfig from './MultiScriptConfig';
 import Checkbox from 'material-ui/Checkbox';
-
+import cookie from 'react-cookie';
+import jwtDecode from 'jwt-decode';
 
 const muiTheme = getMuiTheme({
  palette: {
    textColor: white,
  }
 });
-var newTest="";
-
 
 class CreatePipeline extends Component{
 
     constructor(props) {
         super(props);
         this.handleCheckbox=this.handleCheckbox.bind(this);
-        
+        this.getRepoData=this.getRepoData.bind(this);
 
         this.state = {
           //remove shellcmd and shelltitle
@@ -51,7 +43,12 @@ class CreatePipeline extends Component{
           arrShell:[],
           testCoverageData:false,
           automatedTestData:[],
+          repo_Ref:[]
         };
+      }
+      getRepoData(repoName){
+        console.log();
+
       }
       //create a component for custom shell commands
       changeEsLint(values)
@@ -84,19 +81,52 @@ class CreatePipeline extends Component{
       			setupCmds:event.target.value,
       		});
        }
-      static get contextTypes() {
-        return {
-          router: React.PropTypes.object.isRequired
-        };
+       static get contextTypes() {
+              return {
+                router: React.PropTypes.object.isRequired
+              };
+            }
+      componentDidMount() {
+        let url = `https://api.github.com/repos/${this.props.params.ownerName}/${this.props.params.repoName}/branches`
+         let arr=[];
+         Request
+         .get(url)
+         .end((err, res)=>{
+            res.body.map((obj)=>{
+              console.log(obj);
+               arr.push(obj.name);
+             });
+              this.setState({
+                repo_Ref:arr,
+              });
+         });
+      }
+      componentDidMount() {
+        let url = `https://api.github.com/repos/${this.props.params.ownerName}/${this.props.params.repoName}/branches`
+         let arr=[];
+         Request
+         .get(url)
+         .end((err, res)=>{
+            res.body.map((obj)=>{
+              console.log(obj);
+               arr.push(obj.name);
+             });
+              this.setState({
+                repo_Ref:arr,
+              });
+         });
       }
 
        handleSaveClick=(event)=>{
-        var ownerName="jarvis";
-        var projectName="VisualBI-2"
-        var branchArray=["master"];
+        let ownerName=this.props.params.ownerName;
+        let repoName=this.props.params.repoName;
+        const token = cookie.load('token');
+       var decoded = jwtDecode(token);
+       var access=decoded.accessToken;
+
         var files={
-                  repo_URL:"https://github.com/stackroute/VisualBI-2.git",
-                  repo_Ref:branchArray,
+                  repo_URL:'https://github.com/'+ownerName+'/'+repoName+'.git',
+                  repo_Ref:this.state.repo_Ref,
                   setup: this.state.setupCmds,
                   stages: [{
                     stage: "eslint",
@@ -118,35 +148,47 @@ class CreatePipeline extends Component{
                       stage:"custom scripts",
                       config:this.state.arrShell
                     }
-                  ]};
+                  ],
+                  access_token:access
+                };
+
         Request
-        .get('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
+        .get('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
         .end((err,resp) =>
         {
+          console.log('err-ppp',err);
+          console.log('ppp',resp);
           if(resp.body)
           {
+            console.log("if yes")
             Request
-            .put('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
+            .put('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
             .send(files)
             .end((err) => {
               console.log(err);
-              this.context.router.push('/ownerName');
+              this.context.router.push('/app/'+ownerName);
             });
           }
           else{
+            console.log("new one");
+            console.log(ownerName);
             Request
-            .post('http://localhost:9080/api/'+ownerName+'/'+projectName+'/projects')
+            .post('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
             .set('Content-Type', 'application/json')
             .send(files)
             .end((err) => {
               console.log(err);
-              this.context.router.push('/ownerName');
+
+              this.context.router.push('/app/'+ownerName);
             });
           }
-        })
+        });
+
+
+
       }
   render(){
-
+    console.log(this.state.repo_Ref);
   return(
     <Paper>
         <Grid>

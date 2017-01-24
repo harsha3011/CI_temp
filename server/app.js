@@ -14,8 +14,10 @@ const config = require('./config');
 const _ = require('lodash');
 const path = require('path');
 const mongoose = require('mongoose');
-const connection=mongoose.connect('mongodb://localhost:27017/Database_CI');
+const connection=mongoose.connect('mongodb://localhost/Database_CI');
+const doGitOperationsRoute=require('./route/gitOperations.route')
 
+const getWebhook=require('./route/createWebhook.route');
 
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,9 +29,33 @@ app.use(function(req, res, next) {
 var BodyParser = require('body-parser');
 app.use(BodyParser());
 
-const doGitOperationsRoute=require('./route/gitOperations.route')
 
 buildDocker();
+
+function createApp() {
+  const app = express();
+  return app;
+}
+app.use('/', getWebhook);
+function createApp() {
+  const app = express();
+  return app;
+}
+
+function setupStaticRoutes(app) {
+  app.use(express.static(__dirname + '/public'));
+  return app;
+}
+
+function setupMiddlewares(app) {
+  app.use(require('cookie-parser')());
+}
+
+function setupRestRoutes(app) {
+  app.use('/api/ci', require(path.join(__dirname, 'api')));
+  return app;
+}
+
 
 app.use('/',executionsConfigRoute);
 app.use('/',pipelineConfigRoute);
@@ -39,10 +65,11 @@ app.use('/',evalFindingsConfigRoute);
 app.use('/',doGitOperationsRoute);
 app.use(cookieParser());
 app.use('/api/ci', require(path.join(__dirname, '..', 'server/api')));
+app.use(express.static(path.join(__dirname, '..', 'client','build')));
 app.use('/',triggerCommit);
-
 
 const server = http.createServer(app);
 server.listen(port, () => {
-    // console.log('Express server started');
+
+    console.log('Express server started');
 });

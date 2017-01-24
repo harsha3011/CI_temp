@@ -8,18 +8,60 @@ import {Grid,Row,Col} from 'react-flexbox-grid'
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
+import cookie from 'react-cookie'
+import request from 'superagent';
+
+
 export default class Header extends React.Component {
+
+  componentDidMount()
+  {
+    const setUserInState = () => {
+    this.setState({
+      user: JSON.parse(localStorage.user)
+    });
+  };
+
+
+  if(!localStorage.user) {
+    request
+    .get('http://localhost:9080/api/ci/auth/github/me')
+    .end(function(err, response) {
+      if(err) { throw err; }
+      localStorage.user = JSON.stringify(response.body);
+      setUserInState();
+
+    });
+  } else {
+    setUserInState();
+
+  }
+  }
+
+  handleLogout() {
+    delete localStorage.user;
+    cookie.remove('token');
+  }
+
     render() {
-   
+      var user=JSON.parse(localStorage.user||null);
+
+      if(user!==null)
+      {
+        var login=user.login;
+        var title="Welcome "+login;
+        var route="/app/"+login;
+      }
+
       return (
-        <AppBar title="Welcome User" iconElementLeft={<IconButton><ActionBugReport /></IconButton>}
+        <AppBar title={title} iconElementLeft={<IconButton><ActionBugReport /></IconButton>}
         iconElementRight={<IconMenu iconButtonElement={<IconButton touch={true}>
-          <NavigationExpandMoreIcon />                     
-          </IconButton>                     
+          <NavigationExpandMoreIcon />
+          </IconButton>
         }>
-        <IndexLink  to="/ownerName" activeClassName="active"><MenuItem primaryText="Home" /></IndexLink>
-        <Link to="/logout" activeClassName="active"><MenuItem primaryText="Logout"/> </Link>                 
-         </IconMenu>}/>   
+        <IndexLink  to={route} activeClassName="active"><MenuItem primaryText="Home" /></IndexLink>
+        <Link to="/logout" activeClassName="active"><MenuItem primaryText="Logout" onClick={this.handleLogout.bind(this)}/> </Link>
+         </IconMenu>}/>
       );
     }
 }

@@ -15,6 +15,7 @@ import CreatePipeline from './CreatePipeline'
 import BuildReport from './BuildReport'
 import RubericSettings from './RubericSetting'
 import TeamType from './TeamType'
+import cookie from 'react-cookie';
 import Report from './Report'
 injectTapEventPlugin();
 
@@ -26,20 +27,43 @@ palette: {
 }
 });
 
+
+function redirectIfLoggedIn(nextState, replace, next) {
+	const token = cookie.load('token');
+	if(token) {
+    var user=JSON.parse(localStorage.user);
+
+            replace('/app/'+user.login);
+	}
+	next();
+}
+
+function redirectIfNotLoggedIn(nextState, replace, next) {
+	const token = cookie.load('token');
+	if(!token) { replace('/');
+  alert('Login is required..!')
+ }
+	next();
+}
+
 ReactDOM.render(
-  <MuiThemeProvider muiTheme={muiTheme}>
-      <Router history={hashHistory}>
-          <Route path="/" component={login}/>
-          <Route path="logout" component={login}/>
-          <Route path="ownerName" component={App}>
-            <IndexRoute component={Home}/>
-            <Route path="createRepo" component={CreateProject}/>
-            <Route path="repoName/branch" component={Branch}/>
-            <Route path="executions" component={Executions}/>
-            <Route path="repoName/pipelineSettings" component={CreatePipeline}/>
-            <Route path="repoName/branch/branchName" component={Report}/>
-            <Route path="repoName/teamtype" component={TeamType}/>
-          </Route>
-      </Router>
- </MuiThemeProvider>
+  <div>
+    <h1>Hello World!</h1>
+    <MuiThemeProvider muiTheme={muiTheme}>
+        <Router history={hashHistory}>
+                <Route path="/" component={login} onEnter={redirectIfLoggedIn}/>
+                <Route path="logout" component={login} onEnter={redirectIfLoggedIn}/>
+                <Route path="app/:ownerName" component={App} onEnter={redirectIfNotLoggedIn}>
+                  <IndexRoute component={Home} onEnter={redirectIfNotLoggedIn}/>
+                <Route path="createRepo" component={CreateProject} onEnter={redirectIfNotLoggedIn}/>
+                <Route path=":repoName/teamtype" component={TeamType} onEnter={redirectIfNotLoggedIn}/>
+                <Route path=":repoName/pipelineSettings" component={CreatePipeline} onEnter={redirectIfNotLoggedIn}/>
+                <Route path=":repoName/:branch" component={Branch} onEnter={redirectIfNotLoggedIn}/>
+                <Route path="executions" component={Executions} onEnter={redirectIfNotLoggedIn}/>
+                <Route path=":repoName/:branch/branchName" component={BuildReport} onEnter={redirectIfNotLoggedIn}/>
+                <Route path="Ruberic" component={RubericSettings} onEnter={redirectIfNotLoggedIn}/>
+              </Route>
+        </Router>
+        </MuiThemeProvider>
+ </div>
 , document.querySelector("#root"));
