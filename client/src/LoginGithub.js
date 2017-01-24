@@ -31,14 +31,11 @@ constructor(props) {
   }
 }
   componentDidMount () {
-<<<<<<< HEAD
+
 
     request.get('http://localhost:9080/api/ci/auth/github/login')
           .set('Accept', 'application/json')
-=======
-    request.get('http://localhost:9080/api/ci/auth/github/login')
-           .set('Accept', 'application/json')
->>>>>>> 435017fd7aa1fd12db87d7ea304a34357bd6dbb4
+
           .end((err, res) => {
               this.setState({githubUrl: res.text});
           });
@@ -49,12 +46,7 @@ constructor(props) {
       	<div>
         	<div>
             <AppBar
-<<<<<<< HEAD
-              title="KI-Keep Integrating"
-=======
-
               title="JARVIS-Keep Integrating"
->>>>>>> 435017fd7aa1fd12db87d7ea304a34357bd6dbb4
               iconElementLeft={<IconButton><ActionBugReport /></IconButton>}
               iconElementRight=
                     {<IconMenu

@@ -130,21 +130,24 @@ class CreatePipeline extends Component{
                       config:this.state.arrShell
                     }
                   ]};
+                  console.log("here");
         Request
         .get('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
         .end((err,resp) =>
         {
           if(resp.body)
           {
+            console.log("if yes")
             Request
             .put('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
             .send(files)
             .end((err) => {
               console.log(err);
-              this.context.router.push('/ownerName');
+              this.context.router.push('/app/'+ownerName);
             });
           }
           else{
+            console.log("new one");
             Request
             .post('http://localhost:9080/api/'+ownerName+'/'+repoName+'/projects')
             .set('Content-Type', 'application/json')

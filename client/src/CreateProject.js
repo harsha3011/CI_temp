@@ -29,7 +29,8 @@ class CreateProject extends Component {
             repoData: {
                 'name': '',
                 'description': '',
-                'Access_Token': ''
+                'Access_Token': '',
+                'ownerName':'',
             }
         }
     }
@@ -49,6 +50,7 @@ class CreateProject extends Component {
             'name': this.state.newRepository,
             'description': this.state.desc,
             'Access_Token': this.state.access_token,
+            'ownerName':ownerName,
         }
         this.setState({ 
             repoData: obj

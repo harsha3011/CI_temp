@@ -33,7 +33,6 @@ function getOrganisations(response0, callback) {
 }
 
 function getUser(token, callback) {
-<<<<<<< HEAD
     request
         .get('https://api.github.com/user')
         .set('User-Agent', config.USER_AGENT)
@@ -90,61 +89,7 @@ module.exports = {
                 });
             });
     },
-=======
-  request
-  .get('https://api.github.com/user')
-  .set('User-Agent', config.USER_AGENT)
-  .set('Accept', 'application/json')
-  .authBearer(token)
-  .end(function(err, response) {
-   if(err) { callback(err); return; }
-   // console.log(response.body);
-   // localStorage.setItem("user",response.body);
-   callback(null, response.body);
-   return;
- }
- );
-}
 
-module.exports = {
-  url: function(req, res) {
-    res.send('https://github.com/login/oauth/authorize?client_id=' + config.GITHUB_CLIENT_ID);
-  },
-  complete: function(req, res) {
-    // console.log(req.query.code);
-    const code = req.query.code;
-    request
-    .get('https://github.com/login/oauth/access_token')
-    .query({
-      client_id: config.GITHUB_CLIENT_ID,
-      client_secret: config.GITHUB_CLIENT_SECRET,
-      code: code
-    })
-    .end(function(err0, response0) {
-      if(err0) { res.status(500).json(err0); return; }
-      const accessToken = response0.body.access_token;
-      getUser(accessToken, function(err1, response1) {
-        if(err1) { res.status(500).json(err1); return; }
-
-        getOrganisations(response1, function(err2, response2) {
-          jsonwebtoken.sign({
-            roles: [response2.userType],
-            accessToken: accessToken
-          }, config.JWT_SECRET, {
-            subject: response2.id.toString(),
-            issuer: config.USER_AGENT
-          }, function(err3, jwt) {
-            if(err3) { res.status(500).json(err3); return; }
-              res
-              .cookie('token', jwt)
-              .redirect('http://localhost:3000/#/ownerName');
-            return;
-          });
-        });
-      }
-      );
-    });},
->>>>>>> 435017fd7aa1fd12db87d7ea304a34357bd6dbb4
     me: function(req, res) {
         const claims = req.claims;
         getUser(claims.accessToken, function(err, user) {

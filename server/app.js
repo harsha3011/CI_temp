@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
 
 var BodyParser = require('body-parser');
 app.use(BodyParser());
-<<<<<<< HEAD
+
 
 buildDocker();
 
@@ -49,10 +49,6 @@ function setupRestRoutes(app) {
   app.use('/api/ci', require(path.join(__dirname, 'api')));
   return app;
 }
-=======
-
-const doGitOperationsRoute=require('./route/gitOperations.route')
->>>>>>> 435017fd7aa1fd12db87d7ea304a34357bd6dbb4
 
 
 app.use('/',executionsConfigRoute);
@@ -68,10 +64,7 @@ app.use('/',triggerCommit);
 
 const server = http.createServer(app);
 server.listen(port, () => {
-<<<<<<< HEAD
+
     console.log('Express server started');
 });
-=======
-    // console.log('Express server started');
-});
->>>>>>> 435017fd7aa1fd12db87d7ea304a34357bd6dbb4
+    

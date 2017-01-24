@@ -1,9 +1,11 @@
+
+const config = require('../config');
 var async = require('async');
 var gitClone = require('./CloneRepo');
 var gitCreateBranch = require('./CreateBranches');
 var gitPushBranch = require('./PushBranches');
 var gitProtectBranch = require('./ProtectedBranches');
-const repoPath = '/media/srishti/6C58AAC458AA8D00/workspace/demo';
+const repoPath = config.WORKSPACE_DIRECTORY;
 const branchName='Integration';
 
 

@@ -41,5 +41,5 @@
     callback(null,owner,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state);
   });
 
-  });
+  
 }

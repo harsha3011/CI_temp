@@ -168,11 +168,11 @@ return ( < Grid >
                                 leftCheckbox = { < Checkbox checked = { true }
                                     disabled = { true }
                                     />} / >
-                                    < ListItem primaryText = ""
+                                    < ListItem primaryText = "Integration"
                                     leftCheckbox = { < Checkbox checked = { true }
                                         disabled = { true }
                                         />}/ >
-                                        < ListItem primaryText = "testing"
+                                        < ListItem primaryText = "dev"
                                         leftCheckbox = { < Checkbox checked = { true }
                                             disabled = { true }
                                             />} / >
