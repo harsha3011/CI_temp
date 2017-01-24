@@ -15,7 +15,7 @@ async.series([
         gitClone.bind(null, repoPath,repoName, ownerName),
         gitCreateBranch.bind(null, branchPath,teamType),
         gitPushBranch.bind(null, branchPath),
-        gitProtectBranch.bind(null,ownerName,repoName,branchName,token)
+        gitProtectBranch.bind(null,ownerName,repoName,branchName,token,teamType)
 
     ],
 

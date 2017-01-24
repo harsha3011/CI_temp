@@ -27,7 +27,6 @@ class CreatePipeline extends Component{
     constructor(props) {
         super(props);
         this.handleCheckbox=this.handleCheckbox.bind(this);
-        this.getRepoData=this.getRepoData.bind(this);
 
         this.state = {
           //remove shellcmd and shelltitle
@@ -44,10 +43,6 @@ class CreatePipeline extends Component{
           automatedTestData:[],
           repo_Ref:[]
         };
-      }
-      getRepoData(repoName){
-        console.log();
-
       }
       //create a component for custom shell commands
       changeEsLint(values)

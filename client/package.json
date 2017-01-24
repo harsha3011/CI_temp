@@ -69,7 +69,8 @@
     "react-tap-event": "^1.0.3",
     "react-tap-event-plugin": "^2.0.1",
     "react-tooltip": "^3.2.2",
-    "superagent": "^3.3.1"
+    "superagent": "^3.3.1",
+    "superagent-auth-bearer": "0.0.1"
   },
   "scripts": {
     "start": "node scripts/start.js",

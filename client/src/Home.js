@@ -34,21 +34,25 @@ handleConfigRepoData=(event)=>{
   }
 
 componentDidMount() {
-    var ownerName=this.props.params.ownerName;
+    let ownerName=this.props.params.ownerName;
     Request
        .get('http://localhost:9080/api/'+ownerName+'/projects')
        .then((res) => {
         this.setState({
            configrepositories: res.body
          });
+        console.log("frst");
+
        });
-    Request
+         Request
        .get("https://api.github.com/users/"+ownerName+"/repos")
        .then((res) => {
         this.setState({
            repositories: res.body,
          });
-       });
+
+       console.log("next");
+       });  
  }
 
 
@@ -56,11 +60,13 @@ componentDidMount() {
       window.localStorage.setItem("repoData",event.target.className);
   }
 
- render() {
-  const configuredRepoList=this.state.configrepositories.map((repo)=>{
-    let url='/app/'+this.props.params.ownerName+'/'+repo.reponame+'/branch' ;
-     return(
+ render() {  
 
+  let config_repos=[];
+  const configuredRepoList=this.state.configrepositories.map((repo)=>{
+    let url='/app/'+this.props.params.ownerName+'/'+repo.reponame+'/branch' ; 
+    config_repos.push(repo.reponame);  
+     return(
        <TableRow>
        <TableRowColumn>
          <Link style={{fontSize:18}} to={url} className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
@@ -75,13 +81,18 @@ componentDidMount() {
    });
    const repoList=this.state.repositories.map((repo)=>{
     let url="/app/"+this.props.params.ownerName+"/"+repo.name+"/teamtype";
-     console.log(url);
-     return(
+
+      if (config_repos.indexOf(repo.name)==-1) {
+         return(
        <TableRow style={{fontSize:18}}>
             <TableRowColumn><Link to={url} className={JSON.stringify(repo)} onTouchTap={this.handleRepoData.bind(this)}>{repo.name}</Link>
             </TableRowColumn>
        </TableRow>
        );
+       }else{
+     return;
+      }
+    
    });
      
   let route="/app/"+this.props.params.ownerName+"/createRepo";
