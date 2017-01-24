@@ -28,6 +28,10 @@ class CreatePipeline extends Component{
     constructor(props) {
         super(props);
         this.handleCheckbox=this.handleCheckbox.bind(this);
+<<<<<<< HEAD
+
+=======
+>>>>>>> e166e4e7c62d2fe935bd668985837f4119724649
 
         this.state = {
           //remove shellcmd and shelltitle

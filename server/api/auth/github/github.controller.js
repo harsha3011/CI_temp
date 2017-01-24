@@ -86,6 +86,27 @@ module.exports = {
             });
     },
 
+<<<<<<< HEAD
+        getOrganisations(response1, function(err2, response2) {
+          jsonwebtoken.sign({
+            roles: [response2.userType],
+            accessToken: accessToken
+          }, config.JWT_SECRET, {
+            subject: response2.id.toString(),
+            issuer: config.USER_AGENT
+          }, function(err3, jwt) {
+            if(err3) { res.status(500).json(err3); return; }
+              res
+              .cookie('token', jwt)
+              .redirect('http://localhost:9080/#/ownerName');
+            return;
+          });
+        });
+      }
+      );
+    });},
+=======
+>>>>>>> e166e4e7c62d2fe935bd668985837f4119724649
     me: function(req, res) {
         const claims = req.claims;
         getUser(claims.accessToken, function(err, user) {

@@ -10,4 +10,4 @@ RUN npm install -g eslint-plugin-react
 RUN npm install -g eslint-plugin-angular
 RUN npm install -g babel-eslint
 COPY . .
-CMD ["./dockerExecution.sh"]
+CMD ["sh","./dockerExecution.sh"]
