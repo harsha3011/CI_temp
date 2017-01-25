@@ -2,6 +2,8 @@ var mocha;
 var eslint;
 var htmlhint;
 var istanbul;
+var result;
+
 const pipelineConfigModel=require('../models/pipelineConfig.model');
 module.exports=function (req,res,err,owner,repo_URL,repobranch,reponame,callback) {
 	const pipelineConfig = new pipelineConfigModel();
