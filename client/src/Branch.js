@@ -86,12 +86,8 @@ static get contextTypes() {
 
       }
       render(){
-        var rows=[];
         let ownerName=this.props.params.ownerName;
         let url="/app/"+ownerName+"/executions";
-        console.log("b",j++);
-        let ownerName=this.props.params.ownerName;
-        let url='/app/'+ownerName+'/executions';
         console.log(this.state.branch);
         const rows=[];
         rows.push(this.state.configFiles.repo_Ref.map((obj)=>
@@ -106,8 +102,6 @@ static get contextTypes() {
 
                      <RaisedButton style={{marginLeft:20}} primary='true'><Link to={url} style={{textDecoration:'none'}} className={obj} >View Build Report
                      </Link></RaisedButton>
-                     <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link  className={obj}>Execute</Link>
-                    </RaisedButton>
 
 
                      <RaisedButton style={{marginLeft:20}} primary='true' className={obj} ><Link >View Build Report

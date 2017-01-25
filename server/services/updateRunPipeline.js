@@ -4,6 +4,7 @@
   let state='';
   const spawn=require('child_process').spawn;
   const docker=spawn('docker',["run","--net=host",
+            "-v", "/tmp:/tmp",
             "-e", `HTMLHINT=${htmlhint}`.replace(',',' '),
             "-e",`ESLINT=${eslint}`.replace(',',' '),
             "-e", `MOCHA=${mocha}`.replace(',',' '),
@@ -31,19 +32,6 @@
   });
   docker.on('close', (code) => {
     exitCode=`${code}`;
-    callback(null,owner,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state,id);
+    callback(null,owner,repo_URL,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state,id);
   });
-
-    if(exitCode==0)
-    {
-      state="Passed";
-    }
-    else{
-      state="Failed";
-    }
-    console.log("pipeline excuted... exiting code");
-
-    callback(null,owner,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state);
-
-
 }

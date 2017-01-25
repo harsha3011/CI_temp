@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node_modules
 
 
@@ -11,3 +12,31 @@ node_modules
 .DS_Store
 .env
 npm-debug.logode_modules
+=======
+# OS X
+.DS_Store*
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+*~
+
+
+# npm
+node_modules
+*.log
+*.gz
+
+
+# Coveralls
+coverage
+
+# Benchmarking
+benchmarks/graphs
+>>>>>>> 8e14e06ebf45bd88b92ce9e84d4ffed3634c5097

@@ -64,7 +64,8 @@ componentDidMount() {
 
   let config_repos=[];
   const configuredRepoList=this.state.configrepositories.map((repo)=>{
-    let url='/app/'+this.props.params.ownerName+'/'+repo.reponame+'/branch' ; 
+    let url='/app/'+this.props.params.ownerName+'/'+repo.reponame+'/branch' ;
+    let url2='/app/'+this.props.params.ownerName+'/'+repo.reponame+'/pipelineSettings'; 
     config_repos.push(repo.reponame);  
      return(
 
@@ -73,7 +74,7 @@ componentDidMount() {
          <Link style={{fontSize:18}} to={url} className={JSON.stringify(repo)} onTouchTap={this.handleConfigRepoData.bind(this)}>{repo.reponame}</Link>
             </TableRowColumn>
             <TableRowColumn>
-            <IconButton ><Link to="/app/ownerName/repoName/pipelineSettings">
+            <IconButton ><Link to={url2}>
             <Setting color={'#00897B '} size={200}/></Link>
             </IconButton>
           </TableRowColumn>
@@ -100,7 +101,7 @@ componentDidMount() {
    <Grid>
    <Row center="xs">
     <Col xs={12}>
-       <Paper style={{marginTop:50}} >
+       <Paper style={{margin:40}} >
             <Table >
                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow style={{fontSize:35}}><b>PROJECTS</b>

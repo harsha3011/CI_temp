@@ -1,12 +1,12 @@
 module.exports=function(basebranch,branch,owner,repo_URL,repobranch,reponame,mocha,eslint,htmlhint,istanbul,starttime,id,callback){
 
   const spawn=require('child_process').spawn;
-  console.log(comparebranch);
+  // console.log(repobranch);
   const env = process.env;
   env.REPO_URL = repo_URL;
   env.REPO_NAME = reponame;
   env.BASE_BRANCH= basebranch;
-  env.BRANCH= comparebranch
+  env.BRANCH= repobranch;
   const merge=spawn('./merge.sh', {env: env});
   var exitCode;
   var stdOut=[];

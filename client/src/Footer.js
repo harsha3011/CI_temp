@@ -30,6 +30,7 @@ export default class Footer extends React.Component {
                background:'#00897B ',
                color: '#FFF',
                fontFamily: 'sans-serif',
+               position: 'fixed',
                fontSize: 14,
                bottom:0, left: 0, right: 0
            }
@@ -38,7 +39,7 @@ export default class Footer extends React.Component {
            <footer style={styles.mainStyles}>
                <Grid>
                    <Row center="xs" className='footerContent'>
-                       <Col xs={4}><b>KI</b></Col>
+                       <Col xs={4}><b>Jarvis</b></Col>
                        <Col xs={4}>Copyright @ 2016</Col>
                        <Col xs={4}>Connect Us on :
                            <a href='#'><Facebook /></a>
