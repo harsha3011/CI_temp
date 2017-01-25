@@ -1,5 +1,5 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'start' ]
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'run', 'start' ]
 2 info using npm@3.10.10
 3 info using node@v7.2.1
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
@@ -23,9 +23,15 @@
 14 verbose stack     at maybeClose (internal/child_process.js:885:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid ciproject@1.0.0
+<<<<<<< HEAD
 16 verbose cwd /media/swathi/New Volume/25th JAN/CI_temp/server
 17 error Linux 4.4.0-59-generic
 18 error argv "/usr/bin/nodejs" "/usr/bin/npm" "start"
+=======
+16 verbose cwd /media/julia/6292CC9592CC6EDB/workspace/Temp/my integrate/server
+17 error Linux 4.4.0-53-generic
+18 error argv "/usr/bin/nodejs" "/usr/bin/npm" "run" "start"
+>>>>>>> c6a92ecba82db2f3d9ec400677f3c20fb9233528
 19 error node v7.2.1
 20 error npm  v3.10.10
 21 error code ELIFECYCLE

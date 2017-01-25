@@ -1,5 +1,5 @@
 var result;
-const pipelineConfigModel = require('../models/pipelineConfig.model');
+const pipelineConfigModel=require('../models/pipelineConfig.model');
 module.exports=function (req, res) {
 	const pipelineConfig = new pipelineConfigModel();
 	pipelineConfig.findOne({reponame:reponame,

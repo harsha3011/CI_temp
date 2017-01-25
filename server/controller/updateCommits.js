@@ -1,9 +1,7 @@
 const express = require('express');
 const Request = require ('superagent');
 const runMerge=require('../services/runMergeCommand');
-const createExecutionData=require('./createExecutionData');
-const runDocker=require('../services/runPipeline');
-const async=require('async');
+
 const pushCommand=require('../services/runPushCommand');
 const getTestData=require('./getTestData');
 const getExecutionConfig=require('./updateExecution');
