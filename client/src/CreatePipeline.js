@@ -169,7 +169,7 @@ class CreatePipeline extends Component{
   render(){
     console.log(this.state.repo_Ref);
   return(
-    <Paper>
+    <Paper style={{margin:30 , marginBottom:80}}>
         <Grid>
           <Row>
             <Col xs={12}>

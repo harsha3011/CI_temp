@@ -146,8 +146,14 @@ module.exports = {
       // in the main CSS file.
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss')
+        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss'),
+        exclude: /flexboxgrid/
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css?modules',
+        include: /flexboxgrid/
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.

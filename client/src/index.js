@@ -48,7 +48,6 @@ function redirectIfNotLoggedIn(nextState, replace, next) {
 
 ReactDOM.render(
   <div>
-    <h1>Hello World!</h1>
     <MuiThemeProvider muiTheme={muiTheme}>
         <Router history={hashHistory}>
                 <Route path="/" component={login} onEnter={redirectIfLoggedIn}/>

@@ -100,7 +100,7 @@ componentDidMount() {
    <Grid>
    <Row center="xs">
     <Col xs={12}>
-       <Paper style={{marginTop:50}} >
+       <Paper style={{margin:40}} >
             <Table >
                <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow style={{fontSize:35}}><b>PROJECTS</b>
