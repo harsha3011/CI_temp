@@ -4,6 +4,7 @@ module.exports=function(htmlhint,callback){
   var exitCode;
   var stdOut=[];
   var stdErr=[];
+
   var err=null;
   htmlhintCmd.stderr.on('data', (data)=> {
     // console.log(`${data}`);

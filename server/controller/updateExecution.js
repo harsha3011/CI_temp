@@ -1,7 +1,7 @@
 const executionConfigModel=require('../models/executionsConfig.model');
 var id;
 const starttime=new Date();
-module.exports=function(req,res,err,owner,repo_URL,repobranch,reponame,mocha,eslint,htmlhint,istanbul,callback){
+module.exports=function(req,res,err,owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,starttime,callback){
 const executionsConfig=new executionConfigModel();
      executionsConfig.state='Running';
      executionsConfig.owner=owner;
@@ -12,7 +12,7 @@ const executionsConfig=new executionConfigModel();
      executionsConfig.exitcode=0;
      executionsConfig.starttime=starttime;
      executionsConfig.endtime=starttime;
-     executionsConfig.save( (err,data)=> {
+     executionsConfig.save((err,data)=> {
        if(!err){
         res.send('success');
         console.log("ID of the current entry",data._id);

@@ -11,8 +11,8 @@ const files = {
        }
    }
 };
-
 function gitProtectBranch (ownerName, repoName,token,teamType,callback) {
+
 
     request
         .patch('https://api.github.com/repos/' +ownerName + '/' +repoName +'/branches/master')
