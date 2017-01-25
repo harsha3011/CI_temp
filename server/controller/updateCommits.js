@@ -11,13 +11,13 @@ const getExecutionConfig=require('./updateExecution');
 const getExitCode=require('./getExitCode');
 // const executionConfigModel=require('../models/executionsConfig.model');
 const notify=require('../slackNotification');
-var data=function (req, res,err,next)
+var data=function (req, res, next)
 {
-
-	var payload=req.body.payload;
-	console.log(payload);
+	var payload=JSON.parse(req.body.payload);
+	console.log('payload:',payload);
 	if(payload.head_commit!=undefined)
 	{
+		console.log('payload.head_commit', payload.head_commit);
 		const owner = req.body.payload.repository.owner.name;
 		const repo = req.body.payload.repository.name;
 		const sha = req.body.payload.head_commit.id;
@@ -39,6 +39,7 @@ var data=function (req, res,err,next)
 
 	else if(payload.pull_request!=undefined&&payload.action!='closed')
 	{
+		console.log('payload.pull_request', payload.pull_request);
 		var owner=payload.repository.owner.login;
 		var repo=payload.repository.name;
 		var basebranch=payload.pull_request.base.ref;
@@ -46,11 +47,11 @@ var data=function (req, res,err,next)
 		console.log("branch",branch);
 		var repo_URL="https://github.com/"+owner+"/"+repo+".git";
 		async.waterfall([
-			getTestData.bind(null,req,res,err,owner,repo_URL,repobranch,reponame),
+			getTestData.bind(null,req,res,next,owner,repo_URL,branch,repo),
       getExecutionConfig.bind(null),
       runMerge.bind(null,basebranch,branch),
       runDocker.bind(null),
-      createExecutionData.bind(null,req,res,err),
+      createExecutionData.bind(null,req,res,next),
       pushCommand.bind(null,basebranch),
       getExitCode.bind(null),
       notify.bind(null)
@@ -60,6 +61,7 @@ var data=function (req, res,err,next)
 	       console.log(results);
 	});
 	}
+	console.log('ELSE');
 
 }
  module.exports=data;

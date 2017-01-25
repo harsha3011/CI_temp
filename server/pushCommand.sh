@@ -1,19 +1,19 @@
 #!/bin/sh
 
-set -e
 echo pulling
 git pull $REPO_URL
 echo pulled
 echo adding
-git add .
-echo added
-echo committing
-git commit -m "pulled changes"
-echo committed
+# git add .
+# echo added
+# echo committing
+# git commit -m "pulled changes"
+# echo committed
+set -e
 echo pushing
-git push -u origin $BASE_BRANCH
+git push -u origin $BRANCH
 echo pushed
-cd
+cd ..
 
 rm $REPO_NAME
 

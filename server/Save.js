@@ -17,12 +17,12 @@ eslintJson = fs.readFileSync('./outputJson/eslintOutput.json','utf-8');
 // console.log('eslint',eslintJson);
 mochaJson = fs.readFileSync('./outputJson/mochawesome.json','utf-8');
 // console.log('mocha',mochaJson);
-if(process.argv[5]){
-	istanbulJson = fs.readFileSync('./'+reponame+'/coverage/coverage.json','utf-8');
-}
-else{
-	 istanbulJson='';
-}
+// if(process.argv[5]){
+// 	istanbulJson = fs.readFileSync('./'+reponame+'/coverage/coverage.json','utf-8');
+// }
+// else{
+// 	 istanbulJson='';
+// }
 const evalFindingsConfig = new evalFindingsConfigModel();
         var time=process.argv[6]+" "+process.argv[7]+" "+process.argv[8]+" "+process.argv[9]+" "+process.argv[10]+" "+process.argv[11]+" "+process.argv[12];
 				console.log("Save date",time);

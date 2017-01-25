@@ -37,26 +37,6 @@ function createApp() {
   return app;
 }
 app.use('/', getWebhook);
-function createApp() {
-  const app = express();
-  return app;
-}
-
-function setupStaticRoutes(app) {
-  app.use(express.static(__dirname + '/public'));
-  return app;
-}
-
-function setupMiddlewares(app) {
-  app.use(require('cookie-parser')());
-}
-
-function setupRestRoutes(app) {
-  app.use('/api/ci', require(path.join(__dirname, 'api')));
-  return app;
-}
-
-
 app.use('/',executionsConfigRoute);
 app.use('/',pipelineConfigRoute);
 app.use('/',projectConfigRoute);
