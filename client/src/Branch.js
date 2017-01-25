@@ -63,7 +63,7 @@ static get contextTypes() {
        .send(data)
        .end((err,res)=>
        {
-        this.context.router.push('/ownerName/executions');
+        this.context.router.push('/app/'+owner+'/executions');
 
         console.log(res);
          })
@@ -81,7 +81,8 @@ static get contextTypes() {
       }
       render(){
         var rows=[];
-        console.log("dsfdfsf");
+        let ownerName=this.props.params.ownerName;
+        let url="/app/"+ownerName+"/executions";
         rows.push(this.state.configFiles.repo_Ref.map((obj)=>
         {
           return(<TableRow >
@@ -89,10 +90,10 @@ static get contextTypes() {
                    </TableRowColumn>
 
                   <TableRowColumn style={{textAlign:'center',fontSize:20}}>
-                     <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >Execute
+                     <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link to={url} style={{textDecoration:'none'}} className={obj} >Execute
                      </Link></RaisedButton>
 
-                     <RaisedButton style={{marginLeft:20}} primary='true'><Link to="/ownerName/executions" style={{textDecoration:'none'}} className={obj} >View Build Report
+                     <RaisedButton style={{marginLeft:20}} primary='true'><Link to={url} style={{textDecoration:'none'}} className={obj} >View Build Report
                      </Link></RaisedButton>
                </TableRowColumn>
                  </TableRow>);

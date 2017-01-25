@@ -20,7 +20,7 @@ async.series([
 
     function(err, results) {
         if (err)
-         { 
+         {
             return err.message;
           }else{
             return results;

@@ -1,30 +1,29 @@
-module.exports=function(repo_URL,basebranch,comparebranch,reponame, callback){
- const spawn=require('child_process').spawn;
- const merge=spawn('./merge.sh', {env: {
-   REPO_URL: repo_URL,
-   REPO_NAME: reponame,
-   BASE_BRANCH: basebranch,
-   BRANCH: comparebranch
- }});
- var exitCode;
- var stdOut=[];
- var stdErr=[];
- merge.stderr.on('data', (data)=> {
-   console.log(`${data}`);
-    if(`${data}`)
-     {
+module.exports=function(basebranch,branch,owner,repo_URL,repobranch,reponame,mocha,eslint,htmlhint,istanbul,starttime,id,callback){
+
+  const spawn=require('child_process').spawn;
+  console.log(comparebranch);
+  const env = process.env;
+  env.REPO_URL = repo_URL;
+  env.REPO_NAME = reponame;
+  env.BASE_BRANCH= basebranch;
+  env.BRANCH= comparebranch
+  const merge=spawn('./merge.sh', {env: env});
+  var exitCode;
+  var stdOut=[];
+  var stdErr=[];
+  merge.stderr.on('data', (data) => {
+    console.log(`${data}`);
+    if(`${data}`) {
       stdErr.push(`${data}`);
-     }
- });
- merge.stdout.on('data', (data)=> {
-   console.log(`${data}`);
+    }
+  });
+  merge.stdout.on('data', (data) => {
+    console.log(`${data}`);
     stdOut.push(`${data}`);
- });
- merge.on('close', (code) => {
-   exitCode=`${code}`;
-   return(stdOut);
-   callback(null,exitCode);
-
- });
-
+  });
+  merge.on('close', (code) =>
+  {
+    exitCode=`${code}`;
+    callback(null,owner,repo_URL,repobranch,reponame,mocha,eslint,htmlhint,istanbul,starttime,id);
+  });
 }

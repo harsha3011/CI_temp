@@ -1,6 +1,3 @@
-const evalFindingsConfigModel=require('./models/executionsConfig.model');
-const mongoose = require('mongoose');
-const connection=mongoose.connect('mongodb://localhost:27017/Database_CI');
 const async=require('async');
 const htmlhint =process.argv[0];
 const eslint =process.argv[1];
@@ -13,6 +10,8 @@ const mochaTest=require('./services/mochaTest');
 const eslintTest=require('./services/eslintTest');
 const htmlhintTest=require('./services/htmlhintTest');
 const istanbulTest=require('./services/istanbulTest');
+const mongoose = require('mongoose');
+const connection=mongoose.connect('mongodb://localhost/Database_CI');
 async.parallel([
   mochaTest.bind(null,mocha),
   htmlhintTest.bind(null,htmlhint),
@@ -21,6 +20,7 @@ async.parallel([
   ],(err, results) => {
       if(err) { console.error('error', err); return; }
       if(results) {console.log('tested Successfully',results)};
+      mongoose.connection.close();
 
 }
 

@@ -49,7 +49,7 @@ class TeamType extends Component {
             tabName: this.state.value,
         });
     }
-    
+
     componentWillMount() {
 
         const token = cookie.load('token');
@@ -63,15 +63,15 @@ class TeamType extends Component {
             Rname:this.props.params.repoName,
         });
 
-        Request
-            .put('https://api.github.com/repos/'+ownerName+'/'+repoName+'/collaborators/CI-JARVIS')
-            .set("Accept","application/vnd.github.swamp-thing-preview+json")
-            .query({ access_token: acc_token })
-            .end(function(err, res) {
-              if(err){
-                  alert(err);}
-                console.log("Success");              
-            });
+        // Request
+        //     .put('https://api.github.com/repos/'+ownerName+'/'+repoName+'/collaborators/CI-JARVIS')
+        //     .set("Accept","application/vnd.github.swamp-thing-preview+json")
+        //     .query({ access_token: acc_token })
+        //     .end(function(err, res) {
+        //       if(err){
+        //           alert(err);}
+        //         console.log("Success");
+        //     });
     }
 
 
