@@ -21,19 +21,20 @@ const styles={
   };
 
 class Executions extends Component {
- constructor(props) {
-          super(props);
 
+ constructor() {
+          super();
           this.state = {
              expanded: false,
-            consoleOutput:[]
+            consoleOutput:[],
+            repoBranch:'',
           };
       }
       handleExpand = () => {
     this.setState({expanded: true});
   };
 
- componentWillMount()
+ componentDidMount()
       {
 
         var getFiles1=localStorage.getItem("repoName");
@@ -43,39 +44,25 @@ class Executions extends Component {
           var getFiles3=localStorage.getItem("owner");
          const ownername=JSON.parse(JSON.stringify(getFiles3));
 
-        this.setState({
-          owner:ownername,
-          repoName:reponame,
-          repoBranch:repobranch
-         });
-      }
-
-
-
- showConsole=(event)=>{
-        const owner=this.state.owner;
-        const repoName=this.state.repoName;
-        const repoBranch=this.state.repoBranch;
-        const url='http://localhost:9080/api/'+owner+'/'+repoName+'/'+repoBranch+'/executions';
-
+              this.setState({
+                repoBranch:repobranch,
+              });
+        const url='http://localhost:9080/api/'+ownername+'/'+reponame+'/'+repobranch+'/executions';
         Request
        .get(url)
-       .end((err,resp)=>
-       {
-         console.log(resp.body);
-         this.setState({
-            consoleOutput:resp.body
-         });
-
-      });
- }
-
+       .end((err,resp) => {
+              this.setState({
+                consoleOutput:resp.body
+              })
+            });
+      }
 
  handleReport=(event)=>{
       window.localStorage.setItem("reportData",event.target.className);
   }
 render() {
     let url=`/app/${this.props.params.ownerName}/executions/report`;
+
     var consoleRows=[];
     var list="The build is running.....";
     var progress=""
@@ -100,7 +87,7 @@ render() {
           {
             output=obj.stdout;
             output=output.split(/[\n,]+/);
-
+            console.log(this.props.params);
             progress=" "
             executiontime=<div><h3>Execution Time : </h3>
             <p style={{marginTop:21,marginLeft:10}}>{totaltime}</p>
@@ -120,7 +107,7 @@ render() {
           }
           else
           {
-            output=obj.stderr;
+            output=obj.stdout;
             output=output.split(',');
             progress=" "
              executiontime=<div><h3>Execution Time : </h3>

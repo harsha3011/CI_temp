@@ -12,7 +12,7 @@ const executionsConfig=new executionConfigModel();
      executionsConfig.exitcode=0;
      executionsConfig.starttime=starttime;
      executionsConfig.endtime=starttime;
-     executionsConfig.save( (err,data)=> {
+     executionsConfig.save((err,data)=> {
        if(!err){
         res.send('success');
         console.log("ID of the current entry",data._id);

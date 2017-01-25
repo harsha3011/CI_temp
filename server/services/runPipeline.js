@@ -32,7 +32,9 @@
   });
   docker.on('close', (code) => {
     exitCode=`${code}`;
-    callback(null,owner,repo_URL,repobranch,reponame,exitCode,stdOut,stdErr,starttime,id);
+
+
+    callback(null,owner,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state,id);
   });
 
 }
