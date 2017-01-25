@@ -1,9 +1,8 @@
 var result;
-module.exports=function(owner,reponame,callback)
-const pipelineConfigModel=require('../models/pipelineConfig.model');
+const pipelineConfigModel = require('../models/pipelineConfig.model');
 module.exports=function (req, res) {
 	const pipelineConfig = new pipelineConfigModel();
-	pipelineConfigModel.findOne({reponame:reponame,
+	pipelineConfig.findOne({reponame:reponame,
 		owner:owner}, function (err, mySchema) {
 		if (err) {
 			console.log("error");
