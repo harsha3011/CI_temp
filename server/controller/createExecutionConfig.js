@@ -1,9 +1,9 @@
 const createExecutionData=require('./createExecutionData');
-const runDocker=require('../services/runPipeline');
+const runDocker=require('../services/updateRunPipeline');
 const async=require('async');
 const getExecutionConfig=require('./updateExecution');
 const getExitCode=require('./getExitCode');
-// const executionConfigModel=require('../models/executionsConfig.model');
+const cloneRepo=require('../services/cloneRepository');
 const notify=require('../slackNotification');
 var id;
 module.exports=function(req,res,err){
@@ -17,7 +17,8 @@ module.exports=function(req,res,err){
   const reponame=req.params.reponame;
   const starttime=new Date();
   async.waterfall([
-      getExecutionConfig.bind(null,req,res,err,owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,starttime),
+      cloneRepo.bind(null,owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,starttime),
+      getExecutionConfig.bind(null,req,res,err),
       runDocker.bind(null),
       createExecutionData.bind(null,req,res,err),
       getExitCode.bind(null),

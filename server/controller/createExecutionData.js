@@ -1,5 +1,5 @@
   const executionConfigModel=require('../models/executionsConfig.model');
- module.exports=function(req,res,err,owner,repo_URL,repobranch,reponame,exitCode,stdOut,stdErr,starttime,id,callback){
+ module.exports=function(req,res,err,owner,repo_URL,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state,id,callback){
 
 
      const executionsConfig=new executionConfigModel();

@@ -86,12 +86,8 @@ static get contextTypes() {
 
       }
       render(){
-        var rows=[];
         let ownerName=this.props.params.ownerName;
         let url="/app/"+ownerName+"/executions";
-        console.log("b",j++);
-        let ownerName=this.props.params.ownerName;
-        let url='/app/'+ownerName+'/executions';
         console.log(this.state.branch);
         const rows=[];
         rows.push(this.state.configFiles.repo_Ref.map((obj)=>
