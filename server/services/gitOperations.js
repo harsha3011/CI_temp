@@ -14,13 +14,13 @@ async.series([
         gitClone.bind(null, repoPath,repoName, ownerName),
         gitCreateBranch.bind(null, branchPath,teamType),
         gitPushBranch.bind(null, branchPath),
-        gitProtectBranch.bind(null,ownerName,repoName,branchName,token,teamType)
+        gitProtectBranch.bind(null,ownerName,repoName,token,teamType)
 
     ],
 
     function(err, results) {
         if (err)
-         { 
+         {
             return err.message;
           }else{
             return results;

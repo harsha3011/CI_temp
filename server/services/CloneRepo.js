@@ -24,9 +24,8 @@ var gitClone = function(repoPath, repoName, ownerName, callback) {
         console.log(`Status:${code}`);
         if (code !== 0) { callback(new Error('git clone exited with code', code));
             return; }
-      
+        callback(null);
 
     });
-    callback(null);
 }
 module.exports = gitClone;
