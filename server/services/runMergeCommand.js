@@ -1,4 +1,5 @@
-module.exports=function(repo_URL,basebranch,comparebranch,reponame,result,callback){
+module.exports=function(basebranch,branch,owner,repo_URL,repobranch,reponame,mocha,eslint,htmlhint,istanbul,starttime,id,callback){
+
   const spawn=require('child_process').spawn;
   console.log(comparebranch);
   const env = process.env;
@@ -23,6 +24,6 @@ module.exports=function(repo_URL,basebranch,comparebranch,reponame,result,callba
   merge.on('close', (code) =>
   {
     exitCode=`${code}`;
-    callback(null,()=>{console.log("into merge");},result);
+    callback(null,owner,repo_URL,repobranch,reponame,mocha,eslint,htmlhint,istanbul,starttime,id);
   });
 }
