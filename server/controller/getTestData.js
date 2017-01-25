@@ -1,7 +1,11 @@
+var mocha;
+var eslint;
+var htmlhint;
+var istanbul;
 var result;
 
 const pipelineConfigModel=require('../models/pipelineConfig.model');
-module.exports=function (req, res) {
+module.exports=function (req,res,err,owner,repo_URL,repobranch,reponame,callback) {
 	const pipelineConfig = new pipelineConfigModel();
 	pipelineConfigModel.findOne({reponame:reponame,
 		owner:owner}, function (err, mySchema) {
@@ -9,12 +13,11 @@ module.exports=function (req, res) {
 			console.log("error");
 		};
 		if(mySchema){
-			result=res.body;
-		}
-		else{
-			console.log("Repository doesn't exist");
-			res.send("Repository doesn't exist");
+			mocha=mySchema.stages.mocha;
+			istanbul=mySchema.stages.istanbul;
+			eslint=mySchema.stages.eslint;
+			htmlhint=mySchema.stages.htmlhint;
 		}
 	});
-  callback(null,result);
+  callback(null,req,res,err,owner,repo_URL,repobranch,reponame,mocha,eslint,htmlhint,istanbul);
 }

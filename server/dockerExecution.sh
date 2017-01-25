@@ -1,6 +1,5 @@
 # !/bin/sh
 
-git clone $REPO_URL -b $REPO_BRANCH
 
 ROOT_DIR=`pwd`
 

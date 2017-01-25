@@ -1,4 +1,4 @@
-module.exports=function(repo_URL,basebranch,reponame, callback){
+module.exports=function(basebranch,repo_URL,reponame,id,callback){
  const spawn=require('child_process').spawn;
  const env = process.env;
  env.REPO_URL = repo_URL;
@@ -22,7 +22,7 @@ module.exports=function(repo_URL,basebranch,reponame, callback){
  merge.on('close', (code) => {
    exitCode=`${code}`;
 
-   callback(null,exitCode);
+   callback(null,id);
 
  });
 

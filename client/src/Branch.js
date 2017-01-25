@@ -20,7 +20,7 @@ const style = {
   marginLeft: -100,
 };
 
-
+var j=0;
   class Branch extends Component{
       constructor(props) {
           super(props);
@@ -84,6 +84,7 @@ static get contextTypes() {
 
       }
       render(){
+        console.log("b",j++);
         let ownerName=this.props.params.ownerName;
         let url='/app/'+ownerName+'/executions';
         console.log(this.state.branch);
