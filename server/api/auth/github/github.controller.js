@@ -86,7 +86,6 @@ module.exports = {
             });
     },
 
-
     me: function(req, res) {
         const claims = req.claims;
         getUser(claims.accessToken, function(err, user) {

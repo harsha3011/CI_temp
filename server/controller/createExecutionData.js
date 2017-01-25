@@ -1,6 +1,7 @@
   const executionConfigModel=require('../models/executionsConfig.model');
  module.exports=function(req,res,err,owner,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state,id,callback){
 
+
      const executionsConfig=new executionConfigModel();
      executionConfigModel.findByIdAndUpdate(id,
         {$set:

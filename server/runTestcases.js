@@ -10,14 +10,18 @@ const mochaTest=require('./services/mochaTest');
 const eslintTest=require('./services/eslintTest');
 const htmlhintTest=require('./services/htmlhintTest');
 const istanbulTest=require('./services/istanbulTest');
+const mongoose = require('mongoose');
+const connection=mongoose.connect('mongodb://localhost/Database_CI');
 async.parallel([
   mochaTest.bind(null,mocha),
   htmlhintTest.bind(null,htmlhint),
   eslintTest.bind(null,eslint),
   istanbulTest.bind(null,istanbul)
   ],(err, results) => {
-      // if(err) { console.error(err);}
-       if(results) {console.log(results);}
+      if(err) { console.error('error', err); return; }
+      if(results) {console.log('tested Successfully',results)};
+      mongoose.connection.close();
+
 }
 
   );
