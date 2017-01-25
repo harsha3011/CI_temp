@@ -4,30 +4,27 @@ module.exports=function(eslint,callback){
   var exitCode;
   var stdOut=[];
   var stdErr=[];
-  var status='';
   var err=null;
   eslintCmd.stderr.on('data', (data)=> {
-    console.log(`${data}`);
-     if(`${data}`)
-      {
-       stdErr.push(`${data}`);
-      }
+    // console.log(`${data}`);
+    //  if(`${data}`)
+    //   {
+    //    stdErr.push(`${data}`);
+    //   }
   });
   eslintCmd.stdout.on('data', (data)=> {
-
-     stdOut.push(`${data}`);
+     //
+    //  stdOut.push(`${data}`);
   });
   eslintCmd.on('close', (code) => {
-    console.log(`${code}`);
+    if(code !== 0) {
+      err=code;
+      parseInt(err);
+     }
+
     exitCode=`${code}`;
-    if(exitCode!=0){
-      err="eslint test failed"
-    }
-    else{
-      status="eslint test passed"
-    }
-    console.log(status);
-    callback(err,status);
+
+    callback(null,exitCode);
   });
 
 }

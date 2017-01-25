@@ -26,14 +26,15 @@ class Executions extends Component {
           super();
           this.state = {
              expanded: false,
-            consoleOutput:[]
+            consoleOutput:[],
+            repoBranch:'',
           };
       }
       handleExpand = () => {
     this.setState({expanded: true});
   };
 
- componentWillMount()
+ componentDidMount()
       {
 
         var getFiles1=localStorage.getItem("repoName");
@@ -43,7 +44,9 @@ class Executions extends Component {
           var getFiles3=localStorage.getItem("owner");
          const ownername=JSON.parse(JSON.stringify(getFiles3));
 
-
+              this.setState({
+                repoBranch:repobranch,
+              });
         const url='http://localhost:9080/api/'+ownername+'/'+reponame+'/'+repobranch+'/executions';
         Request
        .get(url)
@@ -51,7 +54,6 @@ class Executions extends Component {
               this.setState({
                 consoleOutput:resp.body
               })
-              console.log(this.state.consoleOutput);
             });
       }
 
@@ -60,7 +62,8 @@ class Executions extends Component {
   }
 
 render() {
-  {this.componentWillMount()}
+  let url= `/app/${this.props.params.ownerName}/executions/report`
+  {this.componentDidMount()}
     var consoleRows=[];
     var list="The build is running.....";
     var progress=""
@@ -85,14 +88,14 @@ render() {
           {
             output=obj.stdout;
             output=output.split(/[\n,]+/);
-
+            console.log(this.props.params);
             progress=" "
             executiontime=<div><h3>Execution Time : </h3>
             <p style={{marginTop:21,marginLeft:10}}>{totaltime}</p>
             </div>
             buildReport=<div>
             <RaisedButton primary='true' style={{marginLeft:50,marginTop:20}} label="Show Console" onTouchTap={this.handleExpand} />
-            <RaisedButton primary='true' style={{marginTop:30,marginLeft:70,width:170}}><Link to="ownerName/repoName/branch/branchName" style={{textDecoration:'none',color:'white'}} onTouchTap={this.handleReport.bind(this)} className={JSON.stringify(obj)}>BUILD REPORT</Link></RaisedButton>
+            <RaisedButton primary='true' style={{marginTop:30,marginLeft:70,width:170}}><Link to={url} style={{textDecoration:'none',color:'white'}} onTouchTap={this.handleReport.bind(this)} className={JSON.stringify(obj)}>BUILD REPORT</Link></RaisedButton>
             </div>
             list=output.map(function(data)
             {
@@ -105,7 +108,7 @@ render() {
           }
           else
           {
-            output=obj.stderr;
+            output=obj.stdout;
             output=output.split(',');
             progress=" "
              executiontime=<div><h3>Execution Time : </h3>

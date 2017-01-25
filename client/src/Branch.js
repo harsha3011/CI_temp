@@ -86,8 +86,8 @@ static get contextTypes() {
       render(){
         let ownerName=this.props.params.ownerName;
         let url='/app/'+ownerName+'/executions';
-        let url1=this.props.params.repoName+'/'+this.state.branch+'/branchName';
-        var rows=[];
+        console.log(this.state.branch);
+        const rows=[];
         rows.push(this.state.configFiles.repo_Ref.map((obj)=>
         {
           return(<TableRow >
@@ -95,10 +95,11 @@ static get contextTypes() {
                    </TableRowColumn>
 
                   <TableRowColumn style={{textAlign:'center',fontSize:20}}>
-                     <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link className={obj}>Execute</Link>
+                     <RaisedButton primary='true' onClick={this.handleExecute.bind(this)}><Link  className={obj}>Execute</Link>
                     </RaisedButton>
 
-                     <RaisedButton style={{marginLeft:20}} primary='true' className={obj} ><Link to={url1}>View Build Report
+
+                     <RaisedButton style={{marginLeft:20}} primary='true' className={obj} ><Link >View Build Report
                     </Link></RaisedButton>
                </TableRowColumn>
                  </TableRow>);

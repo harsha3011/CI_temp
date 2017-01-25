@@ -60,8 +60,9 @@ ReactDOM.render(
                 <Route path=":repoName/pipelineSettings" component={CreatePipeline} onEnter={redirectIfNotLoggedIn}/>
                 <Route path=":repoName/:branch" component={Branch} onEnter={redirectIfNotLoggedIn}/>
                 <Route path="executions" component={Executions} onEnter={redirectIfNotLoggedIn}/>
-                <Route path=":repoName/:branch/branchName" component={BuildReport} onEnter={redirectIfNotLoggedIn}/>
+                <Route path=":repoName/branch" component={BuildReport} onEnter={redirectIfNotLoggedIn}/>
                 <Route path="Ruberic" component={RubericSettings} onEnter={redirectIfNotLoggedIn}/>
+                <Route path="executions/report" component={Report} onEnter={redirectIfNotLoggedIn}/>
               </Route>
         </Router>
         </MuiThemeProvider>

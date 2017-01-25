@@ -1,6 +1,7 @@
 
- module.exports=function(owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,starttime, callback){
+ module.exports=function(owner,repo_URL,repobranch,reponame,htmlhint,eslint,mocha,istanbul,starttime,id,callback){
   let state='';
+  console.log("run starttime",id);
   const spawn=require('child_process').spawn;
   const docker=spawn('docker',["run","--net=host",
             "-e", `HTMLHINT=${htmlhint}`.replace(',',' '),
@@ -12,6 +13,7 @@
             "-e",`REPO_BRANCH=${repobranch}`,
             "-e",`OWNER=${owner}`,
             "-e",`STARTTIME=${starttime}`,
+            "-e",`ID=${id}`,
              "test"]);
   var exitCode;
   var stdOut=[];
@@ -29,16 +31,7 @@
   });
   docker.on('close', (code) => {
     exitCode=`${code}`;
-    if(exitCode==0)
-    {
-      state="Passed";
-    }
-    else{
-      state="Failed";
-    }
 
-
-    callback(null,owner,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state);
+    callback(null,owner,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state,id);
   });
-
 }

@@ -1,15 +1,12 @@
   const executionConfigModel=require('../models/executionsConfig.model');
+ module.exports=function(req,res,err,owner,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state,id,callback){
 
- module.exports=function(req,res,err,owner,repobranch,reponame,exitCode,stdOut,stdErr,starttime,state,callback){
-   
      const executionsConfig=new executionConfigModel();
-     executionConfigModel.findOneAndUpdate({starttime:starttime},
+     executionConfigModel.findByIdAndUpdate(id,
         {$set:
           {
-            state:state,
             stdout:stdOut,
             stderr:stdErr,
-            exitcode:exitCode,
             endtime:new Date()
           }
         },
@@ -19,5 +16,5 @@
           // res.send("success");
         }
     )
-        callback(null,'completed build');
+        callback(null,id);
 }
