@@ -29,8 +29,7 @@ class CreateProject extends Component {
             repoData: {
                 'name': '',
                 'description': '',
-                'Access_Token': '',
-                'ownerName':'',
+                'Access_Token': ''
             }
         }
     }
@@ -42,7 +41,7 @@ class CreateProject extends Component {
         this.setState({
             access_token: decoded.accessToken,
         });
-    }
+    }   
 
     createRepo = (event) => {
         let ownerName=this.props.params.ownerName;
@@ -50,9 +49,8 @@ class CreateProject extends Component {
             'name': this.state.newRepository,
             'description': this.state.desc,
             'Access_Token': this.state.access_token,
-            'ownerName':ownerName,
-          }
-        this.setState({
+        }
+        this.setState({ 
             repoData: obj
              });
             console.log(obj);
@@ -92,7 +90,7 @@ class CreateProject extends Component {
             });
 
     }
-
+    
     render() {
         let repoName = this.state.newRepository;
         let ownerName=this.props.params.ownerName;
@@ -116,7 +114,7 @@ class CreateProject extends Component {
         ];
         return ( < Grid >
             < Row style = {
-                { marginTop: 60, marginBottom: 60 }
+                { marginTop: 60, marginBottom: 80 }
             } >
             < Col xs = { 12 } >
             < Row center = "xs" >
@@ -144,7 +142,8 @@ class CreateProject extends Component {
             < Col lgOffset = { 4 }
             lg = { 3 }
             xs = { 9 } >
-            < Checkbox label = "Initialize this repository with a README" / >
+            < Checkbox label = "Initialize this repository with a README" checked={true}
+      disabled={true} / >
             < /Col> < Col xs = { 1 } > < IconButton onTouchTap = { this.handleOpenReadme } > < ActionInfo / > < /IconButton> < Dialog title = "Use of README"
             actions = { actionsReadme }
             modal = { false }
@@ -197,7 +196,7 @@ class CreateProject extends Component {
             primaryText = "MIT" / >
             < /DropDownMenu> < /Col > < /Row> < br / >
 
-            < RaisedButton primary = { true } > < Link to = { link }
+            < RaisedButton primary = { true }  style = {{width:200}}> < Link to = { link }
             onTouchTap = { this.createRepo.bind(this) }
             style = {
                 { textDecoration: 'none', color: 'white' }

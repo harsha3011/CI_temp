@@ -5,10 +5,12 @@ import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import { IndexLink } from 'react-router';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import cardImg from '../images/singleteam.jpg';
-import cardImg1 from '../images/mutlipleteam.jpg';
+import cardImg from '../images/sd.jpg';
+import cardImg1 from '../images/st.jpg';
+import cardImg2 from '../images/mt.jpg';
 import logo1 from '../images/mtlogo.jpg';
 import logo2 from '../images/stlogo.jpg';
+import logo0 from '../images/sdlogo.jpg';
 import { Card, CardHeader, CardMedia } from 'material-ui/Card';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Request from 'superagent';
@@ -103,7 +105,7 @@ const readyButton = ( <Row>
               <Col xs={12}>
                 <Row center="xs">
             <IndexLink to={link} activeClassName="active" onTouchTap={this.teamType.bind(this)}>
-            <RaisedButton  label="Ready for CI" primary={true}></RaisedButton></IndexLink>
+            <RaisedButton style={{margin:20}} label="Ready for CI" primary={true}></RaisedButton></IndexLink>
                 </Row>
               </Col>
             </Row>
@@ -120,7 +122,7 @@ return ( < Grid >
         onExpandChange = { this.handleExpandChange } >
         < CardHeader title = "Single Developer Lay-Out"
         subtitle = "Basic Requirements"
-        avatar = { logo1 }
+        avatar = { logo0 }
         actAsExpander = { true }
         showExpandableButton = { true }
         /> < CardMedia expandable = { true } > < img src = { cardImg }
@@ -146,7 +148,7 @@ return ( < Grid >
                 showExpandableButton = { true }
                 /> < CardMedia
                 expandable = { true } >
-                < img src = { cardImg }
+                < img src = { cardImg1 }
                 /> < /CardMedia > < /Card> < List > < ListItem primaryText = "master(protected)"
                 leftCheckbox = { < Checkbox checked = { true }
                     disabled = { true }
@@ -173,7 +175,7 @@ return ( < Grid >
                             showExpandableButton = { true }
                             /> < CardMedia
                             expandable = { true } >
-                            < img src = { cardImg1 }
+                            < img src = { cardImg2 }
                             /> < /CardMedia > < /Card> < List > < ListItem primaryText = "master(protected)"
                             leftCheckbox = { < Checkbox checked = { true }
                                 disabled = { true }
@@ -182,7 +184,7 @@ return ( < Grid >
                                 leftCheckbox = { < Checkbox checked = { true }
                                     disabled = { true }
                                     />} / >
-                                    < ListItem primaryText = "Integration"
+                                    < ListItem primaryText = "integration"
                                     leftCheckbox = { < Checkbox checked = { true }
                                         disabled = { true }
                                         />}/ >
@@ -196,6 +198,5 @@ return ( < Grid >
                                         );
                                     }
                                 }
-
 
                                             export default TeamType;

@@ -1,11 +1,24 @@
 {
+<<<<<<< HEAD
+  "main.css": "static/css/main.e6b10d21.css",
+  "main.css.map": "static/css/main.e6b10d21.css.map",
+  "main.js": "static/js/main.888de417.js",
+  "main.js.map": "static/js/main.888de417.js.map",
+=======
   "main.css": "static/css/main.248abfe6.css",
   "main.css.map": "static/css/main.248abfe6.css.map",
-  "main.js": "static/js/main.6be65501.js",
-  "main.js.map": "static/js/main.6be65501.js.map",
+<<<<<<< HEAD
+  "main.js": "static/js/main.4b0d9068.js",
+  "main.js.map": "static/js/main.4b0d9068.js.map",
+=======
+  "main.js": "static/js/main.c909fc41.js",
+  "main.js.map": "static/js/main.c909fc41.js.map",
+>>>>>>> 9eef0a1f18b2b74e9b73ec810a8f78818c501519
+>>>>>>> 7b121d73f9204a087a5a4bc4458cf31be48901c5
   "static/media/backgroundImg.jpg": "static/media/backgroundImg.884e214e.jpg",
-  "static/media/keepCalm.png": "static/media/keepCalm.071862b5.png",
+  "static/media/keepCalm.png": "static/media/keepCalm.e4e6e01f.png",
   "static/media/logo.jpg": "static/media/logo.cddc19e6.jpg",
-  "static/media/mutlipleteam.jpg": "static/media/mutlipleteam.57565d8a.jpg",
-  "static/media/singleteam.jpg": "static/media/singleteam.75a9b0b6.jpg"
+  "static/media/mt.jpg": "static/media/mt.7cf1c548.jpg",
+  "static/media/sd.jpg": "static/media/sd.0ef1f51d.jpg",
+  "static/media/st.jpg": "static/media/st.06dd025e.jpg"
 }

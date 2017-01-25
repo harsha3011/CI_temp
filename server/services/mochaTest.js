@@ -4,6 +4,7 @@ module.exports=function(mocha,callback){
   var exitCode;
   var stdOut=[];
   var stdErr=[];
+
   var status=0;
   var err=null;
   mochaCmd.stderr.on('data', (data)=> {

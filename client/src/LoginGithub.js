@@ -46,7 +46,7 @@ constructor(props) {
         	<div>
             <AppBar
 
-              title="JARVIS-Keep Integrating"
+              title="JARVIS"
 
               iconElementLeft={<IconButton><ActionBugReport /></IconButton>}
               iconElementRight=
